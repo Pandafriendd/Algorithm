@@ -2,14 +2,38 @@
 
 public class RemoveNthNodeFrom {
 	
-	// 15.84 %
 	
+	//two pointers
 	public class ListNode {
 	     int val;
 	     ListNode next;
 	     ListNode(int x) { val = x; }
 	 }
 	
+	
+	//we need one pointer can move forward len - n step from head
+	//So we need two pointers, one pointer p1 first move n steps, and then stop, 
+	//and then p1 and p2, which from head, move at the same time, until p1 move to the end, p2 now move len - n step from head  
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode pre = new ListNode(0);
+        pre.next = head;
+        ListNode p1 = pre;
+        ListNode p2 = pre;
+        int i = 0;
+        while (i < n) {
+            p2 = p2.next;
+            i++;
+        }
+        while (p2.next != null) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        
+        p1.next = p1.next.next;
+        return pre.next;
+    }
+	
+	//mine 15.84 %
 	public ListNode Solution(ListNode head, int n) {
 			ListNode l = head;
 			int len = 0;
