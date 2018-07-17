@@ -57,4 +57,23 @@ public class swapPairs {
 //		}
 		
 	}
+	
+	
+	/*
+	 * yuan he's implementation 
+	ListNode dummy = new ListNode(0);
+    dummy.next = head;        
+    while(head!=null && head.next!=null){
+        ListNode temp1 = head;
+        ListNode temp2 = head.next.next;
+        head = head.next;
+        head.next = temp1;
+        temp1.next = temp2; 
+        head = head.next.next;
+    }
+    return dummy.next;
+    */
+	
+	
+	
 }
