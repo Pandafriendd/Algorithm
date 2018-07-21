@@ -1,7 +1,14 @@
+/*
+ * Given a collection of candidate numbers (candidates) and a target number (target), 
+ * find all unique combinations in candidates where the candidate numbers sums to target. 
+ * Each number in candidates may only be used once in the combination. 
+ * Note: All numbers (including target) will be positive integers. The solution set must not contain duplicate combinations.
+ */
+
 import java.util.*;
 
 public class combinationSumII {
-	public List<List<Integer>> Solution(int[] nums, int target){
+	public List<List<Integer>> combinationSum(int[] nums, int target){
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		if(nums.length == 0 || nums == null)
 			return res;
@@ -14,10 +21,10 @@ public class combinationSumII {
 	}
 	
 	private void helper(int[] nums, int t, int p, List<Integer> comb, List<List<Integer>> res) {
-		System.out.print("*" + t + "p" + p + comb.toString() + "*");
+		System.out.print("*" + t + "p" + p + comb.toString());
 
 		if(t == 0) {
-			System.out.print("!!!ret!!!");
+			System.out.print("!!!res!!!");
 			res.add(new ArrayList<Integer>(comb));
 			return;
 		}
@@ -28,14 +35,16 @@ public class combinationSumII {
 			
 			if(newT >= 0) { // = 0 is fine since helper will check if t == 0
 				comb.add(nums[i]);
-				helper(nums, newT, i + 1, comb, res);
+				helper(nums, newT, i + 1, comb, res);   // adding i + 1
+				System.out.print("rm:" + comb.get(comb.size() - 1));
 				comb.remove(comb.size() - 1);
 			}
 			else {
 				break;
 			}
 			
-			while(i < nums.length - 1 && nums[i] == nums[i + 1]) //skip dup in nums, this code should be here since dup element could be answer
+			//skip dup in nums, this code should be here since dup element could be answer
+			while(i < nums.length - 1 && nums[i] == nums[i + 1]) 
 				i++;
 		}
 	}
@@ -53,7 +62,7 @@ public class combinationSumII {
 	    return res;
 	  }
 	  
-	  private void dfs(int level, int target, int[]candidates, List<Integer> list, List<List<Integer>>res){
+	  private void dfs(int level, int target, int[] candidates, List<Integer> list, List<List<Integer>>res){
 		//level determine the number of layers of the recursion 
 	    if(level == candidates.length){
 	      if(target == 0){
@@ -79,7 +88,7 @@ public class combinationSumII {
 	
 	public static void main(String[] args) {
 		combinationSumII c = new combinationSumII();
-		int[] a = {2, 3, 6, 7};
-		c.Solution(a, 9);
+		int[] a = {2, 3, 6, 7, 9};
+		c.combinationSum(a, 9);
 	}
 }
