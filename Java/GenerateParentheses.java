@@ -24,7 +24,7 @@ public class GenerateParentheses {
 		if(left < n)
 			backtrack(list, s+"(", left + 1, right, n);
 		//the number of right parenthesis less than left parenthesis, add ")" to s
-		if(right < left)
+		if(right < n) //if(right < n) will be wrong answer, if u look at the result, all results have left >= right till last iteration 
 			backtrack(list, s+")", left, right+1, n);
 	}
 	
@@ -52,13 +52,13 @@ public class GenerateParentheses {
             ans.add(res);
             return;
         }
-        if (left > 0) dfs(left - 1, right + 1, res + "(", ans); // add (, right + 1
+        if (left > 0) dfs(left - 1, right + 1, res + "(", ans); // add (, left -1, right + 1
         if (right > 0) dfs(left, right - 1, res + ")", ans); // add ), right - 1
     }
 	
 	public static void main(String args[]){
 		GenerateParentheses gp = new GenerateParentheses();
 		//System.out.println(gp.generateParenthesis(3));
-		System.out.println(gp.generateParenthesis2(3));
+		System.out.println(gp.generateParenthesis(2));
 	}
 }
