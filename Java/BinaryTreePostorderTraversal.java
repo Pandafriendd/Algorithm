@@ -59,4 +59,37 @@ public class BinaryTreePostorderTraversal {
 		Collections.reverse(res);
 		return res;
 	}
+	
+	/**
+     * Use two pointers. 1 for current node, 1 for previous traversed node
+     * 3 situations:
+     * 1. Traversing down, prev is not set or current is prev's child
+     *      Push left child to stack if not null, then push rigth child 
+     * 2. Traversing up from left, prev is current's left child
+     *      Push right child to stack if not null
+     * 3. Traversing up from right
+     *      Visit, and pop
+     */
+    public List<Integer> postorderTraversal3(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if (root == null) return res;
+        TreeNode prev = null; // previously traversed node
+        TreeNode cur = root;
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        s.push(root);
+        while (!s.isEmpty()) {
+            cur = s.peek();
+            if (prev == null || prev.left == cur || prev.right == cur) { // traverse down
+                if (cur.left != null) s.push(cur.left); // put left first
+                else if (cur.right != null) s.push(cur.right);
+            } else if (cur.left == prev) { // traverse up from the left
+                if (cur.right != null) s.push(cur.right);
+            } else { // traverse up from the right
+                res.add(cur.val); // visit
+                s.pop();
+            }
+            prev = cur;
+        }
+        return res;
+    }
 }
