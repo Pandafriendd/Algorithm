@@ -1,5 +1,7 @@
 
 import java.util.*;
+
+
 public class BinaryTreePostorderTraversal {
 	
 	public class TreeNode {
@@ -52,13 +54,32 @@ public class BinaryTreePostorderTraversal {
 			TreeNode curNode = stack.pop();
 			res.add(curNode.val);  // visit
 			if(curNode.left != null)
-				stack.push(curNode.left);
+				stack.push(curNode.left);  // !!
 			if(curNode.right != null)
-				stack.push(curNode.right);
+				stack.push(curNode.right); // !!
 		}
 		Collections.reverse(res);
 		return res;
 	}
+	
+	// Post Order Traverse
+		public List<Integer> postorderTraversal4(TreeNode root) {
+		    LinkedList<Integer> result = new LinkedList<>();
+		    Deque<TreeNode> stack = new ArrayDeque<>();
+		    TreeNode p = root;
+		    while(!stack.isEmpty() || p != null) {
+		        if(p != null) {
+		            stack.push(p);
+		            result.addFirst(p.val);  // Reverse the process of preorder   //!!!! addFirst()
+		            p = p.right;             // Reverse the process of preorder
+		        } else {
+		            TreeNode node = stack.pop();
+		            p = node.left;           // Reverse the process of preorder
+		        }
+		    }
+		    return result;
+		}
+	
 	
 	/**
      * Use two pointers. 1 for current node, 1 for previous traversed node
