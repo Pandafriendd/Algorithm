@@ -56,7 +56,9 @@ public class UniqueBinarySearchTrees {
     /*
      * The problem can be solved in a dynamic programming way. I¡¯ll explain the intuition and formulas in the following.
 
-Given a sequence 1¡­n, to construct a Binary Search Tree (BST) out of the sequence, we could enumerate each number i in the sequence, and use the number as the root, naturally, the subsequence 1¡­(i-1) on its left side would lay on the left branch of the root, and similarly the right subsequence (i+1)¡­n lay on the right branch of the root. We then can construct the subtree from the subsequence recursively. Through the above approach, we could ensure that the BST that we construct are all unique, since they have unique roots.
+Given a sequence 1¡­n, to construct a Binary Search Tree (BST) out of the sequence, we could enumerate each number i in the sequence, 
+and use the number as the root, naturally, the subsequence 1¡­(i-1) on its left side would lay on the left branch of the root, and similarly the right subsequence (i+1)¡­n lay on the right branch of the root. 
+We then can construct the subtree from the subsequence recursively. Through the above approach, we could ensure that the BST that we construct are all unique, since they have unique roots.
 
 The problem is to calculate the number of unique BST. To do so, we need to define two functions:
 
@@ -74,7 +76,11 @@ Particularly, the bottom cases, there is only one combination to construct a BST
 i.e.
 
 G(0)=1, G(1)=1. 
-Given a sequence 1¡­n, we pick a number i out of the sequence as the root, then the number of unique BST with the specified root F(i), is the cartesian product of the number of BST for its left and right subtrees. For example, F(3, 7): the number of unique BST tree with number 3 as its root. To construct an unique BST out of the entire sequence [1, 2, 3, 4, 5, 6, 7] with 3 as the root, which is to say, we need to construct an unique BST out of its left subsequence [1, 2] and another BST out of the right subsequence [4, 5, 6, 7], and then combine them together (i.e. cartesian product). The tricky part is that we could consider the number of unique BST out of sequence [1,2] as G(2), and the number of of unique BST out of sequence [4, 5, 6, 7] as G(4). Therefore, F(3,7) = G(2) * G(4).
+Given a sequence 1¡­n, we pick a number i out of the sequence as the root, then the number of unique BST with the specified root F(i), is the cartesian product of the number of BST for its left and right subtrees. 
+For example, F(3, 7): the number of unique BST tree with number 3 as its root. 
+To construct an unique BST out of the entire sequence [1, 2, 3, 4, 5, 6, 7] with 3 as the root, which is to say, we need to construct an unique BST out of its left subsequence [1, 2] and another BST out of the right subsequence [4, 5, 6, 7], 
+and then combine them together (i.e. cartesian product). The tricky part is that we could consider the number of unique BST out of sequence [1,2] as G(2), and the number of of unique BST out of sequence [4, 5, 6, 7] as G(4). 
+Therefore, F(3,7) = G(2) * G(4).
 
 i.e.
 
@@ -107,9 +113,12 @@ Then assume we have the number of the first 4 trees: dp[1] = 1 ,dp[2] =2 ,dp[3] 
 
 The essential process is: to build a tree, we need to pick a root node, then we need to know how many possible left sub trees and right sub trees can be held under that node, finally multiply them.
 
-To build a tree contains {1,2,3,4,5}. First we pick 1 as root, for the left sub tree, there are none; for the right sub tree, we need count how many possible trees are there constructed from {2,3,4,5}, apparently it's the same number as {1,2,3,4}. So the total number of trees under "1" picked as root is dp[0] * dp[4] = 14. (assume dp[0] =1). Similarly, root 2 has dp[1]*dp[3] = 5 trees. root 3 has dp[2]*dp[2] = 4, root 4 has dp[3]*dp[1]= 5 and root 5 has dp[0]*dp[4] = 14. Finally sum the up and it's done.
+To build a tree contains {1,2,3,4,5}. First we pick 1 as root, for the left sub tree, there are none; for the right sub tree, we need count how many possible trees are there constructed from {2,3,4,5}, apparently it's the same number as {1,2,3,4}. 
+So the total number of trees under "1" picked as root is dp[0] * dp[4] = 14. (assume dp[0] =1). 
+Similarly, root 2 has dp[1]*dp[3] = 5 trees. root 3 has dp[2]*dp[2] = 4, root 4 has dp[3]*dp[1]= 5 and root 5 has dp[0]*dp[4] = 14. Finally sum the up and it's done.
 
-Now, we may have a better understanding of the dp[k], which essentially represents the number of BST trees with k consecutive nodes. It is used as database when we need to know how many left sub trees are possible for k nodes when picking (k+1) as root.
+Now, we may have a better understanding of the dp[k], which essentially represents the number of BST trees with k consecutive nodes. 
+It is used as database when we need to know how many left sub trees are possible for k nodes when picking (k+1) as root.
      */
     public int numTrees(int n) {
         int [] dp = new int[n+1];
