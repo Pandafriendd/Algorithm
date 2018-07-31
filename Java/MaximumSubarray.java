@@ -59,11 +59,10 @@ maxSubArray(A, i) = [ maxSubArray(A, i - 1) > 0 ? maxSubArray(A, i - 1) : 0 ] + 
 	 * if nums[i] < 0 && curMax + nums[i] > 0, should continue, include nums[i] and keep finding
 	 */
 	public int solution(int[] nums) {
-		int res = 0;
 		if(nums == null || nums.length == 0)
-			return res;
+			return 0;
 		
-		res = nums[0];
+		int res = nums[0];
 		int curMax = nums[0]; // curMax is current iterative node's max value, consider it as an intend of increase, if it > 0, it can keep in the searching
 		for(int i = 1; i < nums.length; i++) { //!!! i starts from 1
 			curMax = Math.max(curMax + nums[i], nums[i]); //if curMax < 0, recalculate, curMax should be changed: curMax = nums[i]
@@ -100,8 +99,7 @@ The idea is simple, find the maximum sum starting from mid point and ending at s
 then find the maximum sum starting from mid + 1 and ending with sum point on right of mid + 1. Finally, combine the two and return.
 	 
 	 */
-	// Find the maximum possible sum in arr[] 
-    // such that arr[m] is part of it
+	// Find the maximum possible sum in arr[] such that arr[m] is part of it
     static int maxCrossingSum(int arr[], int l, int m, int h)
     {
         // Include elements on left of mid.
@@ -111,26 +109,24 @@ then find the maximum sum starting from mid + 1 and ending with sum point on rig
         {
             sum = sum + arr[i];
             if (sum > left_sum)
-            left_sum = sum;
+            	left_sum = sum;
         }
  
         // Include elements on right of mid
         sum = 0;
         int right_sum = Integer.MIN_VALUE;
-        for (int i = m + 1; i <= h; i++)
+        for (int i = m + 1; i <= h; i++)  // !!! m + 1
         {
             sum = sum + arr[i];
             if (sum > right_sum)
-            right_sum = sum;
+            	right_sum = sum;
         }
  
-        // Return sum of elements on left
-        // and right of mid
+        // Return sum of elements on left and right of mid
         return left_sum + right_sum;
     }
  
-    // Returns sum of maxium sum subarray 
-    // in aa[l..h]
+    // Returns sum of maxium sum subarray in aa[l..h]
     static int maxSubArraySum(int arr[], int l, int h)
     {
     // Base Case: Only one element
@@ -150,38 +146,91 @@ then find the maximum sum starting from mid + 1 and ending with sum point on rig
                     maxSubArraySum(arr, m+1, h)),
                     maxCrossingSum(arr, l, m, h));
     }
-   
-   /**
-    * Not asking sum, but the range
-    * If nums[i] < 0, current sum + nums[i] >= 0, we can continue addition because 
-    * the positive sum would still contribute to positiveness of the subarray. 
-    * If nums[i] < 0, current sum + nums[i] < 0, the current subarray has to end.
-    */
-	public int[] solution3(int[] nums) {   // !!! return val is a array!!
-		
-		int beginTemp = 0; // save the temporary begining index
-        int begin = 0; // begining index
-        int end = 0; // ending index
-        int maxSoFar = nums[0]; // max sum of previous sequence
-        int maxEndingHere = nums[0]; // max sum of this group
+    /*
+Time Complexity: maxSubArraySum() is a recursive method and time complexity can be expressed as following recurrence relation.
+T(n) = 2T(n/2) + ¦¨(n)
+The above recurrence is similar to Merge Sort and can be solved either using Recurrence Tree method or Master method. 
+It falls in case II of Master Method and solution of the recurrence is ¦¨(nLogn).
+
+The Kadane¡¯s Algorithm for this problem takes O(n) time. 
+Therefore the Kadane¡¯s algorithm is better than the Divide and Conquer approach, 
+but this problem can be considered as a good example to show power of Divide and Conquer. 
+The above simple approach where we divide the array in two halves, reduces the time complexity from O(n^2) to O(nLogn).
+     */
+    
+
+	
+	// brute force 
+    // O(n^2)  see Divide and Conquer to decrease the complexity
+	int maxSubArrayBF(int nums[]) {
+		if(nums == null || nums.length == 0)
+			return 0;
+        if(nums.length == 1)
+            return nums[0];
         
-        for (int i = 1; i < nums.length; i++) {
-            if (maxEndingHere < 0) {  // last A[i] is too small
-                maxEndingHere = nums[i];
-                beginTemp = i; // update begin temp
-            } else {
-                maxEndingHere += nums[i];
-            }
-            
-            if (maxEndingHere >= maxSoFar) { // update max so far
-                maxSoFar = maxEndingHere;
-                begin = beginTemp; // save index range
-                end = i;
-            }
-        }
-        System.out.println("begin=" + begin + "end=" + end + "maxsofar=" + maxSoFar);
-        return new int[] {begin, end, maxSoFar};
+		int max = Integer.MIN_VALUE;
+        int curMax;
+		
+		for(int i = 0; i < nums.length; i++) {
+            curMax = 0;
+			for(int j = i; j < nums.length; j++) {
+				curMax += nums[j];
+				max = Math.max(curMax, max);
+			}
+		}
+		
+		return max;
 	}
+	
+	
+	
+	//Greedy
+		/*
+		 * The idea is to find the largest difference between the sums when you summing up the array from left to right. 
+		 * The largest difference corresponds to the sub-array with largest sum. 
+		 */
+		int maxSubArray10(int A[], int n) {
+	        int sum = 0, min = 0, res = A[0];
+	        for(int i = 0; i < n; i++) {
+	            sum += A[i];
+	            if(sum - min > res) res = sum - min;
+	            if(sum < min) min = sum;
+	        }
+	        return res;
+	    }
+	
+	
+	/**
+	    * Not asking sum, but the range
+	    * If nums[i] < 0, current sum + nums[i] >= 0, we can continue addition because 
+	    * the positive sum would still contribute to positiveness of the subarray. 
+	    * If nums[i] < 0, current sum + nums[i] < 0, the current subarray has to end.
+	    */
+		public int[] solution3(int[] nums) {   // !!! return val is a array!!
+			
+			int beginTemp = 0; // save the temporary begining index
+	        int begin = 0; // begining index
+	        int end = 0; // ending index
+	        int maxSoFar = nums[0]; // max sum of previous sequence
+	        int maxEndingHere = nums[0]; // max sum of this group
+	        
+	        for (int i = 1; i < nums.length; i++) {
+	            if (maxEndingHere < 0) {  // last A[i] is too small
+	                maxEndingHere = nums[i];
+	                beginTemp = i; // update begin temp
+	            } else {
+	                maxEndingHere += nums[i];
+	            }
+	            
+	            if (maxEndingHere >= maxSoFar) { // update max so far
+	                maxSoFar = maxEndingHere;
+	                begin = beginTemp; // save index range
+	                end = i;
+	            }
+	        }
+	        System.out.println("begin=" + begin + "end=" + end + "maxsofar=" + maxSoFar);
+	        return new int[] {begin, end, maxSoFar};
+		}
 	
 	public static void main(String[] args) {
 		int[] nums = { -2, 1, -3, -3, 4, -1, 2, 1, -5, 4 };
