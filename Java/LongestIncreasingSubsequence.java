@@ -140,20 +140,23 @@ Space: O(n^2) memo array n*n is used
 Approach #3 Dynamic Programming [Accepted]
 Algorithm
 
-This method relies on the fact that the longest increasing subsequence possible upto the ith index in a given array 
-is independent of the elements coming later on in the array. Thus, if we know the length of the LIS upto ith index, 
+This method relies on the fact that 
+the longest increasing subsequence possible upto the ith index in a given array is independent of the elements coming later on in the array. 
+Thus, if we know the length of the LIS upto ith index, 
 we can figure out the length of the LIS possible by including the ith element based on the elements with indices j such that 0≤j≤(i+1).
 
 We make use of a dp array to store the required data. 
 dp[i] represents the longest subsequence ending exactly at i
 For example, if the inputs nums is [4, 10, 4], the solution builds the following dp: [1, 2, 1] 
-In order to find out dp[i], we need to try to append the current element(nums[i]nums[i]) in every possible increasing subsequences upto the (i−1)th index(including the (i−1)th index), 
+
+In order to find out dp[i], 
+we need to try to append the current element(nums[i]) in every possible increasing subsequences upto the (i−1)th index(including the (i−1)th index), 
 such that the new sequence formed by adding the current element is also an increasing subsequence. 
 Thus, we can easily determine dp[i] using:
 
 dp[i]=max(dp[j])+1,∀0≤j<i
 At the end, the maximum out of all the dp[i]'s to determine the final result.
-LIS ​length ​​ =max(dp[i]),∀0≤i<n
+LIS ​length=max(dp[i]),∀0≤i<n
 
 Time: O(n^2). Two loop of n are there
 Space O(n)  dp array of size n is used
@@ -164,12 +167,12 @@ Space O(n)  dp array of size n is used
 			return 0;
 		
 		int[] dp = new int[nums.length];
-		dp[0] = 1;
-		int maxans = 1;
+		dp[0] = 1; // initialize as 1
+		int maxans = 1; // initialize as 1
 		
 		for(int i = 0; i < dp.length; i++) {
-			int maxval = 0;
-			for(int j = 0; j < i; j++) {
+			int maxval = 0; // max(dp[]) of current element (num[i])'s previous smaller elements, if no smaller in previous, maxval = 0
+			for(int j = 0; j < i; j++) {  //  j from 0 to i -1
 				if(nums[i] > nums[j]) {
 					maxval = Math.max(maxval, dp[j]);
 				}
@@ -188,15 +191,18 @@ Approach #4 Dynamic Programming with Binary Search
 In this approach, we scan the array from left to right. 
 We also make use of a dp array initialized with all 0's. 
 This dp array is meant to store the increasing subsequence formed by including the currently encountered element. 
+
 While traversing the nums array, we keep on filling the dp array with the elements encountered so far. 
 For the element corresponding to the j ​th ​​ index (nums[j]), 
 we determine its correct position in the dp array(say i ​th ​​ index) by making use of Binary Search
 (which can be used since the dp array is storing increasing subsequence) and also insert it at the correct position. 
+
 An important point to be noted is that for Binary Search, 
 we consider only that portion of the dp array in which we have made the updates by inserting some elements at their correct positions(which remains always sorted). 
 Thus, only the elements upto the i ​th ​​ index in the dp array can determine the position of the current element in it. 
+
 Since, the element enters its correct position(i) in an ascending order in the dp array, the subsequence formed so far in it is surely an increasing subsequence. 
-Whenever this position index ii becomes equal to the length of the LIS formed so far(len), 
+Whenever this position index becomes equal to the length of the LIS formed so far(len), 
 it means, we need to update the len as len=len+1. 
 
 Note: dp array does not result in longest increasing subsequence, but length of dp array will give you length of LIS.
@@ -225,16 +231,21 @@ space: O(n) dp array of size n is used
 	 */
 	
 	public int lengthOfLIS4(int[] nums) {
-		int[] dp = new int[nums.length];
+		int[] dp = new int[nums.length];  // initialize with all 0s
 		int len = 0;
 		
-		for(int num : nums) {
-			int i = Arrays.binarySearch(dp, 0, len, num);
-			if(i < 0) {
-				i = -(i + 1);
+		for(int key : nums) {
+			// if it is contained in the array, 
+			// else it returns (-(insertion point) - 1). 
+			// The insertion point is the point at which the key would be inserted into the array: 
+			// the index of the first element greater than the key, or a.length if all elements in the array are less than the specified key.
+			int index = Arrays.binarySearch(dp, 0, len, key);
+			
+			if(index < 0) {
+				index = -(index + 1); // get insertion point
 			}
-			dp[i] = num;
-			if(i == len) {
+			dp[index] = key;
+			if(index == len) {
 				len++;
 			}
 		}
