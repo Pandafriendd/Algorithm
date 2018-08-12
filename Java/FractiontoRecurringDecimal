@@ -1,0 +1,37 @@
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        if(denominator == 0)
+            return "";
+        if(numerator == 0)
+            return "0";
+        
+        StringBuilder res = new StringBuilder();
+        long n = new Long(numerator);
+        long d = new Long(denominator);
+        if(n * d < 0)
+            res.append("-");
+        
+        n = Math.abs(n);
+        d = Math.abs(d);
+        res.append(n / d);
+        if(n % d == 0)
+            return res.toString();
+        
+        res.append(".");
+        HashMap<Long, Integer> map = new HashMap<>();
+        Long remainder = n % d;  // get first remainder
+        while(remainder > 0){
+            if(map.containsKey(remainder)){  // fractional part is repeating
+                res.insert(map.get(remainder), "(");
+                res.append(")");
+                break;
+            }
+            map.put(remainder, res.length());  // save remaider as key, res.len as value
+            remainder = 10 * remainder;  // simulate long division
+            res.append(remainder / d);
+            remainder = remainder % d;
+        }
+    
+        return res.toString();
+    }
+}
