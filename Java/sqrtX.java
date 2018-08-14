@@ -7,7 +7,9 @@ public class sqrtX {
 
 	//using binary search to find the answer
 	public int mysqrt(int x){
-		int low = 0, high = x;
+		//int high = x;
+		int low = 1;  // !
+		int high = x / 2;  // reduce high to x/2 because a square root is always less than or equal to x/2
 		if(x < 2)// cannot be x <= 0, otherwise it will lead to mid = 0 and throw /0 exception
 			return x;
 		while( high >= low){
@@ -23,6 +25,7 @@ public class sqrtX {
 		}
 		return -1;
 	}
+	
 	
 	// using Newton's iterative method	
 	public int mysqrt2(int x){
