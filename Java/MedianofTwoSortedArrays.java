@@ -111,10 +111,17 @@ public class MedianofTwoSortedArrays {
 	
 	/*
 	 Approach: In statistics, the median is used for: Dividing a set into two equal length subsets, that one subset is always greater than the other.
-	 (m + n) is even: i + j = m - i + n - j ===> j=(m+n)/2-i ===> if max(A[i-1],B[j-1])<=min(A[i],B[j]) ===> so median=(max(A[i-1],B[j-1]+min(A[i],B[j]))/2
+	 (m + n) is even: i + j = m - i + n - j ===> j=(m+n)/2-i ===> if max(A[i-1],B[j-1])<=min(A[i],B[j]) ===> so median=(max(A[i-1],B[j-1])+min(A[i],B[j]))/2
 	 (m + n) is odd: i + j = m - i + n - j + 1 ===> j=(m+n+1)/2-i ===> if max(A[i-1],B[j-1]<=min(A[i],B[j]£©===>so median=max(A[i-1],B[j-1]) 
 	 ==> so no matter (m + n) is odd or even, j=(m+n+1)/2-i, since for int: (even+1)/2=even/2
 	 since A[i] > A[i-1], B[j] > B[j-1], so need to ensure B[j-1] <= A[i] and A[i-1] <= B[j]
+	 
+	 in short, we need to ensure: so that: median=(max(A[i-1],B[j-1])+min(A[i],B[j]))/2
+	 1. len(left_part)=len(right_part)
+	 2. max(left_part)¡Ümin(right_part)
+	 in order to ensure these two conditions, we need to ensure:
+	 1. j=(m+n+1)/2-i
+	 2. B[j-1] <= A[i] and A[i-1] <= B[j]
 	 
 	  time: O(log(min(m,n))) since we do binary search on smaller array
 	 */
@@ -147,7 +154,7 @@ public class MedianofTwoSortedArrays {
                 	maxLeft = A[i-1];
                 else 
                 	maxLeft = Math.max(A[i-1], B[j-1]);
-                if ((m + n) % 2 == 1) 
+                if ((m + n) % 2 == 1) // odd 
                 	return maxLeft; 
 
                 int minRight = 0;
