@@ -1,5 +1,4 @@
 /*
- 
  */
 
 import java.util.*;
@@ -64,7 +63,7 @@ public class LargestRectangleinHistogram {
 	     * Stack for indices
 	     * add a zero height into the group
 	     */
-	    public int largestRectangleArea444(int[] height) {
+	 public int largestRectangleArea444(int[] height) {
 	        if (height == null || height.length == 0) return 0;
 	        height = Arrays.copyOf(height, height.length + 1); // add a zero
 	        int max = 0;
@@ -78,5 +77,5 @@ public class LargestRectangleinHistogram {
 	            s.push(i); // push index into stack
 	        }
 	        return max;
-	    }
+	  }
 }
