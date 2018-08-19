@@ -3,7 +3,21 @@ public class stringReverse {
 	
 	public static void main(String[] args) {
 		stringReverse s = new stringReverse();
-		System.out.println(s.reverseC1("intern at geeks"));
+		System.out.println(s.recursiveReverse("abcdefg"));
+	}
+	
+	/*
+	 * recursively reverse a string
+	 */
+	public String recursiveReverse(String input) {
+		//char last = input.charAt(input.length() - 1);
+		char first = input.charAt(0);
+		if(input.length() <= 1 || input == null)
+			return input;
+		
+		//return last + recursiveReverse(input.substring(0, input.length() - 1));
+		return recursiveReverse(input.substring(1, input.length())) + first;
+		
 	}
 	
 	
