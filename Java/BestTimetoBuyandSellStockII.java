@@ -47,7 +47,7 @@ public class BestTimetoBuyandSellStockII {
 		return max;
 	}
 	
-	// approach 2 peak valley approach
+	// approach 2: peak valley approach
 	// we need to consider every peak immediately following a valley to maximize the profit
 	// time: O(n) simple pass
 	// space: O(1)
@@ -74,4 +74,24 @@ public class BestTimetoBuyandSellStockII {
 		
 		return maxprofit;
 	}
+	
+	
+	/*
+	 * Greedy approach
+	 * In this case, instead of looking for every peak following a valley, 
+	 * we can simply go on crawling over the slope and keep on adding the profit obtained from every consecutive transaction.
+	 * we can directly keep on adding the difference between the consecutive numbers of the array if the second number is larger than the first one, 
+	 * and at the total sum we obtain will be the maximum profit.
+	 */
+	  /**
+     * Sell whenever there is profit.
+     * If next value is bigger, add the difference up to the profit
+     */
+    public static int maxProfit3(int[] prices) {
+        int max = 0;
+        for (int i = 0; i < prices.length - 1; i++)
+            if (prices[i + 1] > prices[i]) 
+            	max += prices[i + 1] - prices[i];
+        return max;
+    }
 }
