@@ -73,13 +73,21 @@ public class SubarraySumEqualsK {
 	
 	/*
 	app 4: using hashmap
+	if the cumulative sum upto two indices, say i and j is at a difference of k i.e. if sum[i]−sum[j]=k, the sum of elements lying between indices i and j is k.
 	HashMap used to store the cumulative sum upto all the indices possible along with the number of times the same sum occurs: sumi ==> no. of occurrences of sumi
+	
+	We traverse over the array numsnums and keep on finding the cumulative sum. 
+	Every time we encounter a new sum, we make a new entry in the hashmap corresponding to that sum. 
+	If the same sum occurs again, we increment the count corresponding to that sum in the hashmap. 
+	Further, for every sum encountered, we also determine the number of times the sum sum−k has occured already, 
+	since it will determine the number of times a subarray with sum k has occured upto the current index. We increment the countcount by the same amount.
+	
 	time: O(n)   space: O(n)
 	 */
 	public int subarraySum4(int[] nums, int k) {
         int count = 0, sum = 0;
-        HashMap < Integer, Integer > map = new HashMap < > ();
-        map.put(0, 1);
+        HashMap < Integer, Integer> map = new HashMap < > ();
+        map.put(0, 1); // !!!!!!! means that if no elements are included the sum is 0. It is necessary when the sum of contiguous elements from beginning till some index i is exactly equal to k
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
             if (map.containsKey(sum - k))
