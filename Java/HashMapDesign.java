@@ -29,7 +29,7 @@ Please do not use the built-in HashMap library.
 import java.util.*;
 public class HashMapDesign {
 	
-	final Bucket[] buckets = new Bucket[10000];
+	final Bucket[] buckets = new Bucket[10000]; // LinkedList Array
     
     /** value will always be non-negative. */
     public void put(int key, int value) {
@@ -80,6 +80,7 @@ public class HashMapDesign {
     	return prev;
     }
     
+    // LinkedList
     class Bucket {
     	final ListNode head = new ListNode(-1, -1);
     }
