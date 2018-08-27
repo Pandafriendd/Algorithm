@@ -37,11 +37,10 @@ public class LongestSubstringWithoutRepeatingCharacters {
     
     // approach 2: Sliding window
     /*
-    If a substring sij from index i to j−1 is already checked to have no duplicate characters. 
-    We only need to check if s[j] is already in the substring sij.
+If a substring sij from index i to j−1 is already checked to have no duplicate characters. 
+We only need to check if s[j] is already in the substring sij.
 
 To check if a character is already in the substring, we can scan the substring, which leads to an O(n^2) algorithm. But we can do better.
-
 By using HashSet as a sliding window, checking if a character in the current can be done in O(1).
 
 A sliding window is an abstract concept commonly used in array/string problems. 
@@ -57,10 +56,10 @@ time: O(2n). In the worst case each character will be visited twice by i and j. 
      */
     
     public int lengthOfLongestSubstring2(String s) {
-        int n = s.length();
+        int len = s.length();
         Set<Character> set = new HashSet<>();
-        int ans = 0, i = 0, j = 0;
-        while (i < n && j < n) {
+        int ans = 0, i = 0, j = 0;  // i: start index, j: end index
+        while (i < len && j < len) {
             // try to extend the range [i, j]
             if (!set.contains(s.charAt(j))){
                 set.add(s.charAt(j++)); //!!!!
@@ -79,8 +78,8 @@ time: O(2n). In the worst case each character will be visited twice by i and j. 
      * we could define a mapping of the characters to its index. 
      * Then we can skip the characters immediately when we found a repeated character.
      * 
-     * The reason is that if s[j] have a duplicate in the range [i, j)[i,j) with index j', 
-     * we don't need to increase i little by little. We can skip all the elements in the range [i, j'] and let i to be j' + 1 directly.
+     * The reason is that if s[j] have a duplicate in the range [i,j) with index j, 
+     * we don't need to increase i little by little. We can skip all the elements in the range [i, j] and let i to be j + 1 directly.
      */
     /**
      * Traverse the string
@@ -93,7 +92,7 @@ time: O(2n). In the worst case each character will be visited twice by i and j. 
     public static int lengthOfLongestSubstring222(String s) {
         if (s == null || s.length() == 0) return 0;
         
-        Map<Character, Integer> map = new HashMap<Character, Integer>(); // current index of character
+        Map<Character, Integer> map = new HashMap<Character, Integer>(); // current index of character  s.charAt(i) ==> index i
         int start = 0;
         int max = 0;
         

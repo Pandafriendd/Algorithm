@@ -70,28 +70,29 @@ public class MergekSortedLists {
 	/**
      * Use a heap, O(n * log(k))
      */
-    public ListNode mergeKLists1111(List<ListNode> lists) {
-        if (lists == null || lists.size() == 0) return null;
+    public ListNode mergeKLists1111(ListNode[] lists) {
+    	if (lists == null || lists.length == 0) return null;
         // Build priority queue
-        Queue<ListNode> queue = new PriorityQueue<ListNode>(lists.size(), new Comparator<ListNode>() {
+        Queue<ListNode> queue = new PriorityQueue<ListNode>(lists.length, new Comparator<ListNode>() {
             @Override
             public int compare(ListNode n1, ListNode n2) {
                 return n1.val - n2.val;
             }
         });
+        // enqueue first k nodes
         for (ListNode n : lists) 
         	if (n != null) 
         		queue.add(n); 
         
-        ListNode dummy = new ListNode(0); // set dummy head
-        ListNode tail = dummy;
+        ListNode head = new ListNode(0); // set dummy head
+        ListNode cur = head;
         while (!queue.isEmpty()) { // build next
-            tail.next = queue.poll();
-            tail = tail.next;
-            if (tail.next != null) 
-            	queue.add(tail.next);
+            cur.next = queue.poll();
+            cur = cur.next;
+            if (cur.next != null) 
+            	queue.add(cur.next); // the chosen list should move forward 
         }
-        return dummy.next;
+        return head.next;
     }
     
 	
@@ -113,7 +114,9 @@ public class MergekSortedLists {
 	Repeat this procedure until we get the final sorted linked list.
 	Thus, we'll traverse almost N nodes per pairing and merging, and repeat this procedure about logk times.
 	
-	Time complexity : OO(Nlogk) where k is the number of linked lists.
+	Time complexity : O(Nlogk) where k is the number of linked lists.
+	We can merge two sorted linked list in O(n) time where n is the total number of nodes in two lists.
+	Sum up the merge process and we can get: O(Nlogk)
 	 */
     /**
      * Divide and conquer
@@ -135,11 +138,14 @@ public class MergekSortedLists {
 
     public ListNode mergeKLists(List<ListNode> lists) {
         /*base cases*/
-        if (lists.size() == 0) return null;
-        if (lists.size() == 1) return lists.get(0);
-        if (lists.size() == 2) return mergeTwoLists(lists.get(0), lists.get(1));
+        if (lists.size() == 0) 
+        	return null;
+        if (lists.size() == 1) 
+        	return lists.get(0);
+        if (lists.size() == 2) 
+        	return mergeTwoLists(lists.get(0), lists.get(1));
+        
         /*merge two halves*/
-        return mergeTwoLists(mergeKLists(lists.subList(0, lists.size()/2)), 
-            mergeKLists(lists.subList(lists.size()/2, lists.size())));
+        return mergeTwoLists(mergeKLists(lists.subList(0, lists.size()/2)), mergeKLists(lists.subList(lists.size()/2, lists.size())));
     }
 }
