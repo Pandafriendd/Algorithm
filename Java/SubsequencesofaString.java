@@ -16,29 +16,31 @@ public class SubsequencesofaString {
 	/*
 	solution 1:
 	Step 1: Iterate over the entire String 
-	Step 2: Iterate from the end of string in order to generate different substring, add the subtring to the list 
+	Step 2: Iterate from the end of string in order to generate different substring, add the subtring to the set
 	Step 3: Drop kth character from the substring obtained from above to generate different subsequence. 
-	Step 4: if the subsequence is not in the list then recur.
+	Step 4: if the subsequence is not in the set then recur.
 	 */
 	
     static TreeSet<String> set = new TreeSet<>(); // set to store all the subsequences, sorted alphabetically, ascending
- 
+	//static HashSet<String> set = new HashSet<>();
+	
     // It computes all the subsequence of an string
     static void subsequence(String str)
     {
-        // iterate over the entire string
+        // iterate over the entire string	
         for (int i = 0; i < str.length(); i++) {
             for (int j = str.length(); j > i; j--) { // iterate from the end of the string to generate substrings
                 String sub_str = str.substring(i, j);
-             
+                //System.out.println(sub_str);
+                
                 if (!set.contains(sub_str))
                     set.add(sub_str);
+                
+                //System.out.println(set);
  
-                // drop kth character in the substring and if its not in the set then recur
-                for (int k = 1; k < sub_str.length() - 1; k++) {
+                for (int k = 1; k < sub_str.length() - 1; k++) { // if substring.len >= 2, drop kth character in the substring and if its not in the set then recur
                     StringBuffer sb = new StringBuffer(sub_str);
-                    // drop character from the string
-                    sb.deleteCharAt(k);
+                    sb.deleteCharAt(k);             
                     if (!set.contains(sb.toString()))
                     	subsequence(sb.toString());
                 }
@@ -56,11 +58,11 @@ public class SubsequencesofaString {
     // Driver code
     public static void main(String[] args)
     {
-        String s = "ba";
+        String s = "xyz";
         subsequence(s);
         System.out.println(set);
-        for(String st : set) {
-        	System.out.println(st);
-        }
+        //for(String st : set) {
+        	//System.out.println(st);
+        //}
     }
 }
