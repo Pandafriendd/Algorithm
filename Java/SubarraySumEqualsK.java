@@ -32,7 +32,7 @@ public class SubarraySumEqualsK {
 	/*
 	app 2 Using Cummulative sum
 	In this implementation, we make use of a cumulative sum array, sum, 
-	such that sum[i]sum[i] is used to store the cumulative sum of numsnums array upto the element corresponding to the (i−1)th index. 
+	such that sum[i] is used to store the cumulative sum of nums array upto the element corresponding to the (i−1)th index. 
 	Thus, to determine the sum of elements for the subarray nums[i:j], we can directly use sum[j+1]−sum[i].
 	
 	time: O(n^2) space: O(n) Cumulative sum array sum of size n+1 is used.
@@ -76,11 +76,11 @@ public class SubarraySumEqualsK {
 	if the cumulative sum upto two indices, say i and j is at a difference of k i.e. if sum[i]−sum[j]=k, the sum of elements lying between indices i and j is k.
 	HashMap used to store the cumulative sum upto all the indices possible along with the number of times the same sum occurs: sumi ==> no. of occurrences of sumi
 	
-	We traverse over the array numsnums and keep on finding the cumulative sum. 
+	We traverse over the array nums and keep on finding the cumulative sum. 
 	Every time we encounter a new sum, we make a new entry in the hashmap corresponding to that sum. 
 	If the same sum occurs again, we increment the count corresponding to that sum in the hashmap. 
 	Further, for every sum encountered, we also determine the number of times the sum sum−k has occured already, 
-	since it will determine the number of times a subarray with sum k has occured upto the current index. We increment the countcount by the same amount.
+	since it will determine the number of times a subarray with sum k has occured upto the current index. We increment the count by the same amount.
 	
 	time: O(n)   space: O(n)
 	 */

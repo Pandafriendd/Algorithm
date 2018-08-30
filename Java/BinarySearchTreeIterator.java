@@ -43,7 +43,11 @@ So this can satisfy O(h) memory, hasNext() in O(1) time, next() is O(1) time.
     }
     
     private void pushAll(TreeNode node) {
-        for (; node != null; stack.push(node), node = node.left);
+        //for (; node != null; stack.push(node), node = node.left);
+        while(node != null) {
+        	stack.push(node);
+        	node = node.left;
+        }
     }
 }
 

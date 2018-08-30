@@ -32,10 +32,9 @@ public class ReorderList {
         if(head == null || head.next == null)
             return;
         
-        ListNode tail = head;
-        ListNode mid = head;
-        
         // runner technique to find middle node
+        ListNode tail = head;
+        ListNode mid = head;      
         while(tail != null && tail.next != null){  // !! &&
             tail = tail.next.next;  //faster
             mid = mid.next;  //slower, speed: 2:1
@@ -54,10 +53,9 @@ public class ReorderList {
         
         //merge two lists
         ListNode left = head;  //head of left unmerged list
-        ListNode right = mid.next; //head of right unmerged list
-        
+        ListNode right = mid.next; //head of right unmerged list       
         while(right != null) {   //right halve always has fewer elements !!!
-            mid.next = right.next;  //mid.next points to right head
+            mid.next = right.next;  //save right.next for right pointer next move
             right.next = left.next;
             left.next = right;
             //move left head and right head
