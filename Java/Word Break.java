@@ -123,6 +123,52 @@ Space complexity : O(n). Queue of atmost n size is needed.
     }
 
     /*
+We can use a graph to represent the possible solutions. 
+The vertices of the graph are simply the positions of the first characters of the words and each edge actually represents a word. 
+For example, the input string is "nightmare", there are two ways to break it, "night mare" and "nightmare". 
+The graph would be
+
+0-->5-->9
+
+The question is simply to check if there is a path from 0 to 9. 
+The most efficient way is traversing the graph using BFS with the help of a queue and a hash set. 
+The hash set is used to keep track of the visited nodes to avoid repeating the same work.
+
+For this problem, the time complexity is O(n^2) and space complexity is O(n) 
+This idea can be used to solve the problem word break II. We can simple construct the graph using BFS, 
+save it into a map and then find all the paths using DFS.
+
+Optimizations:
+only traverse max_len rather than to the end of s to find end.
+mark visited when enqueue rather than dequeue.
+    */
+	public boolean wordBreak(String s, List<String> wordDict) {
+        int max_len = -1;
+        for (String word : wordDict)
+            max_len = Math.max (max_len, word.length ());
+
+        Set<String> wordDictSet = new HashSet(wordDict);
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[s.length()];
+        queue.add(0);
+        visited[0] = true;
+        
+        while (!queue.isEmpty()) {
+            int start = queue.remove();
+            for (int end = start + 1; end <= s.length () && end - start <= max_len; end++) {
+                if (wordDictSet.contains(s.substring(start, end)) && !(end < s.length () && visited[end])) {
+                    if (end == s.length()) {
+                        return true;
+                    }
+                    queue.add(end);
+                    visited[end] = true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /*
 Approach 4: Using Dynamic Programming
 initialize the element dp[0] as true, since the null string is always present in the dictionary, 
 and the rest of the elements of dp as false. 
