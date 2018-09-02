@@ -34,6 +34,73 @@ graph[i] will contain integers in range [0, graph.length - 1].
 graph[i] will not contain i or duplicate values.
 The graph is undirected: if any element j is in graph[i], then i will be in graph[j].
  */
-public class IsGraphBipartite {
 
+import java.util.*;
+public class IsGraphBipartite {
+	
+	/*
+DFS Solution:
+Our goal is trying to use two colors to color the graph and see if there are any adjacent nodes having the same color, if same color, return false
+Initialize a color[] array for each node. Here are three states for colors[] array:
+-1: Haven't been colored.
+0: Blue.
+1: Red.
+For each node,
+1. If it hasn't been colored, use a color to color it. Then use the other color to color all its adjacent nodes (DFS).
+2. If it has been colored, check if the current color is the same as the color that will be used to color it.
+	 */
+	public boolean isBipartite(int[][] graph) {
+		int n = graph.length;
+		int[] colors = new int[n];
+		Arrays.fill(colors, -1);
+		
+		for(int i = 0; i < n; i++) { // graph might be a disconnected graph. So check each unvisited node
+			if(colors[i] == -1 && !validColor(graph, colors, 0, i)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean validColor(int[][] graph, int[] colors, int color, int node) { 
+		if(colors[node] != -1) {
+			return colors[node] == color;
+		}
+		// if uncolored
+		colors[node] = color;
+		for(int next : graph[node]) {
+			if(!validColor(graph, colors, 1 - color, next)) { // use the other color to color all its adjacent nodes
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	// BFS, same idea using color method
+	public boolean isBipartite2(int[][] graph) {
+        int[] colors = new int[graph.length];
+        Arrays.fill(colors, -1);
+        
+        for (int i = 0; i < graph.length; i++)
+            if (colors[i] == -1) { // uncolored
+                Queue<Integer> q = new LinkedList<>();
+                q.add(i);
+                colors[i] = 0;  // color blue
+                
+                while (!q.isEmpty()) {
+                    Integer node = q.poll();
+                    
+                    for (int adjacent : graph[node]) {
+                        if (colors[adjacent] == colors[node])
+                            return false;
+                        else if (colors[adjacent] == -1) {
+                            q.add(adjacent);
+                            colors[adjacent] = 1 - colors[node];
+                        }
+                    }
+                }
+            }
+        return true;
+    }
 }

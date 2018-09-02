@@ -1,5 +1,5 @@
 /*
- Convert a non-negative integer to its english words representation. Given input is guaranteed to be less than 231 - 1.
+ Convert a non-negative integer to its english words representation. Given input is guaranteed to be less than 2^31 - 1.
 
 Example 1:
 
@@ -14,6 +14,7 @@ Output: "Twelve Thousand Three Hundred Forty Five"
 
 public class IntegertoEnglishWords {
 	
+	// O(1) Since the while loop will be called at most 4 times. And it could trigger at most three recursive calls in each while recursion. It will run 4 * 3 which is O(12) = O(1)
 	private final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 	private final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
 	private final String[] THOUSANDS = {"", "Thousand", "Million", "Billion"};
@@ -27,7 +28,7 @@ public class IntegertoEnglishWords {
 		
 		while(num > 0) {
 			if(num % 1000 != 0)
-				words = helper(num % 1000) + THOUSANDS[i] + " " + words;
+				words = helper(num % 1000) + THOUSANDS[i] + " " + words; // helper(num % 1000) gives us how many thousands 
 			num = num / 1000;
 			i++;
 		}
@@ -42,9 +43,10 @@ public class IntegertoEnglishWords {
 			return LESS_THAN_20[num] + " ";
 		else if(num < 100)
 			return TENS[num / 10] + " " + helper(num % 10);
-		else
+		else // num >= 100
 			return LESS_THAN_20[num / 100] + " Hundred " + helper(num % 100);
 	}
+	
 	
 	
 	// Follow up: what if input is floating number ?
@@ -52,11 +54,20 @@ public class IntegertoEnglishWords {
 	public String numToWordsFloat(float num) {
 		int roundedInt = Math.round(num);
 		String s = numberToWords(roundedInt);
-		float f= num - roundedInt; // It Will give You float after and let assue we want to calculate after 3 decinmal point
+		float f = num - roundedInt; // It Will give float after and assume we want to calculate after 3 decinmal point
 		int tempRaisedFloat = (int) f * 1000;
 		s = s + "." + numberToWords(tempRaisedFloat);
 		return s;
 	}
+	
+	public static void main(String[] args) {
+		IntegertoEnglishWords i = new IntegertoEnglishWords();
+		int num = 123000;
+		float f = 1080f;
+		System.out.println(i.numToWordsFloat(f));
+	}
+	
+	
 	
 	
 	

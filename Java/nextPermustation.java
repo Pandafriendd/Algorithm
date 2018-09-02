@@ -20,7 +20,8 @@ public class nextPermustation {
 	//2. 找到该降序的位置，在其之后找到比它大的数中最小的数，
 	//3. 交换位置，然后 Arrays.sort(nums, index, nums.len)
 	//注意各种边界情况!!!!
-	public void Solution(int[] nums) {
+	// O(nlogn)
+	public void nextPermutation(int[] nums) {
 		if(nums.length <= 1 || nums == null) //!!! nums.len <= 1 !!	
 			return ;
 		
@@ -50,6 +51,46 @@ public class nextPermustation {
 		
 	}
 	
+	// O(n)
+	public void nextPermutationMineImproved(int[] nums) {
+		if(nums.length <= 1 || nums == null)
+			return;
+		
+		int index = nums.length - 1;
+		while(index - 1 >= 0 && nums[index] <= nums[index - 1]) {
+			index--;
+		}
+		if(index == 0) {
+			reverseArray(nums, 0, nums.length - 1);
+			return;
+		}
+		
+		int swapindex = index;
+		int smallest = Integer.MAX_VALUE;
+		for(int i = nums.length - 1; i >= index; i--) {
+			if(nums[i] > nums[index - 1] && smallest > nums[i] - nums[index - 1]) {
+				smallest = nums[i] - nums[index - 1];
+				swapindex = i;
+			}
+		}
+		swap(nums, index - 1, swapindex);
+		reverseArray(nums, index, nums.length - 1);	
+	}
+	
+	private void reverseArray(int[] nums, int start, int end) {
+		while(start < end) {
+			swap(nums, start, end);
+			start++;
+			end--;
+		}
+	}
+	
+	private void swap(int[] num, int i, int j) {
+        int t = num[i];
+        num[i] = num[j];
+        num[j] = t;
+    }
+	
 	 /**
      * O(n) Time
      * Move pointer to second last element of ascending order 
@@ -57,12 +98,14 @@ public class nextPermustation {
      * Swap these two elements
      * Reverse the order from the next index
      */
-    public void nextPermutation(int[] num) {
+    public void nextPermutation2(int[] num) {
         if (num == null || num.length == 0) return;
         for (int i = num.length - 2; i >= 0; i--) {
             if (num[i] < num[i + 1]) {
                 int j = num.length - 1;
-                for (; j > i; j--) if (num[j] > num[i]) break;
+                for (; j > i; j--) 
+                	if (num[j] > num[i]) 
+                		break;
                 swap(num, i, j);
                 reverse(num, i + 1);
                 return;
@@ -72,11 +115,7 @@ public class nextPermustation {
         return;
     }
     
-    private void swap(int[] num, int i, int j) {
-        int t = num[i];
-        num[i] = num[j];
-        num[j] = t;
-    }
+    
     
     private void reverse(int[] num, int s) {
         int e = num.length - 1;
@@ -139,7 +178,7 @@ public class nextPermustation {
 	public static void main(String[] args) {
 		nextPermustation n = new nextPermustation();
 		int[] a = {6,5,4,8,7,5,1}, b = {1,2,3};
-		n.Solution(b);
+		n.nextPermutation2(b);
 		System.out.println(Arrays.toString(b));
 	}
 }
