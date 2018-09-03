@@ -47,6 +47,10 @@ enum Result {
     TRUE, FALSE
 }
 
+/*
+problem: 
+1. a** valid?
+ */
 public class RegularExpressionMatching {
 	
 	/*
@@ -87,9 +91,7 @@ We proceed with the same recursion as in Approach 1, instead of call match(text[
 we use dp(i, j) to handle those calls , saving us expensive string-building operations and allowing us to cache the intermediate results.
 	 */
 	
-	//Top-Down Variation 
-	
-
+	//Top-Down Variation
     public boolean isMatch2(String text, String pattern) {
     	Result[][] memo = new Result[text.length() + 1][pattern.length() + 1];
         return dp(0, 0, text, pattern, memo);
@@ -122,6 +124,7 @@ we use dp(i, j) to handle those calls , saving us expensive string-building oper
     
     
     //Bottom-Up Variation
+    //Time: O(M*N), let M,N be the lengths of the text and the pattern respectively
     public boolean isMatch3(String text, String pattern) {
         boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
         dp[text.length()][pattern.length()] = true;
@@ -131,15 +134,52 @@ we use dp(i, j) to handle those calls , saving us expensive string-building oper
                 boolean first_match = (i < text.length() &&
                                        (pattern.charAt(j) == text.charAt(i) ||
                                         pattern.charAt(j) == '.'));
-                if (j + 1 < pattern.length() && pattern.charAt(j+1) == '*'){
-                    dp[i][j] = dp[i][j+2] || first_match && dp[i+1][j];
+                if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*'){
+                    dp[i][j] = dp[i][j + 2] || first_match && dp[i + 1][j];
                 } 
                 else {
-                    dp[i][j] = first_match && dp[i+1][j+1];
+                    dp[i][j] = first_match && dp[i + 1][j + 1];
                 }
             }
         }
         return dp[0][0];
+    }
+    
+    //Bootom-up 2
+    public boolean isMatch4(String text, String pattern) {
+    	boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
+    	dp[0][0] = true;
+    	
+    	// deals with text is empty string and patterns like a* or a*b* or a*b*c*
+    	for(int i = 1; i < dp[0].length; i++) {
+    		if(pattern.charAt(i - 1) == '*') {
+    			dp[0][i] = dp[0][i - 2];
+    		}
+    	}
+    	
+    	for(int i = 1; i < dp.length; i++) {
+    		for(int j = 1; j < dp[0].length; j++) {
+    			if(pattern.charAt(j - 1) == '.' || pattern.charAt(j - 1) == text.charAt(i - 1)) {
+    				dp[i][j] = dp[i - 1][j - 1];
+    			}
+    			else if(pattern.charAt(j - 1) == '*') {
+    				dp[i][j] = dp[i][j - 2]; // 0 occurrence
+    				if(pattern.charAt(j - 2) == '.' || pattern.charAt(j - 2) == text.charAt(i - 1)) {
+    					dp[i][j] = dp[i][j] | dp[i - 1][j];
+    				}
+    			}
+    			else {
+    				dp[i][j] = false;
+    			}
+    		}
+    	}
+    	
+    	return dp[text.length()][pattern.length()];
+    }
+    
+    public static void main(String[] args) {
+    	RegularExpressionMatching r = new RegularExpressionMatching();
+    	System.out.println(r.isMatch4("aaaasfdsdfasdfsasdasdsa", ".*"));
     }
     
 }

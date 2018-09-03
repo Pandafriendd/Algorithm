@@ -13,7 +13,7 @@ public class BinaryTreePreorderTraversal {
 		}
 	}
 	
-	//recursive1
+	//recursive1 time O(n)  space O(nlogn)
 	public List<Integer> preorderTraversal(TreeNode root){
 		List<Integer> res = new ArrayList<>();
 		if(root != null) {
@@ -24,16 +24,20 @@ public class BinaryTreePreorderTraversal {
 		return res;
 	}
 	
-	//recursive2
+	//recursive2 time O(n)  space O(n)	
 	public List<Integer> preorderTraversal2(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        if (root == null)
-            return res;
-        res.add(root.val);
-        res.addAll(preorderTraversal(root.left));
-        res.addAll(preorderTraversal(root.right));
+		List<Integer> res = new ArrayList<>();
+        dfs(res, root);
         return res;
     }
+	private void dfs(List<Integer> res, TreeNode node) {
+		if(node == null)
+			return;
+		
+		res.add(node.val);
+		dfs(res, node.left);
+		dfs(res, node.right);
+	}
 	
 	// Pre Order Traverse
 		public List<Integer> preorderTraversal3(TreeNode root) {
