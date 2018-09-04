@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class BinaryTreeInorderTraversal {
 	public class TreeNode{
 		int val;
@@ -39,6 +40,78 @@ public class BinaryTreeInorderTraversal {
 		}
 		return res;
 	}
+	
+	/*
+	how to tackle various tree questions using iterative inorder traversal. First one is the standard iterative inorder traversal using stack.
+	 */
+	public List<Integer> inorderr(TreeNode root) {
+		List<Integer> res = new ArrayList<>();
+		Stack<TreeNode> s = new Stack<>();
+		TreeNode cur = root;
+				
+		while(cur != null || !s.isEmpty()) {
+			while(cur != null) {
+				s.push(cur);
+				cur = cur.left;				
+			}
+			TreeNode node = s.pop();
+			res.add(node.val);
+			cur = node.right;
+		}
+		
+		return res;
+	}
+	
+	/*
+	 * Validate Binary Search Tree
+	 */
+	public boolean isValidBST(TreeNode root) {
+		if(root == null)
+			return true;
+		 
+		Stack<TreeNode> s = new Stack<>();
+		TreeNode pre = null;
+		TreeNode cur = root;
+		
+		while(!s.isEmpty() || cur != null) {
+			while(cur != null) {
+				s.push(cur);
+				cur = cur.left;
+			}
+			
+			TreeNode node = s.pop();
+			if(pre != null && node.val <= pre.val)
+				return false;
+			pre = node;
+			cur = node.right;
+		}
+		
+		return true;
+	}
+	
+	/*
+	 * Kth Smallest Element in a BST
+	 */
+	public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> s = new Stack<>();
+        TreeNode cur = root;
+        
+        while(!s.isEmpty() || cur != null) {
+        	while(cur != null) {
+        		s.push(cur);
+        		cur = cur.left;
+        	}
+        	
+        	TreeNode node = s.pop();
+        	if(--k == 0) {
+        		cur = node;
+        		break;
+        	}
+        	cur = node.right;
+        }
+        
+        return cur.val;
+    }
 	
 	
 	
