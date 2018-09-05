@@ -90,7 +90,7 @@ public class MergekSortedLists {
             cur.next = queue.poll();
             cur = cur.next;
             if (cur.next != null) 
-            	queue.add(cur.next); // the chosen list should move forward 
+            	queue.add(cur.next); // the chosen node in that list should move forward 
         }
         return head.next;
     }

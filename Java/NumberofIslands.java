@@ -44,8 +44,8 @@ Space complexity : worst case O(M¡ÁN) in case that the grid map is filled with l
 	    int nc = grid[0].length;
 	    int num_islands = 0;
 	    
-	    for (int r = 0; r < nr; ++r) {
-	      for (int c = 0; c < nc; ++c) {
+	    for (int r = 0; r < nr; r++) {
+	      for (int c = 0; c < nc; c++) {
 	        if (grid[r][c] == '1') {
 	          num_islands++;
 	          dfs(grid, r, c);
@@ -89,33 +89,34 @@ Space complexity :  O(min(M,N)) because in worst case where the grid is filled w
 		    int nc = grid[0].length; // nc = 3
 		    int num_islands = 0;
 
-		    for (int r = 0; r < nr; ++r) {
-		      for (int c = 0; c < nc; ++c) {
-		        if (grid[r][c] == '1') {
+		    for (int r = 0; r < nr; r++) {
+		      for (int c = 0; c < nc; c++) {
+		        if (grid[r][c] == '1') { // !!
 		          num_islands++;
 		          grid[r][c] = '0'; // mark as visited
 		          
 		          Queue<Integer> neighbors = new LinkedList<>();
-		          neighbors.add(r * nc + c); // ?? !! 0 1 2 3 4 5 6 7 8 9 10 11
+		          neighbors.add(r * nc + c); // !! 0 1 2 3 4 5 6 7 8 9 10 11. r * nc + c is the id of node in the grid
+		          
 		          while (!neighbors.isEmpty()) {
 		            int id = neighbors.remove();
-		            int row = id / nc;
+		            int row = id / nc;   // !!! nc
 		            int col = id % nc;
-		            if (row - 1 >= 0 && grid[row-1][col] == '1') { //search upward and mark adjacent '1's as '0'.
-		              neighbors.add((row-1) * nc + col);
-		              grid[row-1][col] = '0';
+		            if (row - 1 >= 0 && grid[row - 1][col] == '1') { //search upward and mark adjacent '1's as '0'.
+		              neighbors.add((row - 1) * nc + col); // add the neighbor's id
+		              grid[row - 1][col] = '0';
 		            }
-		            if (row + 1 < nr && grid[row+1][col] == '1') { //down
-		              neighbors.add((row+1) * nc + col);
-		              grid[row+1][col] = '0';
+		            if (row + 1 < nr && grid[row + 1][col] == '1') { //down  < nr !!!
+		              neighbors.add((row + 1) * nc + col);
+		              grid[row + 1][col] = '0';
 		            }
-		            if (col - 1 >= 0 && grid[row][col-1] == '1') { //left
-		              neighbors.add(row * nc + col-1);
-		              grid[row][col-1] = '0';
+		            if (col - 1 >= 0 && grid[row][col - 1] == '1') { //left
+		              neighbors.add(row * nc + col - 1);
+		              grid[row][col - 1] = '0';
 		            }
-		            if (col + 1 < nc && grid[row][col+1] == '1') { //rifht
-		              neighbors.add(row * nc + col+1);
-		              grid[row][col+1] = '0';
+		            if (col + 1 < nc && grid[row][col + 1] == '1') { //right
+		              neighbors.add(row * nc + col + 1);
+		              grid[row][col + 1] = '0';
 		            }
 		          }
 		        }

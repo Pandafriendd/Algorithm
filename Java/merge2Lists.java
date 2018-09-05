@@ -68,8 +68,8 @@ public class merge2Lists {
 			return l1;
 		
 		// maintain an unchanging reference to node ahead of the return node.
-		ListNode res = new ListNode(-1);
-		ListNode pre = res;
+		ListNode dummy = new ListNode(-1);
+		ListNode pre = dummy;
 		
 		while(l1 != null && l2 != null) {
 			if(l1.val < l2.val) {
@@ -86,6 +86,6 @@ public class merge2Lists {
 			pre.next = l1;
 		if(l2 != null)
 			pre.next = l2;
-		return res.next;
+		return dummy.next;
 	}
 }
