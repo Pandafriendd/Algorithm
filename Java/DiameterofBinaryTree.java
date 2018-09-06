@@ -37,6 +37,7 @@ public class DiameterofBinaryTree {
 	//we have already stored the max value in diameter variable.
 	
 	// space o(height of tree), worse case o(n)
+	
 	int max = 0;
     
     public int diameterOfBinaryTree(TreeNode root) {

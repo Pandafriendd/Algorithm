@@ -26,7 +26,7 @@ Then we insert 2 into the sorted array to form [1,2,3,6].
 Due to the O(n) complexity of ArrayList insertion, it takes O(N^2) in the worst case
 	 */
 	public List<Integer> countSmaller(int[] nums) {
-	    Integer[] res = new Integer[nums.length];
+	    Integer[] res = new Integer[nums.length];  //!! should be integer array
 	    List<Integer> sorted = new ArrayList<Integer>();
 	    for (int i = nums.length - 1; i >= 0; i--) {
 	        int index = findIndex(sorted, nums[i]);
