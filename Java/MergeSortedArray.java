@@ -1,4 +1,4 @@
-/*
+ /*
 Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
 
 Note:
@@ -30,7 +30,7 @@ public class MergeSortedArray {
 			}
 		}
 		
-		//still elements in nums2.
+		//if i reaches 0 first, still elements in nums2
 		while(j >= 0) {
 			nums1[k--] = nums2[j--];
 		}

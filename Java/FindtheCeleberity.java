@@ -11,8 +11,12 @@ Note: There will be exactly one celebrity if he/she is in the party.
 Return the celebrity's label if there is a celebrity in the party. 
 If there is no celebrity, return -1.
  */
+
+
 public class FindtheCeleberity {
 	/*
+保证有解的情况下一遍过，不保证有解第一遍选出candidate，第二遍验证
+
 The first pass is to pick out the candidate. If candidate knows i, then switch candidate. 
 The second pass is to check whether the candidate is real.
 	 */

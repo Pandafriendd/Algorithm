@@ -21,7 +21,6 @@ public class BinarySearchTreeIterator {
 I use Stack to store directed left children from root.
 When next() be called, I just pop one element and process its right child as new root.
 The code is pretty straightforward.
-
 So this can satisfy O(h) memory, hasNext() in O(1) time, next() is O(1) time.
 	 */
 	private Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -56,8 +55,8 @@ The implementation of BST iterator is very similar to binary search tree Inorder
 Inorder using stack and two while loop. However, in the iterator, the first while condition become hasNext() and the code inside the first while condition become next().
  */
 public List<Integer> inorderTraversal(TreeNode root) {
-    Stack<TreeNode> stack = new Stack();
-    List<Integer> res = new ArrayList();
+    Stack<TreeNode> stack = new Stack<>();
+    List<Integer> res = new ArrayList<>();
     while (root != null || !stack.isEmpty()) {
         while (root != null) {
             stack.push(root);
