@@ -54,15 +54,22 @@ if neither p and q exist in Tree rooted at root, then return null
 if only one of p or q (NOT both of them), exists in Tree rooted at root, return it
 	 */
 	 public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
-	        if(root == null || root == p || root == q)  
-	        	return root;
+		 if(root == null || p == root || q == root)
+	            return root;
+	        
 	        TreeNode left = lowestCommonAncestor(root.left, p, q);
 	        TreeNode right = lowestCommonAncestor(root.right, p, q);
 	        
-	        if(left != null && right != null)   
-	        	return root;
-	        
-	        return left != null ? left : right;
+	        if(left == null && right != null) { // both on right
+	            return right;
+	        }
+	        if(right == null && left != null) { // both on left
+	            return left;
+	        }
+	        if(right == null && left == null) { // not in left and right
+	            return null;
+	        }
+	        return root; // right != null && left != null, one in left, one in right
 	    }
 	 
 	 public TreeNode lowestCommonAncestor22(TreeNode root, TreeNode p, TreeNode q) {
