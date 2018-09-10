@@ -38,4 +38,100 @@ public class JumpGame {
         
         return false;
     }
+	
+	// also greedy
+	public boolean canJump66(int[] nums) {
+        int lastPos = nums.length - 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (i + nums[i] >= lastPos) {
+                lastPos = i;
+            }
+        }
+        return lastPos == 0;
+    }
+	
+	
+	/*
+Approach 1: Backtracking
+This is the inefficient solution where we try every single jump pattern that takes us from the first position to the last. 
+We start from the first position and jump to every index that is reachable. We repeat the process until last index is reached. When stuck, backtrack.
+Time: O(2^n). There are 2^n​ (upper bound) ways of jumping from the first position to the last, where n is the length of array nums
+Space complexity: O(n). Recursion requires additional memory for the stack frames.
+	 */
+	public boolean canJumpFromPosition(int position, int[] nums) {
+		if(position == nums.length - 1) {
+			return true;
+		}
+		
+		int furthest = Math.min(position + nums[position], nums.length - 1);
+		for(int nextp = position + 1; nextp <= furthest; nextp++) {
+			if(canJumpFromPosition(nextp, nums)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean canJump2(int[] nums) {
+		return canJumpFromPosition(0, nums);
+	}
+	
+	/*
+Approach 2: Dynamic Programming Top-down
+	 */
+	enum Index {
+	    GOOD, BAD, UNKNOWN
+	}
+	
+	Index[] memo;
+
+    public boolean canJumpFromPosition3(int position, int[] nums) {
+        if (memo[position] != Index.UNKNOWN) {
+            return memo[position] == Index.GOOD ? true : false;
+        }
+
+        int furthestJump = Math.min(position + nums[position], nums.length - 1);
+        for (int nextPosition = position + 1; nextPosition <= furthestJump; nextPosition++) {
+            if (canJumpFromPosition(nextPosition, nums)) {
+                memo[position] = Index.GOOD;
+                return true;
+            }
+        }
+
+        memo[position] = Index.BAD;
+        return false;
+    }
+
+    public boolean canJump3(int[] nums) {
+        memo = new Index[nums.length];
+        for (int i = 0; i < memo.length; i++) {
+            memo[i] = Index.UNKNOWN;
+        }
+        memo[memo.length - 1] = Index.GOOD;
+        return canJumpFromPosition3(0, nums);
+    }
+    
+    /*
+Dynamic Programming Bottom-up
+     */
+    public boolean canJump4(int[] nums) {
+        Index[] memo = new Index[nums.length];
+        for (int i = 0; i < memo.length; i++) {
+            memo[i] = Index.UNKNOWN;
+        }
+        memo[memo.length - 1] = Index.GOOD;
+
+        for (int i = nums.length - 2; i >= 0; i--) {
+            int furthestJump = Math.min(i + nums[i], nums.length - 1);
+            for (int j = i + 1; j <= furthestJump; j++) {
+                if (memo[j] == Index.GOOD) {
+                    memo[i] = Index.GOOD;
+                    break;
+                }
+            }
+        }
+
+        return memo[0] == Index.GOOD;
+    }
 }
