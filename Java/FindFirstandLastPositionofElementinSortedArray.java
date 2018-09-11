@@ -22,34 +22,63 @@ public class FindFirstandLastPositionofElementinSortedArray {
 		if(nums == null || nums.length == 0)
 			return res;
 		
-		int index = BS(nums,0, nums.length - 1, target);
+		int index = binarySearch(nums,0, nums.length - 1, target);
 		if(index != -1) {
 			int left = index;
 			int right = index;
 			res[0] = left;
 			res[1] = right;
-			while((left = BS(nums, 0, left - 1, target)) != -1)
+			while((left = binarySearch(nums, 0, left - 1, target)) != -1)
 				res[0] = left;
-			while((right = BS(nums, right + 1, nums.length - 1, target)) != -1)
+			while((right = binarySearch(nums, right + 1, nums.length - 1, target)) != -1)
 				res[1] = right;
 		}
 		
 		return res;
 	}
 	
-	private int BS(int[] nums, int leftIndex, int rightIndex, int target) {  // 
-		while(leftIndex <= rightIndex){
-			int midIndex = leftIndex + (rightIndex - leftIndex) / 2;
-			if(nums[midIndex] == target)
-				return midIndex;
-			else if(nums[midIndex] > target)
-				rightIndex = midIndex - 1;
-			else
-				leftIndex = midIndex + 1;
+	private int binarySearch(int[] nums, int left, int right, int target) {
+		while(left <= right) {  // !!!! <=
+			int mid = left + (right - left) / 2;
+			if(nums[mid] == target) {
+				return mid;
+			}
+			else if(nums[mid] < target) {
+				left = mid + 1;
+			}
+			else { // nums[mid] > target
+				right = mid - 1;
+			} 
 		}
+		
 		return -1;
 	}
 	
+	
+	
+	// trickyyyyyy!!!!
+	public int[] searchRange2222(int[] nums, int target) {
+        double left = target - 0.5, right = target + 0.5; // !!!!
+        int l = bs(nums, left);
+        int r = bs(nums, right);
+        
+        if(l == r) 
+        	return new int[]{-1, -1};
+        
+        return new int[] {l, r - 1};
+	}
+    
+	public int bs(int[] nums, double target) {
+        int l = 0, h = nums.length - 1;
+        while(l <= h){
+            int m = l + (h - l) / 2;
+            if(target > nums[m]) 
+            	l = m + 1;
+            else 
+            	h = m - 1;
+        }
+        return l;
+	}
 	
 	 /**
      * Suppose we have a binary search helper method
@@ -62,19 +91,19 @@ public class FindFirstandLastPositionofElementinSortedArray {
     public int[] searchRange2(int[] A, int target) {
         int[] range = {-1, -1};
         if (A == null || A.length == 0) return range;
-        int index = binarySearch(A, 0, A.length - 1, target);
+        int index = binarySearch1(A, 0, A.length - 1, target);
         if (index != -1) {
             int left = index;
             int right = index;
             range[0] = left; // if no more occurrence, set left and right first
             range[1] = right;
-            while ((left = binarySearch(A, 0, left - 1, target)) != -1) range[0] = left;
-            while ((right = binarySearch(A, right + 1, A.length - 1, target))  != -1) range[1] = right;
+            while ((left = binarySearch1(A, 0, left - 1, target)) != -1) range[0] = left;
+            while ((right = binarySearch1(A, right + 1, A.length - 1, target))  != -1) range[1] = right;
         }
         return range;
     }
     
-    private int binarySearch(int[] A, int left, int right, int target) {
+    private int binarySearch1(int[] A, int left, int right, int target) {
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (A[mid] == target) return mid;
