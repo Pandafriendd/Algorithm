@@ -59,4 +59,64 @@ public class AllPossibleFullBinaryTrees {
         }
         return res;
     }
+	
+	
+	
+	public List<TreeNode> allPossibleFBT2(int N) {
+        if (N % 2 == 0 || N < 0) return Collections.emptyList();
+        return dfs(N);
+    }
+    
+    private List<TreeNode> dfs(int N) {
+        if (N == 1) { 
+            return Arrays.asList(new TreeNode(0));
+        } 
+        List<TreeNode> rootList = new ArrayList<TreeNode>();
+        for (int n = 1; n < N - 1; n += 2) {
+            List<TreeNode> left = dfs(n);
+            List<TreeNode> right = dfs(N - n - 1);
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(0);
+                    root.left = l;
+                    root.right = r;
+                    rootList.add(root);
+                }
+            }   
+        }
+        return rootList;
+    }
+    
+    // using map
+    private Map<Integer, List<TreeNode>> map = new HashMap<Integer, List<TreeNode>>();
+    
+    public List<TreeNode> allPossibleFBT222(int N) {
+        
+        if (N % 2 == 0 || N < 0) return Collections.emptyList();
+        return dfs222(N);
+    }
+    
+    private List<TreeNode> dfs222(int N) {
+        if (map.containsKey(N)) {
+            return map.get(N);
+        }
+        if (N == 1) { 
+            return Arrays.asList(new TreeNode(0));
+        } 
+        List<TreeNode> rootList = new ArrayList<TreeNode>();
+        for (int n = 1; n < N - 1; n += 2) {
+            List<TreeNode> left = dfs222(n);
+            List<TreeNode> right = dfs222(N - n - 1);
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(0);
+                    root.left = l;
+                    root.right = r;
+                    rootList.add(root);
+                }
+            }   
+        }
+        map.put(N, rootList);
+        return rootList;
+    }
 }
