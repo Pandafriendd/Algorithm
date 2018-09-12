@@ -1,16 +1,14 @@
 /*
 A full binary tree is a binary tree where each node has exactly 0 or 2 children.
-
 Return a list of all possible full binary trees with N nodes.  Each element of the answer is the root node of one possible tree.
-
 Each node of each tree in the answer must have node.val = 0.
-
 You may return the final list of trees in any order.
+1 <= N <= 20
 
 Example 1:
-
 Input: 7
 Output: [[0,0,0,null,null,0,0,null,null,0,0],[0,0,0,null,null,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,null,null,null,null,0,0],[0,0,0,0,0,null,null,0,0]]
+
 
  */
 import java.util.*;
@@ -61,34 +59,39 @@ public class AllPossibleFullBinaryTrees {
     }
 	
 	
-	
+	// 
 	public List<TreeNode> allPossibleFBT2(int N) {
-        if (N % 2 == 0 || N < 0) return Collections.emptyList();
-        return dfs(N);
+        if (N % 2 == 0 || N < 0) 
+        	return Collections.emptyList();
+        
+        return dfs(N); // return the list of treenode
     }
     
     private List<TreeNode> dfs(int N) {
         if (N == 1) { 
             return Arrays.asList(new TreeNode(0));
         } 
+        
         List<TreeNode> rootList = new ArrayList<TreeNode>();
         for (int n = 1; n < N - 1; n += 2) {
+        	
             List<TreeNode> left = dfs(n);
             List<TreeNode> right = dfs(N - n - 1);
+            
             for (TreeNode l : left) {
                 for (TreeNode r : right) {
-                    TreeNode root = new TreeNode(0);
-                    root.left = l;
-                    root.right = r;
-                    rootList.add(root);
+                    TreeNode cur = new TreeNode(0);
+                    cur.left = l;
+                    cur.right = r;
+                    rootList.add(cur);
                 }
             }   
         }
         return rootList;
     }
     
-    // using map
-    private Map<Integer, List<TreeNode>> map = new HashMap<Integer, List<TreeNode>>();
+    // using map to cache calculations
+    private Map<Integer, List<TreeNode>> map = new HashMap<Integer, List<TreeNode>>();  // N ==> RootList of N
     
     public List<TreeNode> allPossibleFBT222(int N) {
         

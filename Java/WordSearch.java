@@ -22,9 +22,11 @@ public class WordSearch {
      * Remember position in matched word
      */
     public static boolean dfs(char[][] board, int i, int j, String word, int n) {
-        if (word.length() == n) return true;
+        if (word.length() == n) 
+        	return true;
         // outside board or doesn't match
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(n)) return false;
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(n)) 
+        	return false;
         board[i][j] = '#'; // mark 
         // search 4 connectivity
         boolean res = dfs(board, i - 1, j, word, n + 1) || dfs(board, i + 1, j, word, n + 1) || dfs(board, i, j - 1, word, n + 1) || dfs(board, i, j + 1, word, n + 1);
@@ -41,11 +43,49 @@ public class WordSearch {
         if (word.length() == 0) 
         	return true;
 
-        for (int i = 0; i < board.length; i++)
+        for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++)
                 if (board[i][j] == word.charAt(0)) { // match the first char
-                    if (dfs(board, i, j, word, 0)) return true;
+                    if (dfs(board, i, j, word, 0)) 
+                    	return true;
                 }
+        }
+        
         return false;
+    }
+    
+    // my code
+    public boolean exist1(char[][] board, String word) {
+        if(word == null || word.length() == 0 || board == null) {
+            return true;
+        }
+        
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if(board[i][j] == word.charAt(0) && dfss(board, i, j, word, 0))  // !!!!
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean dfss(char[][] board, int row, int col, String word, int pos) {
+        if(pos == word.length()) {
+            return true;
+        }
+        if(row < 0 || row > board.length - 1 || col < 0 || col > board[0].length - 1 || board[row][col] != word.charAt(pos)) {
+            return false;
+        }
+        
+        char temp = board[row][col];
+        board[row][col] = '*';
+        
+        boolean res = dfss(board, row + 1, col, word, pos + 1) || dfss(board, row - 1, col, word, pos + 1) 
+            || dfss(board, row, col + 1, word, pos + 1) || dfss(board, row, col - 1, word, pos + 1);
+        
+        board[row][col] = temp;
+        
+        return res;
     }
 }
