@@ -143,86 +143,91 @@ Space: O(M * N) as required by UnionFind data structure
 
 https://leetcode.com/problems/number-of-islands/discuss/56354/1D-Union-Find-Java-solution-easily-generalized-to-other-problems
 	   */
-	  	class UnionFind {
-		    int count; // # of connected components
-		    int[] parent;
-		    int[] rank;
+	  class UnionFind {
+	        int[] farther;  //!!
+	        int[] rank;
+	        int count;  // # of set
+	        
+	        // constructor, initialize farther and rank
+	        public UnionFind(char[][] grid) {
+	            int nr = grid.length;
+	            int nc = grid[0].length;
+	            
+	            farther = new int[nr * nc];
+	            rank = new int[nr * nc];
+	            count = 0;  // # of set
+	            
+	            for(int row = 0; row < nr; row++) {
+	                for(int col = 0; col < nc; col++) {
+	                    if(grid[row][col] == '1') {  //!! when encounter a 1, then we create a new set
+	                        farther[row * nc + col] = row * nc + col;  // initialized as itself
+	                        count++;   // initially count = # of nodes
+	                    }
+	                    rank[row * nc + col] = 0; // initialize as 0 for all nodes
+	                }
+	            }
+	        }
+	        
+	        public int find(int index) {
+	            if(farther[index] != index) {  // path compression
+	                farther[index] = find(farther[index]);
+	            }
+	            
+	            return farther[index];
+	        }
+	        
+	        public void union(int node1, int node2) { // union with rank
+	            int farther1 = find(node1);
+	            int farther2 = find(node2); //!!
+	            if(farther1 != farther2) {  // if two nodes are in different set
+	                if(rank[farther1] < rank[farther2]) { //!!!
+	                    //farther[node1] = node2;   
+	                    farther[farther1] = farther2;  // !!! should change the farther!!! set farther to be larger rank node's farther
+	                }
+	                else if(rank[farther1] > rank[farther2]) {
+	                    farther[farther2] = farther1;
+	                }
+	                else { // f2 == f1, pick node1 to be farther
+	                    farther[farther2] = farther1;
+	                    rank[farther1]++; //!!
+	                }
+	                count--;   // union two sets into one, so count--
+	            }
+	        }
+	        
+	        public int getCount() {
+	            return count;
+	        }
+	    }
 
-		    public UnionFind(char[][] grid) { // for problem 200
-		      count = 0;
-		      int m = grid.length;
-		      int n = grid[0].length;
-		      parent = new int[m * n];
-		      rank = new int[m * n];
-		      for (int i = 0; i < m; ++i) {
-		        for (int j = 0; j < n; ++j) {
-		          if (grid[i][j] == '1') {
-		            parent[i * n + j] = i * n + j;
-		            ++count;
-		          }
-		          rank[i * n + j] = 0;
-		        }
-		      }
-		    }
-
-		    public int find(int i) { // path compression
-		      if (parent[i] != i) 
-		        parent[i] = find(parent[i]);
-		      return parent[i];
-		    }
-
-		    public void union(int x, int y) { // union with rank
-		      int rootx = find(x);
-		      int rooty = find(y);
-		      if (rootx != rooty) {
-		        if (rank[rootx] > rank[rooty]) {
-		          parent[rooty] = rootx;
-		        } 
-		        else if (rank[rootx] < rank[rooty]) {
-		          parent[rootx] = rooty;
-		        } 
-		        else {
-		          parent[rooty] = rootx; rank[rootx] += 1;
-		        }
-		        --count;
-		      }
-		    }
-
-		    public int getCount() {
-		      return count;
-		    }
-		  }
-
-		  public int numIslands3(char[][] grid) {
-		    if (grid == null || grid.length == 0) {
-		      return 0;
-		    }
-
-		    int nr = grid.length;
-		    int nc = grid[0].length;
-
-		    UnionFind uf = new UnionFind(grid);
-		    for (int r = 0; r < nr; ++r) {
-		      for (int c = 0; c < nc; ++c) {
-		        if (grid[r][c] == '1') {
-		          grid[r][c] = '0';
-		          if (r - 1 >= 0 && grid[r-1][c] == '1') { //up
-		            uf.union(r * nc + c, (r-1) * nc + c);
-		          }
-		          if (r + 1 < nr && grid[r+1][c] == '1') { //down
-		            uf.union(r * nc + c, (r+1) * nc + c);
-		          }
-		          if (c - 1 >= 0 && grid[r][c-1] == '1') { //left
-		            uf.union(r * nc + c, r * nc + c - 1);
-		          }
-		          if (c + 1 < nc && grid[r][c+1] == '1') { //right
-		            uf.union(r * nc + c, r * nc + c + 1);
-		          }
-		        }
-		      }
-		    }
-
-		    return uf.getCount();
-		  }
-
+	    public int numIslands3333(char[][] grid) {
+	        if(grid == null || grid.length == 0 || grid[0].length == 0)
+	            return 0;
+	        
+	        int nr = grid.length;
+	        int nc = grid[0].length;
+	        UnionFind uf = new UnionFind(grid);
+	        
+	        for(int i = 0; i < nr; i++) {
+	            for(int j = 0; j < nc; j++) {
+	                if(grid[i][j] == '1') {
+	                    grid[i][j] = '0'; // mark as visited
+	                    if(i + 1 < nr && grid[i + 1][j] == '1') {
+	                        uf.union(i * nc + j, (i + 1) * nc + j);  // union right 
+	                    }
+	                    if(i - 1 >= 0 && grid[i - 1][j] == '1') {
+	                        uf.union(i * nc + j, (i - 1) * nc + j);  // union left 
+	                    }
+	                    if(j + 1 < nc && grid[i][j + 1] == '1') { // union down 
+	                        uf.union(i * nc + j, i * nc + j + 1);
+	                    }
+	                    if(j - 1 >= 0 && grid[i][j - 1] == '1') { // union up 
+	                        uf.union(i * nc + j, i * nc + j - 1);
+	                    }
+	                }
+	            }
+	        }
+	        
+	        return uf.getCount();        
+	    }
 }
