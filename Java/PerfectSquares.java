@@ -62,6 +62,9 @@ space: O(n)
 	
 	/*
 Java BFS implementation: Start from node 0 in queue, and keep pushing in perfect square number + curr value, once we reach number n, we found the solution.
+level (depth) 1: using 1 square number
+level 2: using 2 square numbers,
+level 3: using 3 square numbers
 	 */
 	public int numSquares2(int n) {
 	    Queue<Integer> q = new LinkedList<>();
