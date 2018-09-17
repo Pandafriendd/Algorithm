@@ -65,16 +65,19 @@ public class ValidateBinarySearchTree {
      * another recursive
      * handles the min and max value using Long type, which can handle the input [Integer.MIN_VALUE] or [Integer.MAX_VALUE]
      */
-    public boolean isValidBST0(TreeNode root) {
-        return isValidBST0(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    public boolean isValidBST000(TreeNode root) {
+        return valid(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-    
-    public boolean isValidBST0(TreeNode root, long minVal, long maxVal) {
-        if (root == null) 
-        	return true;
-        if (root.val >= maxVal || root.val <= minVal) 
-        	return false;
-        return isValidBST0(root.left, minVal, root.val) && isValidBST0(root.right, root.val, maxVal);
+    private boolean valid(TreeNode node, long min, long max) {
+        if(node == null)
+            return true;
+        if(node.val <= min || node.val >= max)
+            return false;
+        
+        boolean left = valid(node.left, min, node.val);
+        boolean right = valid(node.right, node.val, max);
+        
+        return left && right;
     }
     
     /*
@@ -95,10 +98,10 @@ public class ValidateBinarySearchTree {
 			}
 			
 			TreeNode node = s.pop();
-			if(pre != null && pre.val >= node.val)
+			if(pre != null && pre.val >= node.val)  // !!! pre != null means first node (most left node) has not previous node
 				return false;
-			pre = node;
-			cur = node.right;
+			pre = node;  // !!!
+			cur = node.right;  // !!
 		}
 		
 		return true;

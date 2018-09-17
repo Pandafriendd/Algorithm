@@ -24,6 +24,12 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
  */
 public class FloodFill {
 	
+	
+	/*
+DFS
+Time Complexity: O(N), where N is the number of pixels in the image. We might process every pixel.
+Space Complexity: O(N), the size of the implicit call stack when calling color
+	 */
 	public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
         if(image == null || image.length == 0|| image[0].length == 0)
         	return new int [image.length][image[0].length];
@@ -49,7 +55,7 @@ public class FloodFill {
 				color(image, sr, sc - 1, newColor, oldColor);
 			}
 			if(sc + 1 < image[0].length && image[sr][sc + 1] == oldColor) {  // right
-				color(image, sr - 1, sc, newColor, oldColor);
+				color(image, sr, sc + 1, newColor, oldColor);
 			}
 			
 		}
