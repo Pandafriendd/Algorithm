@@ -60,7 +60,7 @@ public class KthLargestElementinanArray {
 			if(nums[i++] > pivot)
 				swap(nums, --i, --j); //--i makes sure we can still check a[i] after the swap, and --j makes sure we won't overwrite the ones that are already done.
 		}
-		swap(nums, i, high);
+		swap(nums, i, high);  // now i is the position of pivot
 		
 		//how many elements were greater than pivot
 		if(i == k) // pivot is the one!

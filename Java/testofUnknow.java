@@ -49,7 +49,47 @@ public class testofUnknow {
 		set.contains(1); 
 		*/
 		
-		System.out.println(Math.sqrt(10));
+		/*
+		 * System.out.println(Math.sqrt(10));
+		 */
+		int[] a = new int[] {2,1,7,9,10,8,6};
+		
+		int b = quickSelect(a, 0, a.length - 1, 5);
+		
+		System.out.println(b);
+	}
+	
+	private static int quickSelect(int[] nums, int low, int high, int k) {
+		int i = low, j = high, pivot = nums[high];
+		
+		//partition numbers into either side of pivot
+		while(i < j) {
+			System.out.println("i=" + i + " " + "j=" + j + " " + Arrays.toString(nums));
+			if(nums[i++] > pivot) {
+				swap(nums, --i, --j);
+				System.out.println("swap!");
+			}
+			
+		}
+		swap(nums, i, high);
+		
+		
+		
+		if(i == k) {
+			System.out.println("Final: " + "i=" + i + " " + "j=" + j + " " + Arrays.toString(nums));
+			//return i;
+			return nums[i];
+		}
+		else if(i > k) 
+			return quickSelect(nums, low, i - 1, k);
+		else 
+			return quickSelect(nums, i + 1, high, k);
+	}
+	
+	private static void swap(int[] nums, int i, int j) {
+		int t = nums[i];
+		nums[i] = nums[j];
+		nums[j] = t;
 	}
 	
 }

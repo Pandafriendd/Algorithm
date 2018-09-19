@@ -21,9 +21,60 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
  */
 public class MedianofTwoSortedArrays {
+	
+	/*
+	 using quickSelect
+	 idea: concatenate two arrays into one, and then do quickSelect to find median
+	 
+	 */
+	public double findMedianSortedArrays2222(int[] nums1, int[] nums2) {
+        int n = nums1.length + nums2.length;
+        int[] nums = new int[n];
+        
+        //O(len1 + len2)
+        System.arraycopy(nums1, 0, nums, 0, nums1.length);       
+        System.arraycopy(nums2, 0, nums, nums1.length, nums2.length);
+        
+        // quickselect takes O(n)
+        return (quickSelect(nums, 0, nums.length - 1, (n - 1) / 2) + quickSelect(nums, 0, nums.length - 1, n / 2)) * 0.5;  // do it one line for both odd and even cases
+    }
+    
+	
+	// return the element at index k
+    private double quickSelect(int[] nums, int low, int high, int k) {  // k is index of median in nums
+        int i = low;
+        int j = high;
+        int pivot = nums[high];
+        
+        while(i < j) {
+            if(nums[i++] > pivot) {
+                swap(nums, --i, --j);
+            }
+        }
+        swap(nums, high, i);
+        
+        if(i == k)
+            return nums[i];
+        else if(i > k)
+            return quickSelect(nums, low, i - 1, k);
+        else
+            return quickSelect(nums, i + 1, high, k);
+    }
+    
+    private static void swap(int[] nums, int i, int j) {
+		int t = nums[i];
+		nums[i] = nums[j];
+		nums[j] = t;
+	}
+	
+	
+	
+	
+	
 	/*
 	 approach: merge two arrays into one, depending on len is odd or even, return the median accordingly
-	 time: O(m + n)  space: O(m + n)
+	 time: O(m + n), need to traverse nums1 and nums2
+	 space: O(m + n)
 	 */
 	public double findMedianSortedArrays0(int[] nums1, int[] nums2) {
 		int[] nums;
@@ -45,31 +96,34 @@ public class MedianofTwoSortedArrays {
 		}
 		
 		// merge two arrays into one
-		int count = 0;
+		int index = 0;
 		int i = 0, j = 0; // index for nums1 and nums2
-		while(count < (m + n)){
+		while(index < (m + n)){
+			
 			if(i == m) { // nums1 is done
 				while(j < n)
-					nums[count++] = nums2[j++];
+					nums[index++] = nums2[j++];
 				break;
 			}
+			
 			if(j == n) { //nums2 is done
 				while(i < m)
-					nums[count++] = nums1[i++];
+					nums[index++] = nums1[i++];
 				break;
 			}
+			
 			if(nums1[i] < nums2[j]) {
-				nums[count++] = nums1[i++];
+				nums[index++] = nums1[i++];
 			}
 			else
-				nums[count++] = nums2[j++];
+				nums[index++] = nums2[j++];
 		}
 		
 		// get median depending on len is odd or even
-		if(count % 2 == 0)
-			return (nums[count / 2 - 1] + nums[count / 2]) / 2.0;
+		if(index % 2 == 0)
+			return (nums[index / 2 - 1] + nums[index / 2]) / 2.0;
 		else
-			return nums[count / 2];
+			return nums[index / 2];
 	}
 	
 	/*
@@ -83,7 +137,7 @@ public class MedianofTwoSortedArrays {
 	    int m = nums2.length;
 	    int left = (n + m + 1) / 2;
 	    int right = (n + m + 2) / 2;
-	    //combine odd and even to one return, if odd it will calculate the same k twice
+	    //combine odd and even to one return, if odd it will calculate the same k (left = right) twice
 	    return (getKth(nums1, 0, n - 1, nums2, 0, m - 1, left) + getKth(nums1, 0, n - 1, nums2, 0, m - 1, right)) * 0.5;  
 	}
 	    
@@ -91,16 +145,21 @@ public class MedianofTwoSortedArrays {
 	    private int getKth(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) {
 	        int len1 = end1 - start1 + 1;  // len of nums1
 	        int len2 = end2 - start2 + 1; // len of nums2
+	        
+	        
 	        //let len1 is always smaller so that if one array is empty, it should only be nums1
-	        if (len1 > len2) return getKth(nums2, start2, end2, nums1, start1, end1, k);
-	        if (len1 == 0) return nums2[start2 + k - 1];
+	        if (len1 > len2) 
+	        	return getKth(nums2, start2, end2, nums1, start1, end1, k);
+	        if (len1 == 0) 
+	        	return nums2[start2 + k - 1];
 
-	        if (k == 1) return Math.min(nums1[start1], nums2[start2]);  // end condition
+	        if (k == 1) // end condition
+	        	return Math.min(nums1[start1], nums2[start2]);  
 
-	        int i = start1 + Math.min(len1, k / 2) - 1; // get index of k/2th element in nums1, if k/2 > len, get the last element in num1 
+	        int i = start1 + Math.min(len1, k / 2) - 1; // get index of k/2th element in nums1, if k/2 > len, get the last element in num1 !!!! - 1
 	        int j = start2 + Math.min(len2, k / 2) - 1; // get index of k/2th element in nums2
 
-	        if (nums1[i] > nums2[j]) { // exclude 1th to k/2th elements in nums2
+	        if (nums1[i] > nums2[j]) { // exclude 1th...k/2th elements in nums2
 	            return getKth(nums1, start1, end1, nums2, j + 1, end2, k - (j - start2 + 1)); // j - start2 + 1: the number of element excluded, then we need to find (k - n)th element
 	        }
 	        else {

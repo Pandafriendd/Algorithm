@@ -6,7 +6,7 @@ public class QSort {
 			return;
 		int pivotIndex = (low + high) / 2; //set pivot index
 		swap(nums, pivotIndex, high); // put pivot to the last position
-		int k = partition(nums, low, high, nums[high]);
+		int k = partition2(nums, low, high, nums[high]);
 		swap(nums, k, high);
 		QuickSort(nums, low, k - 1);//left subarray
 		QuickSort(nums, k + 1, high);//right subarray
@@ -20,6 +20,18 @@ public class QSort {
 				high--;
 			swap(nums, low, high);
 		}
+		return low;
+	}
+	
+	//return index, another partition method
+	int partition2(int[] nums, int low, int high, int pivot) {
+		while(low < high) {
+			if(nums[low++] > pivot) {
+				swap(nums, --low, --high);
+			}
+		}
+		swap(nums, low, high);
+		
 		return low;
 	}
 	
