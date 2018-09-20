@@ -141,7 +141,7 @@ public class MedianofTwoSortedArrays {
 	    return (getKth(nums1, 0, n - 1, nums2, 0, m - 1, left) + getKth(nums1, 0, n - 1, nums2, 0, m - 1, right)) * 0.5;  
 	}
 	    
-		// get Kth element in two ascending arrays from start index to end index
+		// get Kth (k begins from 1) element in two ascending arrays from start index to end index
 	    private int getKth(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) {
 	        int len1 = end1 - start1 + 1;  // len of nums1
 	        int len2 = end2 - start2 + 1; // len of nums2
