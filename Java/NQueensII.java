@@ -1,16 +1,89 @@
 /*
  * The n-queens puzzle is the problem of placing n queens on an n¡Án chessboard such that no two queens attack each other.
  * a solution requires that no two queens share the same row, column, or diagonal
+ * 
+ * Example:
+
+Input: 4
+Output: 2
+Explanation: There are two distinct solutions to the 4-queens puzzle as shown below.
+[
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
  */
 
 
 import java.util.*;
 public class NQueensII {
+	
+	
 	public static void main(String[] args) {
-        System.out.println(totalNQueens(2));
-        System.out.println(totalNQueens(3));
-        System.out.println(totalNQueens(4));
-        System.out.println(totalNQueens(8));
+//        System.out.println(totalNQueens(2));
+//        System.out.println(totalNQueens(3));
+//        System.out.println(totalNQueens(4));
+//        System.out.println(totalNQueens(8));
+		
+		NQueensII n = new NQueensII();
+		System.out.println(n.totalNQueens0(4));
+	}
+	
+	
+	
+	/*
+my solution based on choosing, exploring, unchoosing
+we also can do without global variable
+	 */
+	
+    //int cnt = 0;
+	public int totalNQueens0(int n) {
+
+		HashSet<Integer> colSet = new HashSet<>();  // column
+	    HashSet<Integer> d1Set = new HashSet<>();  // 45 diagonal
+	    HashSet<Integer> d2Set = new HashSet<>(); // 135 diagonal
+	    
+        //nQueensHelper(0, n, colSet, d1Set, d2Set);
+        int cnt = nQueensHelper(0, n, 0, colSet, d1Set, d2Set);
+        
+        return cnt;
+    }
+    
+    public int nQueensHelper(int row, int n, int count, HashSet<Integer> colSet, HashSet<Integer> d1Set, HashSet<Integer> d2Set) {
+    	// base cases
+        if(row == n) {  // !!!!! should == n, if (row == n - 1) is wrong since n - 1 still not being try
+        	count++;
+        }
+        
+        // recursive cases
+        else {
+            for(int col = 0; col < n; col++) {                    	
+                // constraints
+            	if(!colSet.contains(col) && !d1Set.contains(row + col) && !d2Set.contains(row - col)) {
+            		
+            		// choose
+                    colSet.add(col);
+                    d1Set.add(row + col);
+                    d2Set.add(row - col);
+                    
+                    // explore
+                    count = nQueensHelper(row + 1, n, count, colSet, d1Set, d2Set);
+                    
+                    // unchoose
+                    colSet.remove(col);
+                    d1Set.remove(row + col);
+                    d2Set.remove(row - col);
+            	}
+            }
+        }
+        
+        return count;
     }
     
 	/**

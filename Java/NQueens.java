@@ -9,6 +9,66 @@ import java.util.*;
 
 public class NQueens {
 	
+	// my solution
+	public List<List<String>> solveNQueens(int n) {
+        char[][] board = new char[n][n];
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                board[i][j] = '.';
+            }
+        }
+        
+        List<List<String>> res = new ArrayList<>();
+        
+        helper(board, 0, res);
+        
+        return res;
+    }
+    
+    private void helper(char[][] board, int col, List<List<String>> res) {
+        // base cases
+        if(col == board.length) {
+            res.add(construct(board));
+        }
+        // recursive cases
+        else {
+            for(int row = 0; row < board.length; row++) {
+                if(isValid(row, col, board)) {
+                    board[row][col] = 'Q';
+                    helper(board, col + 1, res);
+                    board[row][col] = '.';
+                }
+            }
+        }
+    }
+    
+    private boolean isValid(int row, int col, char[][] board) {
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if(board[i][j] == 'Q' && (i == row || j == col || i + j == row + col || i - j == row - col)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    private List<String> construct(char[][] board) {
+        List<String> list = new ArrayList<>();
+        
+        for(int i = 0; i < board.length; i++) {
+            String s = new String(board[i]);
+            list.add(s);
+        }
+        
+        return list;
+    }
+    
+    
+    
+    //**********************************************
+	
 	public List<List<String>> solveNQueens(int n) {
         char[][] board = new char[n][n];
         for(int i = 0; i < n; i++)
