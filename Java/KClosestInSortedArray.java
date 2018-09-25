@@ -16,6 +16,9 @@ A = {1, 4, 6, 8}, T = 3, K = 3, return {4, 1, 6}
 
 
 public class KClosestInSortedArray {
+	
+	
+	// time: O(logn + k)  if k is too large, say k >> n, it will take O(k), which is linear time
 	public int[] kClosest(int[] array, int target, int k) {
 	    // Write your solution here
 	    return binarySearch(array, target, k);
@@ -46,6 +49,19 @@ public class KClosestInSortedArray {
 	    }  
 	    return res;
 	  }
+	  
+	  // follow up: k is too large
+	  /**
+	   * use the idea that solves kth smallest in two sorted array
+	   * 1. binarySearch to find left and right
+	   * 2. split to two arrays: A[0 ... left], B[right ... len - 1], 
+	   * 3. calculate Math.abs(A/B[i] - target) to find distance to target, and A and B will be a sorted array
+	   * 4. find kth smallest in two sorted array ???
+	   * 
+	   * Time: O(logn + logk)
+	   */
+	  
+	  
 	  
 	  public static void main(String[] args) {
 		  KClosestInSortedArray k = new KClosestInSortedArray();
