@@ -55,8 +55,8 @@ public class KClosestInSortedArray {
 	   * use the idea that solves kth smallest in two sorted array
 	   * 1. binarySearch to find left and right
 	   * 2. split to two arrays: A[0 ... left], B[right ... len - 1], 
-	   * 3. calculate Math.abs(A/B[i] - target) to find distance to target, and A and B will be a sorted array
-	   * 4. find kth smallest in two sorted array ???
+	   * 3. calculate Math.abs(A/B[i] - target) to find distance to target, and A and B will be sorted arrays
+	   * 4. find kth smallest in two sorted array 
 	   * 
 	   * Time: O(logn + logk)
 	   */
