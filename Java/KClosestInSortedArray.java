@@ -30,7 +30,7 @@ public class KClosestInSortedArray {
 	    
 	    while(l < r - 1) {
 	      int mid = l + (r - l) / 2; 
-	      if(array[mid] >= target) {
+	      if(array[mid] > target) {
 	        r = mid;
 	      }
 	      else { // array[mid] < target
@@ -66,5 +66,6 @@ public class KClosestInSortedArray {
 	  public static void main(String[] args) {
 		  KClosestInSortedArray k = new KClosestInSortedArray();
 		  k.kClosest(new int[] {1,3,3,6,9,9,12,15}, 10, 5);
+		  // try this case: t = -3, a= {1,3,5}
 	  }
 }
