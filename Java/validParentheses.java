@@ -31,7 +31,7 @@ class Solution {
 
 // Input:"{[]}"
 class Solution {
-    public boolean isValid(String s) {
+    public static boolean isValid(String s) {
         if(s == null || s.length() == 0)
             return true;
         
@@ -44,12 +44,7 @@ class Solution {
             if(stack.isEmpty())
                 stack.push(s.charAt(i));
             else {
-                if(stack.peek() == '(' && s.charAt(i) != ')' || 
-                   stack.peek() == '[' && s.charAt(i) != ']' || 
-                   stack.peek() == '{' && s.charAt(i) != '}') {
-                    return false;
-                }
-                else if(stack.peek() == '(' && s.charAt(i) == ')' || 
+                if(stack.peek() == '(' && s.charAt(i) == ')' || 
                         stack.peek() == '[' && s.charAt(i) == ']' || 
                         stack.peek() == '{' && s.charAt(i) == '}') {
                     stack.pop();
