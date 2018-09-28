@@ -4,12 +4,12 @@ public class QSort {
 	void QuickSort(int[] nums, int low, int high) {
 		if(high <= low)
 			return;
-		int pivotIndex = (low + high) / 2; //set pivot index
-		swap(nums, pivotIndex, high); // put pivot to the last position
-		int k = partition2(nums, low, high, nums[high]);
-		swap(nums, k, high);
-		QuickSort(nums, low, k - 1);//left subarray
-		QuickSort(nums, k + 1, high);//right subarray
+		int mid = (low + high) / 2; //set pivot index to be mid
+		swap(nums, mid, high); // put pivot to the last position
+		int index = partition2(nums, low, high, nums[high]);
+		swap(nums, index, high);
+		QuickSort(nums, low, index - 1);//left subarray
+		QuickSort(nums, index + 1, high);//right subarray
 	}
 	
 	int partition(int[] nums, int low, int high, int pivot) {
