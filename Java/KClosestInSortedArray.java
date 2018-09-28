@@ -38,7 +38,7 @@ public class KClosestInSortedArray {
 	      }
 	    }
 	    
-	    // now l is largest smaller than or equal to target, r is l + 1
+	    // now l is largest smaller than or equal to target, or l could be the smallest larger than target.  r is l + 1
 	    int i = 0;
 	    while(i < k) { // move left pointer smaller if 1. right pointer is already out of bound 2. right isn't out, left isn't out, and array[left] is closer to target 
 	    	if(r >= array.length || l >= 0 && target - array[l] < array[r] - target) {   // !!!!!!! this condition very important 
@@ -65,7 +65,8 @@ public class KClosestInSortedArray {
 	  
 	  public static void main(String[] args) {
 		  KClosestInSortedArray k = new KClosestInSortedArray();
-		  k.kClosest(new int[] {1,3,3,6,9,9,12,15}, 10, 5);
+		  //k.kClosest(new int[] {1,3,3,6,9,9,12,15}, 10, 5);
 		  // try this case: t = -3, a= {1,3,5}
+		  k.kClosest(new int[] {1,3,5,7,9}, -4, 3);
 	  }
 }
