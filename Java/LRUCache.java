@@ -7,6 +7,8 @@ it should invalidate the least recently used item before inserting a new item.
 
 Follow up:
 Could you do both operations in O(1) time complexity?
+
+
  */
 
 import java.util.*;
@@ -35,6 +37,9 @@ Without performance constraint, one can come up with many "simple" solutions,
 such as simply using vector<pair<int,int>> in C++ to store key-value pairs ordered by history. However, both get and set have O(capacity) complexity.
 The HashTable cache here provides a quick look-up from key to linked node in O(1) time, which is very critical to the required performance
 
+why not just use java.util.LinkedList?
+since remove is linear time, not a good fit
+
 Node that although the linked list maintains the order of history when a node was added, 
 it does not offer the random access capability to visit any given node because a list is a referenced based container (not random access container like array). 
 Without hash table, one has to linearly traverse through the linked list to locate a specific node, which will violate the performance requirement.
@@ -54,12 +59,66 @@ The beauty of defining our own Double Linked List is that:
 		int value;
 		DLinkedNode pre;
 		DLinkedNode post;
+		
+		public DLinkedNode(int key, int value) {
+			this.key = key;
+			this.value = value;
+		}
 	}
 	
-	private Hashtable<Integer, DLinkedNode> cache = new Hashtable<>();
-	private int count;
+	private Hashtable<Integer, DLinkedNode> cache = new Hashtable<>();  // key ==> Node
+	private int currentSize;
 	private int capacity;
-	private DLinkedNode head, tail;
+	private DLinkedNode head, tail;  // head and tail are dummy head and dummy tail
+	
+	public LRUCache(int capacity) {
+		this.currentSize = 0;
+		this.capacity = capacity;
+		
+		head = new DLinkedNode(-1, -1);  // since actual nodes' key are always positive, we use -1 to mark dummy nodes
+		head.pre = null;
+		
+		tail = new DLinkedNode(-1, -1);
+		tail.post = null;
+		
+		head.post = tail;
+		tail.pre = head;
+	}
+	
+	public int get(int key) {
+		DLinkedNode node = cache.get(key);
+		if(node == null) {
+			return -1;   // or raise exception 
+		}
+		else {
+			// if hit, move the accessed node to the head;
+			this.moveToHead(node);
+			return node.value;
+		}
+	}
+	
+	public void put(int key, int value) {
+		DLinkedNode node = cache.get(key);		
+		if(node == null) {
+			DLinkedNode newNode = new DLinkedNode(key, value);
+			
+			this.cache.put(key, newNode);
+			this.addNode(newNode);
+			currentSize++;
+			
+			if(currentSize > capacity) {  // need to evict least recently cache
+				// pop the tail (least recently cache)
+				DLinkedNode tail = this.popTail();
+				this.cache.remove(tail.key);
+				currentSize--;
+			}
+		}
+		else {  
+			// update the value and move to head
+			node.value = value;
+			this.moveToHead(node);
+		}
+	}
 	
 	/*
 	 * Always add the new node right after head;
@@ -100,56 +159,16 @@ The beauty of defining our own Double Linked List is that:
 		return res;
 	}
 	
-	public LRUCache(int capacity) {
-		this.count = 0;
-		this.capacity = capacity;
-		
-		head = new DLinkedNode();
-		head.pre = null;
-		
-		tail = new DLinkedNode();
-		tail.post = null;
-		
-		head.post = tail;
-		tail.pre = head;
-	}
 	
-	public int get(int key) {
-		DLinkedNode node = cache.get(key);
-		if(node == null)
-			return -1;   // or raise exception 
-		
-		// if hit, move the accessed node to the head;
-		this.moveToHead(node);
-		
-		return node.value;
-	}
 	
-	public void put(int key, int value) {
-		DLinkedNode node = cache.get(key);
-		
-		if(node == null) {
-			DLinkedNode newNode = new DLinkedNode();
-			newNode.key = key;
-			newNode.value = value;
-			
-			this.cache.put(key, newNode);
-			this.addNode(newNode);
-			count++;
-			
-			if(count > capacity) {
-				// pop the tail (least recently cache)
-				DLinkedNode tail = this.popTail();
-				this.cache.remove(tail.key);
-				count--;
-			}
-		}
-		else {
-			// update the value and move to head
-			node.value = value;
-			this.moveToHead(node);
-		}
-	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// Solution using Java's LinkedHashMap
     public class LRUCache2 {
