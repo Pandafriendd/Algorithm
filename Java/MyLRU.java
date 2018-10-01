@@ -51,7 +51,7 @@ public class MyLRU {
         Node node = map.get(key);
         if(node != null) {
             node.value = value;
-            map.put(key, node);
+            // map.put(key, node);  doesn't need since node.value modify heap!
             moveToHead(node);
         }
         else {  // node == null
@@ -62,8 +62,8 @@ public class MyLRU {
                 currentSize++;
             }
             else {
-                int tailKey = removeNodeFromTail();
-                map.remove(tailKey);
+                Node actualTail = removeNodeFromTail();
+                map.remove(actualTail.key);
                 addNodeToHead(node);
                 map.put(key, node);
             }
@@ -92,7 +92,7 @@ public class MyLRU {
         next.prev = node;
     }
     
-    public int removeNodeFromTail() {
+    public Node removeNodeFromTail() {
         Node realTail = this.tail.prev;
         /*
         Node prev = realTail.prev;
@@ -100,6 +100,6 @@ public class MyLRU {
         this.tail.prev = prev;
         */
         removeNode(realTail);
-        return realTail.key;
+        return realTail;
     }
 }

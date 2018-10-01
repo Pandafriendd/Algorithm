@@ -52,11 +52,14 @@ public class testofUnknow {
 		/*
 		 * System.out.println(Math.sqrt(10));
 		 */
-		int[] a = new int[] {2,1,7,9,10,8,6};
+//		int[] a = new int[] {2,1,7,9,10,8,6};
+//		
+//		int b = quickSelect(a, 0, a.length - 1, 5);
+//		
+//		System.out.println(b);
 		
-		int b = quickSelect(a, 0, a.length - 1, 5);
-		
-		System.out.println(b);
+		String s = " ";
+		System.out.println(s.length());
 	}
 	
 	private static int quickSelect(int[] nums, int low, int high, int k) {

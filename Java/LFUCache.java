@@ -45,6 +45,8 @@ public class LFUCache {
         }
     }
     
+    
+    
     int capacity, size, min;
     Map<Integer, Node> nodeMap;
     Map<Integer, DLList> countMap;
@@ -56,7 +58,8 @@ public class LFUCache {
     
     public int get(int key) {
         Node node = nodeMap.get(key);
-        if (node == null) return -1;
+        if (node == null) 
+        	return -1;
         update(node);
         return node.val;
     }
@@ -88,7 +91,8 @@ public class LFUCache {
     private void update(Node node) {
         DLList oldList = countMap.get(node.cnt);
         oldList.remove(node);
-        if (node.cnt == min && oldList.size == 0) min++; 
+        if (node.cnt == min && oldList.size == 0) 
+        	min++; 
         node.cnt++;
         DLList newList = countMap.getOrDefault(node.cnt, new DLList());
         newList.add(node);
