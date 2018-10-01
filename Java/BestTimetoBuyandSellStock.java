@@ -44,6 +44,22 @@ public class BestTimetoBuyandSellStock {
 		return maxprofit;
 	}
 	
+	public int maxProfit0000(int[] prices) {
+        if(prices == null || prices.length <= 1) {
+            return 0;
+        }
+        
+        int min = prices[0];
+        int max = Integer.MIN_VALUE;
+        for(int i = 1; i < prices.length; i++) {
+            max = Math.max(max, prices[i] - min > 0 ? prices[i] - min : 0);
+            min = Math.min(min, prices[i]);
+        }
+        
+        return max;
+        
+    }
+	
 	//Approach 2: one pass
 	// we need to find the largest peak following the smallest valley. We can maintain two variables, 
 	// minprice and maxprofit, corresponding with the smallest valley and maximum profit 
@@ -79,7 +95,8 @@ public class BestTimetoBuyandSellStock {
         int min = Integer.MAX_VALUE; // track the minimum of profit array before cur element
         for (int i = 1; i < prices.length; i++) { // note that i starts from 1
             min = Math.min(min, prices[i]); // update min
-            if (prices[i] > prices[i - 1]) max = Math.max(max, prices[i] - min);
+            if (prices[i] > prices[i - 1]) 
+            	max = Math.max(max, prices[i] - min);
         }
         return max;
     }
