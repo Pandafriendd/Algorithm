@@ -37,8 +37,42 @@ public class PopulatingNextRightPointersinEachNodeII {
 		}
 	}
 	
+	
+	/*
+my solution time: O(n) space: O(n)
+	 */
+	public void connect0(TreeLinkNode root) {
+        if(root == null || root.left == null && root.right == null) {
+            return;
+        }
+        
+        Queue<TreeLinkNode> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()) {
+            int size = q.size();   // # of node in current level
+            TreeLinkNode prev = null;  // keep track of previous node of current node in current level 
+            while(size > 0) {
+                TreeLinkNode node = q.poll();
+                size--;
+                if(node.left != null) {
+                    q.offer(node.left);
+                }
+                if(node.right != null) {
+                    q.offer(node.right);
+                }
+                
+                // set next pointer
+                if(prev != null) {
+                    prev.next = node;
+                }
+                prev = node;
+            }
+        }
+    }
+	
+	
 	 /**
-	 * dfs
+	 * bfs
      * Store the head of next level
      * Store previous node 
      * Do level order traversal with a pointer

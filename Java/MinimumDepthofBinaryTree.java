@@ -60,8 +60,8 @@ public class MinimumDepthofBinaryTree {
         q.add(root);
         int level = 1;
         while(!q.isEmpty()) {
-            int size = q.size();
-            while(size > 0) {
+            int size = q.size();  // # of nodes in a specific level
+            while(size > 0) { 
                 TreeNode node = q.remove();
                 size--;
                 if(node.left == null && node.right == null) {
