@@ -12,7 +12,7 @@ public class MergerSort {
 	  }
 	  
 	  private int[] mSort(int[] array, int left, int right) {
-	    if(left == right) {  // base cases
+	    if(left == right) {  // base cases, only one element, we consider one element is sorted, we just return it.
 	      return new int[] {array[left]};
 	    }
 	    else {  // recursive bases
