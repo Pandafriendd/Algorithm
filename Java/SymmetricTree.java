@@ -34,6 +34,23 @@ public class SymmetricTree {
 		return (t1.val == t2.val) && isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
 	}
 	
+	private boolean isSymmetric(TreeNode r1, TreeNode r2) {
+    		if(r1 == null && r2 == null) {
+      			return true;
+    		}
+    		else if(r1 == null) {
+      			return false;
+    		}
+    		else if(r2 == null) {
+      			return false;
+    		}
+    
+    		// both != null
+    		return (r1.key == r2.key) &&
+        		isSymmetric(r1.left, r2.right) &&
+        		isSymmetric(r1.right, r2.left);
+  	}
+	
 	
 	
 	
