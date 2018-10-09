@@ -39,6 +39,41 @@ public class KthLargestElementinanArray {
 		return pq.peek();
 	}
 	
+	// using maxHeap, O(nlogn + klogn) ??
+    public int findKthLargest00(int[] nums, int k) {
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        for(int x : nums) {
+            maxHeap.offer(x);
+        }
+        
+        int res = 0;
+        for(int i = 0; i < k; i++) {
+            res = maxHeap.poll();
+        }
+        
+        return res;
+    }
+    
+    // using minHeap
+    public int findKthLargest000(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();  // store the largest k elements processed so far
+        for(int x : nums) {
+            if(minHeap.size() < k) {
+                minHeap.offer(x);
+            }
+            else {   // size = k
+                if(x > minHeap.peek()) {
+                    minHeap.poll();
+                    minHeap.offer(x);
+                }
+                
+                // x <= minHeap.peek(), ignore
+            }
+        }
+        
+        return minHeap.peek();
+    }
+	
 	/*
 	 use the selection algorithm (based on the partion method - the same one as used in quicksort)
 	 O(n) time
