@@ -82,7 +82,7 @@ For each node,
         int[] colors = new int[graph.length];
         Arrays.fill(colors, -1);
         
-        for (int i = 0; i < graph.length; i++)
+        for (int i = 0; i < graph.length; i++) {
             if (colors[i] == -1) { // uncolored
                 Queue<Integer> q = new LinkedList<>();
                 q.add(i);
@@ -101,6 +101,7 @@ For each node,
                     }
                 }
             }
+        }
         return true;
     }
 }

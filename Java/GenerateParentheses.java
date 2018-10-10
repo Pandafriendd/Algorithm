@@ -3,6 +3,43 @@ import java.util.List;
 
 public class GenerateParentheses {
 	
+	// my solution
+	public List<String> generateParenthesis0000(int n) {
+        List<String> res = new ArrayList<>();
+        if(n < 1) {
+            return res;
+        }
+        StringBuilder sb = new StringBuilder();
+        generateHelper(n, 0, 0, res, sb);
+        
+        return res;
+    }
+    
+    private void generateHelper(int n, int l, int r, List<String> res, StringBuilder sb) {
+        //base case
+        if(sb.length() == 2 * n) {
+            res.add(sb.toString());
+            return;
+        }
+        
+        // recursive rule
+        if(l < n) {
+            sb.append("(");
+            generateHelper(n, l + 1, r, res, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if(r < l) {
+            sb.append(")");
+            generateHelper(n, l, r + 1, res, sb);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        
+    }
+    
+    
+    
+	
+	
 	public List<String> generateParenthesis(int n){
 		List<String> list = new ArrayList<String>();
 		backtrack(list, "", 0, 0, n);
