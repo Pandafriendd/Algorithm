@@ -17,7 +17,7 @@ public class GenerateParentheses {
     
     private void generateHelper(int n, int l, int r, List<String> res, StringBuilder sb) {
         //base case
-        if(sb.length() == 2 * n) {
+        if(sb.length() == 2 * n) {   // l + r == 2 * n also fine
             res.add(sb.toString());
             return;
         }
@@ -61,7 +61,7 @@ public class GenerateParentheses {
 		if(left < n)
 			backtrack(list, s+"(", left + 1, right, n);
 		//the number of right parenthesis less than left parenthesis, add ")" to s
-		if(right < n) //if(right < n) will be wrong answer, if u look at the result, all results have left >= right till last iteration 
+		if(right < left) //if(right < n) will be wrong answer, if u look at the result, all results have left >= right till last iteration 
 			backtrack(list, s+")", left, right+1, n);
 	}
 	
