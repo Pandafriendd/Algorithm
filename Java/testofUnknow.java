@@ -60,6 +60,8 @@ public class testofUnknow {
 		
 		String s = " ";
 		System.out.println(s.length());
+		
+		PriorityQueue<Integer> pq = new PriorityQueue<>();
 	}
 	
 	private static int quickSelect(int[] nums, int low, int high, int k) {
