@@ -131,4 +131,9 @@ public class BinarySearchTreeNode {
 
 		return root;
 	}
+	
+	// delete the node in the BST, return the root after deletion
+	public BinarySearchTreeNode delete(BinarySearchTreeNode root, int key) {
+		
+	}
 }
