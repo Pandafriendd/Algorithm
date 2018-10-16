@@ -134,6 +134,51 @@ public class BinarySearchTreeNode {
 	
 	// delete the node in the BST, return the root after deletion
 	public BinarySearchTreeNode delete(BinarySearchTreeNode root, int key) {
+		if(root == null) {
+			return root;
+		}
+		
+		// first, find target node
+		if(root.key > key) {
+			root.left = delete(root.left, key);
+			return root;
+		}
+		else if(root.key < key) {
+			root.right = delete(root.right, key);
+			return root;
+		}
+		
+		// now root != null && root.key == key
+		if(root.left == null) {
+			return root.right;
+		}
+		else if(root.right == null) {
+			return root.left;
+		}
+		
+		// now root has both left and right child, find the smallest element in right child and set it to replace the deleted position
+		if(root.right.left == null) { // !!!
+			root.right.left = root.left;
+			return root.right;
+		}
+		// now right child has both left and right child
+		BinarySearchTreeNode smallest = findandDeleteSmallest(root.right);
+		smallest.left = root.left;
+		smallest.right = root.right;
+		return smallest;
+	}
+	
+	private BinarySearchTreeNode findandDeleteSmallest(BinarySearchTreeNode root) {
+		BinarySearchTreeNode cur = root;
+		BinarySearchTreeNode pre = null;
+		while(cur.left != null) {
+			pre = cur;
+			cur = cur.left;
+		}
+		
+		// now cur is the left most node, pre is parent of cur
+		pre.left = cur.right;
+		return cur;
 		
 	}
 }
