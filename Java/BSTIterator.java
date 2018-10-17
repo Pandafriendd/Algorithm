@@ -32,11 +32,13 @@ public class BSTIterator {
     }
 
     /** @return whether we have a next smallest number */
+    // O(1) time
     public boolean hasNext() {
         return !queue.isEmpty();
     }
 
     /** @return the next smallest number */
+    // O(1) time
     public int next() {
         if(hasNext()) {
             return queue.poll();

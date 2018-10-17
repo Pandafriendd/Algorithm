@@ -21,7 +21,9 @@ public class BinarySearchTreeIterator {
 I use Stack to store directed left children from root.
 When next() be called, I just pop one element and process its right child as new root.
 The code is pretty straightforward.
-So this can satisfy O(h) memory, hasNext() in O(1) time, next() is O(1) time.
+So this can satisfy O(h) memory, 
+hasNext() in O(1) time, 
+next() is average O(1) time (amortized time complexity O(1))
 	 */
 	private Stack<TreeNode> stack = new Stack<TreeNode>();
     

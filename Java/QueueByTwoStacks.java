@@ -4,36 +4,36 @@ import java.util.*;
 
 public class QueueByTwoStacks {
 	
-	  private Deque<Integer> stack1;  // for offer elements
-	  private Deque<Integer> stack2; // for poll elements
+	  private Deque<Integer> offerStack;  // for offer elements
+	  private Deque<Integer> pollStack; // for poll elements
 	  private int size;
 	  
 	  public QueueByTwoStacks() {
-	    stack1 = new ArrayDeque<>();
-	    stack2 = new ArrayDeque<>();
+	    offerStack = new ArrayDeque<>();
+	    pollStack = new ArrayDeque<>();
 	    size = 0;
 	  }
 	  
 	  public Integer poll() {
-	    if(size == 0) {
+	    if(size == 0) {  // !!
 	      return null;
 	    }
 	    
-	    if(!stack2.isEmpty()) {
+	    if(!pollStack.isEmpty()) {
 	      size--;
-	      return stack2.pop();
+	      return pollStack.pop();
 	    }
 	    else {
-	      while(!stack1.isEmpty()) {
-	        stack2.push(stack1.pop());
+	      while(!offerStack.isEmpty()) {
+	        pollStack.push(offerStack.pop());
 	      }
 	      size--;
-	      return stack2.pop();
+	      return pollStack.pop();
 	    }
 	  }
 	  
 	  public void offer(int value) {
-	    stack1.push(value);
+	    offerStack.push(value);
 	    size++;
 	  }
 	  
@@ -42,14 +42,14 @@ public class QueueByTwoStacks {
 	      return null;
 	    }
 	    
-	    if(!stack2.isEmpty()) {
-	      return stack2.peek();
+	    if(!pollStack.isEmpty()) {
+	      return pollStack.peek();
 	    }
 	    else {
-	      while(!stack1.isEmpty()) {
-	        stack2.push(stack1.pop());
+	      while(!offerStack.isEmpty()) {
+	        pollStack.push(offerStack.pop());
 	      }
-	      return stack2.peek();
+	      return pollStack.peek();
 	    }
 	  }
 	  
