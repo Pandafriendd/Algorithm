@@ -33,4 +33,35 @@ public class Subset {
 	  public static void main(String[] args) {
 		  System.out.println(Arrays.toString(subSets("abc").toArray()));
 	  }
+	  
+	  
+	  
+	  // using pure recursive
+	  public List<String> subSets111(String set) {
+		    List<String> res = new ArrayList<>();
+		    if (set == null) {
+		      return res;
+		    }
+		    
+		    subsetHelper(set, 0, res);
+		    
+		    return res;
+	}
+		  
+	private void subsetHelper(String set, int index, List<String> res) {
+		    
+		    // base case: if set is "" (set.length() == 0), return ""
+		    if (index == set.length()) {
+		      res.add("");
+		      return;
+		    }
+		    
+		    // recursive rule
+		    subsetHelper(set, index + 1, res);
+		    
+		    int size = res.size();
+		    for (int i = 0; i < size; i++) {
+		      res.add(res.get(i) + set.charAt(index));   // not very efficient
+		    }
+	}	  
 }
