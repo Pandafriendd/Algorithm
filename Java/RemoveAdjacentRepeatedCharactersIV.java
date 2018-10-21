@@ -27,7 +27,7 @@ public class RemoveAdjacentRepeatedCharactersIV {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < stack.size(); i++) {
+		while (!stack.isEmpty()) {
 			sb.append(stack.pop());
 		}
 		sb.reverse();

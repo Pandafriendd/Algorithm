@@ -8,6 +8,43 @@ public class permutaionsII {
 	}
 	
 	
+	// the LOF's solution
+	// time: O(n!)  space: O(n^2)
+	public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null) {
+            return res;
+        }
+        
+        helper(nums, res, 0);
+        return res;
+    }
+    
+    private void helper(int[] nums, List<List<Integer>> res, int index) {
+        // base case
+        if (index == nums.length) {
+            List<Integer> list = new ArrayList<>();
+            for (int i : nums) {
+                list.add(i);
+            }
+            res.add(list);
+            return;
+        }
+        
+        // recursive base
+        Set<Integer> set = new HashSet<>();  // make sure the element that swaps to index position is not duplicated
+        for (int i = index; i < nums.length; i++) {
+            if (!set.contains(nums[i])) {
+                set.add(nums[i]);
+                swap(nums, index, i);
+                helper(nums, res, index + 1);
+                swap(nums, index, i);
+            }
+        }
+    }
+    
+    
+	
 	//backtracking
 	public List<List<Integer>> permuteUni(int[] nums) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
