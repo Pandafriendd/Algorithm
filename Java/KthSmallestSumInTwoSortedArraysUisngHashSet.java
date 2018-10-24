@@ -2,7 +2,7 @@
 import java.util.*;
 
 public class KthSmallestSumInTwoSortedArraysUisngHashSet {
-	// time: O(klogk)  space: O(n + m)
+	// time: O(klogk)  space: O(n) n is the # of unique sum of A and B
 	  public int kthSum(int[] A, int[] B, int k) {
 	    PriorityQueue<Cell> minHeap = new PriorityQueue<>(k, new Comparator<Cell>() {
 	      @Override
@@ -14,10 +14,8 @@ public class KthSmallestSumInTwoSortedArraysUisngHashSet {
 	        return c1.sum < c2.sum ? -1 : 1;
 	      }
 	    }); 
-	    // boolean[][] visited = new boolean[A.length][B.length];
 	    HashSet<Cell> visited = new HashSet<>();
 	    minHeap.offer(new Cell(0, 0, A, B));
-	    // visited[0][0] = true;
 	    visited.add(new Cell(0, 0, A, B));
 	    
 	    for (int i = 0; i < k; i++) {
@@ -32,11 +30,9 @@ public class KthSmallestSumInTwoSortedArraysUisngHashSet {
 	        
 	        if (x + 1 < A.length && visited.add(new Cell(x + 1, y, A, B))) {
 	          minHeap.offer(new Cell(x + 1, y, A, B));  // generate
-	          // visited[x + 1][y] = true;
 	        }
 	        if (y + 1 < B.length && visited.add(new Cell(x, y + 1, A, B))) {
 	          minHeap.offer(new Cell(x, y + 1, A, B));  // generate
-	          // visited[x][y + 1] = true;
 	        }
 	      }
 	    }
