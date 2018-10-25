@@ -19,7 +19,8 @@ public class EventTicket {
     
     public static void main(String args[] ) throws Exception {
         
-        Scanner scan = new Scanner(System.in);
+        @SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
         
         int sizeOfWorld = Integer.parseInt(scan.nextLine());
         int numberOfEvents = Integer.parseInt(scan.nextLine());
