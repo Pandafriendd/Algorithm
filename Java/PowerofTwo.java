@@ -1,5 +1,10 @@
 
 public class PowerofTwo {
+	
+	public boolean isPowerOfTwo000(int n) {
+        return ((n & (n - 1)) == 0) && n > 0;
+    }
+	
 	public boolean isPowerOfTwo(int n) {
         if(n == 1) {
             return true;

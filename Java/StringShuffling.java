@@ -4,12 +4,22 @@ import java.util.Arrays;
 	ABCD1234   ->   A1B2C3D4
 	
 	assume the len of input is even number
-	follow up: what if is odd?
+	follow up: what if is odd?  // see if/else below
 	Input: new int[]{1,2,3,4,5} expected [1,3,2,4,5]
 */
 
 public class StringShuffling {
 	
+	public static char[] reorder(char[] array) {
+	    if (array.length % 2 == 0) {
+	      convert(array, 0, array.length - 1);
+	    }
+	    else {
+	      convert(array, 0, array.length - 2);
+	    }
+	    
+	    return array;
+	}
 
 	public static void convert(char[] array, int left, int right) {
 		// base case
