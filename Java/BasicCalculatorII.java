@@ -20,7 +20,7 @@ Do not use the eval built-in library function.
  */
 import java.util.*;
 public class BasicCalculatorII {
-	public int calculate(String s) {
+	public static int calculate(String s) {
 		s = s.replaceAll(" ", ""); //clear the string first, it does not add any time complexity to the original function and therefore has little performance impact.
 		
 		int len = s.length();
@@ -29,7 +29,7 @@ public class BasicCalculatorII {
 		
 		Stack<Integer> stack = new Stack<>();
 		int num = 0;
-		char sign = '+';
+		char preSign = '+';
 		
 		/*
 		 lets say: + a * b - c 
@@ -41,19 +41,19 @@ public class BasicCalculatorII {
 				num = num * 10 + s.charAt(i) - '0';  // numbers in the input can contain multiple digits like 12+3
 			}
 			if(!Character.isDigit(s.charAt(i)) || i == len - 1) {
-				if(sign == '-') {
+				if(preSign == '-') {
 					stack.push(-num);
 				}
-				if(sign == '+') {
+				if(preSign == '+') {
 					stack.push(num);
 				}
-				if(sign == '*') {
+				if(preSign == '*') {
 					stack.push(stack.pop() * num);
 				}
-				if(sign == '/') {
+				if(preSign == '/') {
 					stack.push(stack.pop() / num);
 				}
-				sign = s.charAt(i);
+				preSign = s.charAt(i); // set preSign as curSign
 				num = 0;
 			}
 		}
@@ -68,7 +68,7 @@ public class BasicCalculatorII {
 	
 	
 	// without stack
-	public int calculate2(String s) {
+	public static int calculate2(String s) {
 		s = s.replaceAll("\\s", "");
 		
         if(s == null || s.length() == 0) {
@@ -82,21 +82,21 @@ public class BasicCalculatorII {
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if(Character.isDigit(c)) {
-                int val = c - '0';
-                while(i + 1 < s.length() && Character.isDigit(s.charAt(i+1))) {
-                    val = val * 10 + (s.charAt(i+1) - '0');
+                int curVal = c - '0';
+                while(i + 1 < s.length() && Character.isDigit(s.charAt(i+1))) {  // when i + 1 is op, i stop, now i is last digit
+                	curVal = curVal * 10 + (s.charAt(i+1) - '0');
                     i++;
                 }
                 if (prevOp == '+') {
                     sum += prevNum;
-                    prevNum = val;
+                    prevNum = curVal;
                 } else if (prevOp == '-') {
                     sum += prevNum;
-                    prevNum = -val;
+                    prevNum = -curVal;
                 } else if (prevOp == '*') {
-                    prevNum = prevNum * val;
+                    prevNum = prevNum * curVal;
                 } else if (prevOp == '/') {
-                    prevNum = prevNum/val;
+                    prevNum = prevNum/curVal;
                 }
             } 
             else {
@@ -107,4 +107,9 @@ public class BasicCalculatorII {
         sum += prevNum;
         return sum;
     }
+	
+	public static void main(String[] args) {
+		int res = calculate2("50+20+2+10");
+		System.out.println(res);
+	}
 }
