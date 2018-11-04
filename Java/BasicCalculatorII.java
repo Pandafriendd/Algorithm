@@ -16,7 +16,7 @@ Output: 5
 
 Note:
 You may assume that the given expression is always valid.
-Do not use the eval built-in library function.
+Do not use the eval built-in library function
  */
 import java.util.*;
 public class BasicCalculatorII {
