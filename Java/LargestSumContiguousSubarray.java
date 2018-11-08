@@ -17,7 +17,10 @@ public int maxSubarraySum(int[] nums) {
 }
 
 
-// method2: accumulated sum
+// method2: accumulated sum array
+// [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+// [-2,-1, -4, 0, -1, 1, 2, -3, 1]
+// [-2, 1, -2, 4,  3, 5, 6,  1, 5]
 public int maxSubarraySum2(int[] nums) {
 	int accSum[] = new int[nums.length];
 	int accS = 0;
@@ -31,6 +34,24 @@ public int maxSubarraySum2(int[] nums) {
 	for (int i = 1; i < accSum.length; i++) {
 		maxSum = Math.max(maxSum, accSum[i] - minByFar);
 		minByFar = Math.min(minByFar, accSum[i]);
+	}
+
+	return maxSum;
+}
+
+// O(1) space
+//        [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+// accSum  -2  1  -2  4   3  5  6   1  5   
+// maxSum  -2  1   1  4   4  5  6   6  5
+public int maxSubarraySum(int[] nums) {
+	int maxSum = Integer.MIN_VALUE;
+	int accSum = 0;
+	for (int i = 0; i < nums.length; i++) {
+		accSum += nums[i];
+		maxSum = Math.max(maxSum, accSum);
+		if (accSum < 0) {
+			accSum = 0;
+		}
 	}
 
 	return maxSum;
