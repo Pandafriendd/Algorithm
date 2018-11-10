@@ -44,7 +44,7 @@ public class LargestSumContiguousSubarray {
 	}
 
 	// O(1) space
-    //	        [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+    //	      [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 	// accSum  -2  1  -2  4   3  5  6   1  5   
 	// maxSum  -2  1   1  4   4  5  6   6  6
 	public int maxSubarraySum(int[] nums) {
