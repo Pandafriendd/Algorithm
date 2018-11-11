@@ -30,9 +30,14 @@ public class MaxProductOfCuttingRop {
 	}
 	
 	// method 2: DP
+	// f[i] represents maximal product of cutting rop given the rop's length is i
+	// f[i] = max(max(j, f[j]) * max(i - j, f[i - j])) where 1 <= j <= i - 1
+	// O(n^2) time
 	public int maxProduct2(int length) {
 		int[] f = new int[length + 1];
+		// base case
 		f[1] = 1;
+		// induction rules
 		for (int i = 2; i <= length; i++) {
 			int curMax = Integer.MIN_VALUE;
 			for (int j = 1; j <= i - 1; j++) {  // can be improved to j <= i / 2
@@ -45,4 +50,41 @@ public class MaxProductOfCuttingRop {
 		return f[length];
 	}
 	
+	// another DP
+	public int maxProduct2222(int length) {
+		int[] f = new int[length + 1];
+		// base case
+		f[1] = 1;
+		// induction rules
+		for (int i = 2; i <= length; i++) {
+			int curMax = Integer.MIN_VALUE;
+			for (int j = 1; j <= i - 1; j++) {  // can be improved to j <= i / 2
+				curMax = Math.max(curMax, Math.max(j, f[j]) * i - j);   // !!
+			}
+			f[i] = curMax;
+		}
+		
+		
+		return f[length];
+	}
+	
+	
+	// method 3: Greedy
+	// O(1) time
+	public int maxProduct0000(int length) {
+	    if (length == 2) {
+	      return 1;
+	    } else if (length == 3) {
+	      return 2;
+	    }
+	    
+	    int count = length / 3;
+	    int remain = length % 3;
+	    if (remain == 1) {
+	      return (int) Math.pow(3, count - 1) * 4;  // since 3 * 1 < 4
+	    } else if (remain == 2) {
+	      return (int) Math.pow(3, count) * 2;  // since 3 * 2 > 5
+	    }
+	    return (int) Math.pow(3, count);   
+	}
 }
