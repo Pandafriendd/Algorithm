@@ -59,7 +59,7 @@ public class MaxProductOfCuttingRop {
 		for (int i = 2; i <= length; i++) {
 			int curMax = Integer.MIN_VALUE;
 			for (int j = 1; j <= i - 1; j++) {  // can be improved to j <= i / 2
-				curMax = Math.max(curMax, Math.max(j, f[j]) * i - j);   // !!
+				curMax = Math.max(curMax, Math.max(i - j, f[i - j]) * j);   // Math.max(j, f[j]) * (i - j) also correct
 			}
 			f[i] = curMax;
 		}
