@@ -18,7 +18,8 @@ public class ArrayHopperI {
 	// DP from the last position
 	// M[i] represents if we are able to jump to the last index from index i
 	// base case: M[array,length - 1] = true;
-	// induction rules: M[i] = true if any reachable M[i + j] is true, 1 <= j <= i + array[i], otherwise, M[i] = false
+	// induction rules: M[i] = true if any reachable M[i + j] is true, where 1 <= j <= array[i], 
+	//       otherwise, M[i] = false
 	// time: O(n^2)
 	public boolean canJump(int[] array) {
 		boolean[] M = new boolean[array.length];
