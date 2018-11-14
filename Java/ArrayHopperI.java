@@ -44,7 +44,7 @@ public class ArrayHopperI {
 			}
 		}
 		
-		return maxCanReach >= array.length - 1 ? true : false;
+		return (maxCanReach >= array.length - 1) ? true : false;
 	}
 	
 }
