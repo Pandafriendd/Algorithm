@@ -87,5 +87,28 @@ public class LargestSubArraySum {
 		return new int[] {max, globalStart, globalEnd};
 	}
 	
+	// using prefix sum
+	// sum[i..j] = prefix[j] - prefix[i] + array[i] 
+	//  Wrong!!!!! since when min change, array[minIndex] also change. We should case sum[i..j] = prefix[j] - prefix[i - 1] and handle the edge case
+	public int largestSum000(int[] array) { 
+		int[] prefix = new int[array.length];
+		prefix[0] = array[0];
+		for (int i = 1; i < array.length; i++) {
+			prefix[i] = prefix[i - 1] + array[i];
+		}
+		
+		int max = prefix[0];
+		int min = prefix[0];
+		int minIndex = 0;
+		for (int i = 1; i < prefix.length; i++) {
+			if (min > prefix[i]) {
+				min = prefix[i];
+				minIndex = i;
+			}
+			max = Math.max(max, prefix[i] - min + array[minIndex]);  // Wrong!!!
+		}
+		return max;
+	}
+	
 	
 }
