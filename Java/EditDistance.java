@@ -58,6 +58,88 @@ public class EditDistance {
 		return Math.min(Math.min(replace, delete), insert);
 	}
 	
+	/*
+	 my DP
+	 M[i][j] represents the min edit distance between word1's first i elements (from index 0 to i - 1) and word2's first j elements (from index 0 to j - 1)
+	 base case: 
+	 	both are empty: M[0][0] = 0; 
+	 	or either is empty: M[i][0] = i; M[0][j] = j;
+	 induction rules:
+	 	M[i][j] =  M[i - 1][j - 1], if (word1.charAt(i - 1) == word2.charAt(j - 1)) !!!  be careful about the index!!!
+	 		       min(M[i - 1][j - 1], M[i - 1][j], M[i][j - 1]) + 1, otherwise
+	 
+	 time: O(m * n), space: O(m * n)
+	 */
+	public int editDistance(String word1, String word2) {
+		int[][] M = new int[word1.length() + 1][word2.length() + 1];
+		
+		// handle base case
+		for (int i = 1; i <= word1.length(); i++) {
+			M[i][0] = i;
+		}
+		for (int j = 1; j <= word2.length(); j++) {
+			M[0][j] = j;
+		}
+		
+		for (int i = 1; i <= word1.length(); i++) {
+			for (int j = 1; j <= word2.length(); j++) {
+				if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+					M[i][j] = M[i - 1][j - 1];
+				} else {
+					int replace = M[i - 1][j - 1] + 1;
+					int delete = M[i - 1][j] + 1;
+					int insert = M[i][j - 1] + 1;
+					M[i][j] = Math.min(Math.min(replace, delete), insert);
+				}
+			}
+		}
+		
+		return M[word1.length()][word2.length()];
+	}
+	
+	/*
+	 ?????????
+	 space can be optimized to O(min(m, n)), since for each step we only look up 3 elements in the table (two in last row and one in current row), 
+	 so we only need to keep two rows
+	 */
+	public int editDistance2(String word1, String word2) {
+		// let word1 always has smaller length
+		if (word1.length() > word2.length()) {
+			editDistance2(word2, word1);
+		}
+		
+		if (word1.length() == 0 || word1.isEmpty() || word1 == null) {
+			return word2.length();
+		}
+
+		int[] lastRow = new int[word1.length() + 1];
+		int[] curRow = new int[word1.length() + 1];
+		
+		// handle base case (initialize)
+		for (int j = 1; j <= word1.length(); j++) {
+			lastRow[j] = j;   // !!!!
+		}
+		
+				
+		for (int i = 1; i <= word2.length(); i++) {  // !!! word2
+			curRow[0] = i;  // also base case
+			for (int j = 1; j <= word1.length(); j++) {  // !!! word1
+				if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+					curRow[j] = lastRow[j - 1];
+				} else {
+					int replace = lastRow[j - 1] + 1;
+					int delete = lastRow[j] + 1;
+					int insert = curRow[j - 1] + 1;
+					curRow[j] = Math.min(Math.min(replace, delete), insert);
+				}
+				lastRow = curRow;
+			}
+		}
+		
+		return curRow[word1.length()];
+	}
+	
+	// ********************************************
 	public int minDistance(String word1, String word2) {
 		int m = word1.length();
 		int n = word2.length();
