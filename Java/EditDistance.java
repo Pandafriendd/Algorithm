@@ -98,14 +98,13 @@ public class EditDistance {
 	}
 	
 	/*
-	 ?????????
 	 space can be optimized to O(min(m, n)), since for each step we only look up 3 elements in the table (two in last row and one in current row), 
 	 so we only need to keep two rows
 	 */
 	public int editDistance2(String word1, String word2) {
 		// let word1 always has smaller length
 		if (word1.length() > word2.length()) {
-			editDistance2(word2, word1);
+			return editDistance2(word2, word1);
 		}
 		
 		if (word1.length() == 0 || word1.isEmpty() || word1 == null) {
@@ -124,7 +123,7 @@ public class EditDistance {
 		for (int i = 1; i <= word2.length(); i++) {  // !!! word2
 			curRow[0] = i;  // also base case
 			for (int j = 1; j <= word1.length(); j++) {  // !!! word1
-				if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+				if (word2.charAt(i - 1) == word1.charAt(j - 1)) {
 					curRow[j] = lastRow[j - 1];
 				} else {
 					int replace = lastRow[j - 1] + 1;
@@ -132,7 +131,10 @@ public class EditDistance {
 					int insert = curRow[j - 1] + 1;
 					curRow[j] = Math.min(Math.min(replace, delete), insert);
 				}
-				lastRow = curRow;
+			}
+			// lastRow = curRow;  wrong
+			for (int k = 0; k < lastRow.length; k++) {
+				lastRow[k] = curRow[k];
 			}
 		}
 		
@@ -246,6 +248,12 @@ public class EditDistance {
         }
         
         return d[n];
+    }
+    
+    
+    public static void main(String[] args) {
+    	EditDistance e = new EditDistance();
+    	System.out.print(e.editDistance2("a", ""));
     }
     
 	
