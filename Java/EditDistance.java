@@ -31,6 +31,33 @@ space: O(mn)
  */
 
 public class EditDistance {
+	
+	/*
+	laioffer DFS solution, 3 branches dfs (replace, delete, insert), kind of brute force solution
+	m = w1.len, n =  w2.len 
+	time: O(3^(m + n))  space: O(m + n)
+	 */
+	public int editDFS(String word1, String word2) {
+		// base case
+		if (word1.isEmpty()) {
+			return word2.length();
+		}
+		if (word2.isEmpty()) {
+			return word1.length();
+		}
+		
+		// corner case: when the first elements of w1 and w2 are same
+		if (word1.charAt(0) == word2.charAt(0)) {
+			return editDFS(word1.substring(1), word2.substring(1));
+		}
+		
+		int replace = editDFS(word1.substring(1), word2.substring(1)) + 1;  // + 1!!!!
+		int delete = editDFS(word1.substring(1), word2) + 1;
+		int insert = editDFS(word1, word2.substring(1)) + 1;
+		
+		return Math.min(Math.min(replace, delete), insert);
+	}
+	
 	public int minDistance(String word1, String word2) {
 		int m = word1.length();
 		int n = word2.length();
@@ -138,6 +165,7 @@ public class EditDistance {
         
         return d[n];
     }
+    
 	
 	
 }
