@@ -66,13 +66,13 @@ public class LCAI {
 		TreeNode lchild = LCA(root.left, one, two);
 		TreeNode rchild = LCA(root.right, one, two);
 		
-		if(lchild == null && rchild == null) {
+		if(lchild == null && rchild == null) {  // case 1.1 and 2.1
 			return null;
-		} else if (lchild != null && rchild != null) {
+		} else if (lchild != null && rchild != null) { // case 2.3
 			return root;
 		}
 		
-		return lchild == null ? rchild : lchild;
+		return lchild == null ? rchild : lchild; // case 1.2 and 2.2
 	}
 	
 }
