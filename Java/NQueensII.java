@@ -1,5 +1,5 @@
 /*
- * The n-queens puzzle is the problem of placing n queens on an n¡Án chessboard such that no two queens attack each other.
+ * The n-queens puzzle is the problem of placing n queens on an nÃ—n chessboard such that no two queens attack each other.
  * a solution requires that no two queens share the same row, column, or diagonal
  * 
  * Example:
@@ -45,9 +45,9 @@ we also can do without global variable
     //int cnt = 0;
 	public int totalNQueens0(int n) {
 
-		HashSet<Integer> colSet = new HashSet<>();  // column
-	    HashSet<Integer> d1Set = new HashSet<>();  // 45 diagonal
-	    HashSet<Integer> d2Set = new HashSet<>(); // 135 diagonal
+	HashSet<Integer> colSet = new HashSet<>();  // column
+	HashSet<Integer> d1Set = new HashSet<>();  // 45 diagonal
+	HashSet<Integer> d2Set = new HashSet<>(); // 135 diagonal
 	    
         //nQueensHelper(0, n, colSet, d1Set, d2Set);
         int cnt = nQueensHelper(0, n, 0, colSet, d1Set, d2Set);
@@ -172,10 +172,10 @@ we also can do without global variable
     
     
     /*
-    ³£¹æn-queens½â·¨, Êı´ğ°¸¸öÊı.
-    ÓÃcolumn±ê¼Ç´ËĞĞÖ®Ç°µÄÄÄĞ©columnÒÑ¾­·ÅÖÃÁËqueen. ÆåÅÌ×ø±ê(row, col)¶ÔÓ¦columnµÄµÚcolÎ»(LSB --> MSB, ÏÂÍ¬).
-    ÓÃdiag±ê¼Ç´ËÎ»ÖÃÖ®Ç°µÄÄÄĞ©Ö÷¶Ô½ÇÏßÒÑ¾­·ÅÖÃÁËqueen. ÆåÅÌ×ø±ê(row, col)¶ÔÓ¦diagµÄµÚ(n - 1 + row - col)Î».
-    ÓÃantiDiag±ê¼Ç´ËÎ»ÖÃÖ®Ç°µÄÄÄĞ©¸±¶Ô½ÇÏßÒÑ¾­·ÅÖÃÁËqueen. ÆåÅÌ×ø±ê(row, col)¶ÔÓ¦antiDiagµÄµÚ(row + col)Î».
+    å¸¸è§„n-queensè§£æ³•, æ•°ç­”æ¡ˆä¸ªæ•°.
+    ç”¨columnæ ‡è®°æ­¤è¡Œä¹‹å‰çš„å“ªäº›columnå·²ç»æ”¾ç½®äº†queen. æ£‹ç›˜åæ ‡(row, col)å¯¹åº”columnçš„ç¬¬colä½(LSB --> MSB, ä¸‹åŒ).
+    ç”¨diagæ ‡è®°æ­¤ä½ç½®ä¹‹å‰çš„å“ªäº›ä¸»å¯¹è§’çº¿å·²ç»æ”¾ç½®äº†queen. æ£‹ç›˜åæ ‡(row, col)å¯¹åº”diagçš„ç¬¬(n - 1 + row - col)ä½.
+    ç”¨antiDiagæ ‡è®°æ­¤ä½ç½®ä¹‹å‰çš„å“ªäº›å‰¯å¯¹è§’çº¿å·²ç»æ”¾ç½®äº†queen. æ£‹ç›˜åæ ‡(row, col)å¯¹åº”antiDiagçš„ç¬¬(row + col)ä½.
      */
     int count1 = 0;
     
