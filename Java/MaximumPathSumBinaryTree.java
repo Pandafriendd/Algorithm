@@ -43,6 +43,21 @@ public class MaximumPathSumBinaryTree {
 		return sum;
 	}
 	
-	// optimized
+	// can be optimized since we only need to know sum
+	public void findMaxPath2(TreeNode root, int prefixSum, int[] globalMax) {
+		// base case 1: leaf node's next level (root == null)
+		if (root == null) {
+			return;
+		}
+		// base case2: leaf node
+		if (root.left == null && root.left == null) {
+			globalMax[0] = Math.max(globalMax[0], prefixSum + root.key);  // !!! may be can be optimized to less base case!!!
+			return;
+		}
+		
+		// recursive rules
+		findMaxPath2(root.left, prefixSum + root.key, globalMax);
+		findMaxPath2(root.right, prefixSum + root.key, globalMax);
+	}
 
 }
