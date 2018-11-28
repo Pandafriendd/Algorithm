@@ -60,9 +60,9 @@ public class MaximumPathSumBinaryTree {
 		findMaxPath2(root.right, prefixSum + root.key, globalMax);
 	}
 	
-	// can be more concise?
+	// can be more concise? Wrong! Since root == null cannot guarantee this is leaf node's next level, maybe one side is null and other side is not null
 	public void findMaxPath3(TreeNode root, int prefixSum, int[] globalMax) {
-		// base case: leaf node's next level (root == null)
+		// base case: leaf node's next level (root == null) Wrong!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (root == null) {
 			globalMax[0] = Math.max(globalMax[0], prefixSum);
 			return;
