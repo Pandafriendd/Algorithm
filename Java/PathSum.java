@@ -28,20 +28,20 @@ public class PathSum {
 		  }
 	
 	// my 11.26
-	public boolean hasPathSum(TreeNode root, int sum) {
-        if (root == null) {
-            return false;
-        }
-        if (root.left == null && root.right == null) {  // leaf node
-            if (sum == root.val) {
-                return true;
-            }
-            return false;
-        }
-        
-        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
-    }
-	
+		public boolean hasPathSum00(TreeNode root, int sum) {
+	        if (root == null) {
+	            return false;
+	        }
+	        if (root.left == null && root.right == null) {  // leaf node
+	            if (sum == root.val) {
+	                return true;
+	            }
+	            return false;
+	        }
+	        
+	        int remainSum = sum - root.val;
+	        return hasPathSum00(root.left, remainSum) || hasPathSum00(root.right, remainSum);
+	    }
 	
 	/*
 	O(N) time - Worst case, you check all elements and still find no path.

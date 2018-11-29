@@ -55,9 +55,10 @@ public class MaximumPathSumBinaryTree {
 			return;
 		}
 		
-		// recursive rules
-		findMaxPath2(root.left, prefixSum + root.key, globalMax);
-		findMaxPath2(root.right, prefixSum + root.key, globalMax);
+		// recursive rules, similar as preorder traversal
+		prefixSum += root.key;
+		findMaxPath2(root.left, prefixSum, globalMax);
+		findMaxPath2(root.right, prefixSum, globalMax);
 	}
 	
 	// can be more concise? Wrong! Since root == null cannot guarantee this is leaf node's next level, maybe one side is null and other side is not null
