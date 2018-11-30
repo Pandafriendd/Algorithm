@@ -75,6 +75,7 @@ public class BinaryTreePathSumToTargetIII {
 	}
 	
 	
+	// Time: O(n) since we optimized the for loop to O(1) checking in hashset
 	public boolean exist2(TreeNode root, int target) {
 	    if (root == null) {
 	    	return false;

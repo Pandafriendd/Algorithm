@@ -36,19 +36,17 @@ public class LargestSubArraySum {
 		return max;
 	}
 	
-	// optimized space, last is M[i - 1], cur is M[i]
+	// optimized space, lastSum is M[i - 1]
 	public int largestSum0(int[] array) { 
-		int last = array[0];
-		int cur = 0;
+		int lastSum = array[0];
 		int max = array[0];
 		for (int i = 1; i < array.length; i++) {
-			if (last >= 0) {
-				cur = last + array[i];
+			if (lastSum >= 0) {
+				lastSum = lastSum + array[i];
 			} else {
-				cur = array[i];
+				lastSum = array[i];
 			}
-			max = Math.max(max, cur);
-			last = cur;
+			max = Math.max(max, lastSum);
 		}
 		
 		return max;
