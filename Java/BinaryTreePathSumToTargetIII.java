@@ -75,17 +75,20 @@ public class BinaryTreePathSumToTargetIII {
 	}
 	
 	
-	// Time: O(n) since we optimized the for loop to O(1) checking in hashset
+	// Time: O(n) since we optimized the for loop to O(1) by using hashset
 	public boolean exist2(TreeNode root, int target) {
 	    if (root == null) {
 	    	return false;
 	    }
-
-	    LinkedHashSet<Integer> prefixSum = new LinkedHashSet<>();  // hashset maybe not very good, since we need to maintain the order and remove last element, still O(1)
+	    
+	    // hashset maybe not very good, since we need to maintain the order and remove last element, still O(1)
+	    // actually not, remove() api in Set pass the removed value as parameter, which we already known
+	    // LinkedHashSet<Integer> prefixSum = new LinkedHashSet<>();
+	    Set<Integer> prefixSum = new HashSet<>();
 	    return helper(root, prefixSum, target, 0);
 	}
 	
-	private boolean helper(TreeNode root, LinkedHashSet<Integer> prefixSum, int target, int currentPrefixSum) {
+	private boolean helper(TreeNode root, Set<Integer> prefixSum, int target, int currentPrefixSum) {
 		if (root == null) {
 			return false;
 		}
