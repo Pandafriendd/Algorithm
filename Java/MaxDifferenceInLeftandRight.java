@@ -25,13 +25,13 @@ public class MaxDifferenceInLeftandRight {
 		return to parent: a + b + 1 (the total number of nodes of myself)
 	 */
 	
-	int maxDiffNode(TreeNode root, int[] globalMax, TreeNode[] maxDiffNode) {
+	int getTotal(TreeNode root, int[] globalMax, TreeNode[] maxDiffNode) {
 		if (root == null) {
 			return 0;
 		}
 		
-		int leftTotal = maxDiffNode(root.left, globalMax, maxDiffNode);
-		int rightTotal = maxDiffNode(root.right, globalMax, maxDiffNode);
+		int leftTotal = getTotal(root.left, globalMax, maxDiffNode);
+		int rightTotal = getTotal(root.right, globalMax, maxDiffNode);
 		// globalMax[0] = Math.max(globalMax[0], Math.abs(leftTotal - rightTotal));
 		if (globalMax[0] < Math.abs(leftTotal - rightTotal)) {
 			maxDiffNode[0] = root;
