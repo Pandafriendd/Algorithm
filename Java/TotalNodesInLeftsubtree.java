@@ -32,10 +32,10 @@ public class TotalNodesInLeftsubtree {
 			return 0;
 		}
 		
-		int left = getTotal(root.left);
-		int right = getTotal(root.right);
-		root.leftTotal = left;
+		int leftTotal = getTotal(root.left);
+		int rightTotal = getTotal(root.right);
+		root.leftTotal = leftTotal;
 		
-		return left + right + 1;
+		return leftTotal + rightTotal + 1;
 	}
 }
