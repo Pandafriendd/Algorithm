@@ -91,7 +91,7 @@ public class MaximumPathSumBinaryTreeIII {
 		int right = helper(root.right, globalMax);
 		right = right > 0 ? right : 0;
 		
-		int mySum = left + right + root.key;
+		int mySum = Math.max(left, right) + root.key;
 		globalMax[0] = Math.max(globalMax[0], mySum);
 		
 		return mySum;
