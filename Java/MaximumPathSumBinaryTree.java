@@ -73,5 +73,16 @@ public class MaximumPathSumBinaryTree {
 		findMaxPath3(root.left, prefixSum + root.key, globalMax);
 		findMaxPath3(root.right, prefixSum + root.key, globalMax);
 	}
+	
+	// another solution using the 3-steps
+	/*
+	 1. 
+	 	max sum from left
+	 	max sum from right
+	 2. result = root.key + max(left, right)
+	 3. return result to parent
+	 */
+	
+	
 
 }
