@@ -4,6 +4,7 @@ import java.util.*;
 public class word_break {
 	/*
 	 time: O(n ^ m), m is len of s, n is size of wordDict
+	 space: O(m), since there is m layers in the recursion tree
 	 */
 	public static boolean wordBreak(String s, List<String> wordDict) {
         return wordBreakHelper(s, wordDict, 0);
