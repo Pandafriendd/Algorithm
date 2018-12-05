@@ -13,9 +13,9 @@ public class QuickSort {
 	  }
 	
 	public void quickSort(int[] array, int left, int right) {
-		if(left >= right) { // base cases  !!!!!  if only one element, return. Or if right < left, return
-			return;
-		}
+	    if(left >= right) { // base cases  !!!!!  if only one element, return. Or if right < left, return
+	        return;
+      	    }
 		
 	    int mid = left + (right - left) / 2;
 	    swap(array, mid, right);
