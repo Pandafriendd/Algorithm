@@ -35,7 +35,7 @@ public class Word_Break {
     
     
     // try to do memoization in Boolean array M, since Boolean initialize all elements to null
-    // so time: O(m * n), since each char in s need to do only once calculation, each calculation iterate all words in wordDict
+    // so time: O(m * n), since each char in s need to do only once calculation, each calculation iterate all words in wordDict (also we see substring() as O(1))
     // space: O(m + m)
     private static boolean wordBreakHelperNew(String s, List<String> wordDict, int startIndex, Boolean[] M) {
         // base case
