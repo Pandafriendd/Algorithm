@@ -23,18 +23,15 @@ public class NthFibSeq {
 	 * Time Complexity: O(n)
 	 * Extra Space: O(n) since call stack
 	 */
-	public static int fibDP(int n, Inetger[] dp) {
-		if(n == 0) {
-			return 0;
-		}
-		if(n == 1) {
-			return 1;
-		}
-		if (dp[n] != null) {
+	// global DP array
+	Integer[] dp = new int[n + 1]; // meaningful index from 0 to n, default all elements as null
+	dp[0] = 0;
+	dp[1] = 1;
+	public static int fibDP(int n) {
+		if (dp[n] != null || n == 0 || n == 1) {
 			return dp[n];
 		}
-		
-		return dp[n] = fib1(n - 1) + fib1(n - 2);
+		return dp[n] = fibDP(n - 1) + fibDP(n - 2);
 	}
 	
 	/*
