@@ -18,7 +18,27 @@ public class NthFibSeq {
 	}
 	
 	/*
-	 * dynamic programming
+	 * dynamic programming1
+	 * recursion + memoization
+	 * Time Complexity: O(n)
+	 * Extra Space: O(n) since call stack
+	 */
+	public static int fibDP(int n, Inetger[] dp) {
+		if(n == 0) {
+			return 0;
+		}
+		if(n == 1) {
+			return 1;
+		}
+		if (dp[n] != null) {
+			return dp[n];
+		}
+		
+		return dp[n] = fib1(n - 1) + fib1(n - 2);
+	}
+	
+	/*
+	 * dynamic programming2
 	 * We can avoid the repeated work by storing the Fibonacci numbers calculated so far.
 	 * Time Complexity: O(n)
 	 * Extra Space: O(n)
