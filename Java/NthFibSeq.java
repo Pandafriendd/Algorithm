@@ -28,7 +28,7 @@ public class NthFibSeq {
 	dp[0] = 0;
 	dp[1] = 1;
 	public static int fibDP(int n) {
-		if (dp[n] != null || n == 0 || n == 1) {
+		if (dp[n] != null) {
 			return dp[n];
 		}
 		return dp[n] = fibDP(n - 1) + fibDP(n - 2);
