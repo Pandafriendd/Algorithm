@@ -53,10 +53,10 @@ public class QuickSort {
 	    array[j] = t;
 	  }
 	  
-	  public static void main(String[] args) {
-		  QuickSort q = new QuickSort();
-		  int[] a = new int[] {3,5,1,2,4,8};
-		  q.quickSort(a);
-		  System.out.println(Arrays.toString(a));
-	  }
+        public static void main(String[] args) {
+            QuickSort q = new QuickSort();
+	    int[] a = new int[] {3,5,1,2,4,8};
+	    q.quickSort(a);
+	    System.out.println(Arrays.toString(a));
+        }
 }
