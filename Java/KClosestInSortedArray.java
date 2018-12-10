@@ -44,8 +44,9 @@ public class KClosestInSortedArray {
 	    	if(r >= array.length || l >= 0 && target - array[l] < array[r] - target) {   // !!!!!!! this condition very important 
 	    		res[i++] = array[l--];
 	    	}
-	    	else
-	    		res[i++] = array[r++];   
+	    	else {
+	    		res[i++] = array[r++];
+		}
 	    }  
 	    return res;
 	  }
