@@ -30,8 +30,7 @@ public class KClosestInSortedArray {
 	      int mid = l + (r - l) / 2; 
 	      if(array[mid] > target) {
 	        r = mid;
-	      }
-	      else { // array[mid] < target
+	      } else { // array[mid] <= target
 	        l = mid;   //  l = mid + 1 is not right, since l may not be the largest smaller, maybe bigger than target, and this is not what we want
 	      }
 	    }
