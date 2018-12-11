@@ -5,7 +5,9 @@ Assumptions
 
 A is not null
 K is guranteed to be >= 0 and K is guranteed to be <= A.length
-Return a size K integer array containing the K closest numbers(not indices) in A, sorted in ascending order by the difference between the number and T. 
+Return
+
+A size K integer array containing the K closest numbers(not indices) in A, sorted in ascending order by the difference between the number and T. 
 Examples
 
 A = {1, 2, 3}, T = 2, K = 3, return {2, 1, 3} or {2, 3, 1}
@@ -35,15 +37,14 @@ public class KClosestInSortedArray {
 	      }
 	    }
 	    
-	    // now l is largest smaller than or equal to target, or l could be the smallest larger than target.  r is l + 1
+	    // now l is largest smaller than or equal to target, or l could be the smallest larger than target (when only one element).  r is l + 1
 	    int i = 0;
-	    while(i < k) { // move left pointer smaller if 1. right pointer is already out of bound 2. right isn't out, left isn't out, and array[left] is closer to target 
-	    	if(r >= array.length || l >= 0 && target - array[l] < array[r] - target) {   // !!!!!!! this condition very important 
+	    while(i < k) { // move left pointer smaller if 1. right pointer is already out of bound or 2. right isn't out, left isn't out, and array[left] is closer to target 
+	    	if(r >= array.length || (l >= 0 && target - array[l] < array[r] - target)) {   // !!!!!!! this condition very important 
 	    		res[i++] = array[l--];
 	    	}
-	    	else {
-	    		res[i++] = array[r++];
-		}
+	    	else
+	    		res[i++] = array[r++];   
 	    }  
 	    return res;
 	  }
