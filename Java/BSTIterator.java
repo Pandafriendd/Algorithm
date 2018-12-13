@@ -5,16 +5,16 @@ import java.util.*;
 
 public class BSTIterator {
 	
-	public class TreeNode{
-		int val;
-		TreeNode left;
-		TreeNode right;
-		TreeNode(int x){
-			val = x;
-		}
+    public class TreeNode{
+	int val;
+	TreeNode left;
+	TreeNode right;
+	TreeNode(int x){
+	    val = x;
 	}
+    }
 	
-	Deque<Integer> queue;
+    Deque<Integer> queue;
     
     public BSTIterator(TreeNode root) {
         queue = new ArrayDeque<>();
