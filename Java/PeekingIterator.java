@@ -18,6 +18,9 @@ Follow up: How would you extend your design to be generic and work with all type
 
 import java.util.*;
 
+/*
+my idea: cache the next value, when we call peek(), we cache it. Everytime when we call hasNext(), we check if nextvalue exist first, so do for next()
+ */
 public class PeekingIterator implements Iterator<Integer> {
 	private Integer nextValue;
 	private Iterator<Integer> iterator;
@@ -29,11 +32,15 @@ public class PeekingIterator implements Iterator<Integer> {
 	
 	// Returns the next element in the iteration without advancing the iterator.
 	public Integer peek() {
-		if (iterator.hasNext()) {
+		int result = 0;
+		if (nextValue != null) {
+			result = nextValue;
+		} else if (iterator.hasNext()) {
 			nextValue = iterator.next();
+			result = nextValue;
 		}
 		
-		return nextValue;
+		return result;
 	}
 
 	@Override
@@ -52,7 +59,11 @@ public class PeekingIterator implements Iterator<Integer> {
 			nextValue = null;   // !!!!!
 			return oldNext;
 		} else {
-			return iterator.next();
+			if (iterator.hasNext()) {
+				return iterator.next();
+			} else {
+				return null;
+			}
 		}
 	}
 	
