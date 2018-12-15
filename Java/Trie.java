@@ -20,6 +20,7 @@ public class Trie {
 
     /**
      * Iterative implementation of insert into trie
+     * return type can be modified to be boolean 
      */
     public void insert(String word) {
         TrieNode current = root;
