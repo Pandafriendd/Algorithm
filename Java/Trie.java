@@ -85,6 +85,7 @@ public class Trie {
     public boolean searchRecursive(String word) {
         return searchRecursive(root, word, 0);
     }
+	
     private boolean searchRecursive(TrieNode current, String word, int index) {
         if (index == word.length()) {
             //return true of current's endOfWord is true else return false.
