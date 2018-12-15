@@ -12,7 +12,7 @@ import java.util.*;
 
 public class ShortestUniquePrefix {
 	
-	static final int MAX  = 256; 
+    static final int MAX  = 256; 
     
     // Maximum length of an input word 
     static final int MAX_WORD_LEN = 500; 
