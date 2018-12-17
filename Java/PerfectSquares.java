@@ -19,7 +19,7 @@ public class PerfectSquares {
     DP:
     M[i] represents the least numsber of perfect square numbers which sum to i
     base case: M[0] = 0, M[1] = 1
-    M[i] = min(M[i - j ^ 2] + 1), for all 1 <= j *j <= i
+    M[i] = min(M[i - j * j] + 1), for all 1 <= j * j <= i
     
     time: O(n * n^1/2 = n^3/2) space: O(n)
     */
