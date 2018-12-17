@@ -14,6 +14,31 @@ Explanation: 13 = 4 + 9.
 
 import java.util.*;
 public class PerfectSquares {
+	class Solution {
+    /*
+    DP:
+    M[i] represents the least numsber of perfect square numbers which sum to i
+    base case: M[0] = 0, M[1] = 1
+    M[i] = min(M[i - j ^ 2] + 1), for all 1 <= j *j <= i
+    
+    time: O(n * n^1/2 = n^3/2) space: O(n)
+    */
+    public int numSquares(int n) {
+        int[] M = new int[n + 2];
+        // base case
+        M[0] = 0;
+        M[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 1; j * j <= i; j++) {
+                min = Math.min(min, M[i - j * j]);
+            }
+            M[i] = min + 1;
+        }
+        
+        return M[n];
+    }
+}
 	
 	/*
 DP Solution
