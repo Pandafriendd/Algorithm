@@ -43,7 +43,7 @@ public class CheckCousins {
 		
 		while (!queue.isEmpty()) {
 			size = queue.size();
-			nodeCounter = 0;
+			nodeCounter = 0;  // we can use set, boolean var to check if a, b exist too
 			while (size > 0) {
 				TreeNode cur = queue.poll(); // expend
 				// checking on next level
