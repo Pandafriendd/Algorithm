@@ -28,9 +28,11 @@ public class CheckIfChained {
 		
 		// recursion rules
 		for (int i = index; i < arr.length; i++) {
-			swap(arr, index, i);
-			findPermutation(arr, index + 1, res);
-			swap(arr, index, i);
+			if (index == 0 || index > 0 && arr[index - 1].charAt(arr[index - 1].length() - 1) == arr[i].charAt(0)) {   // add restriction for improvement of efficiency
+				swap(arr, index, i);
+				findPermutation(arr, index + 1, res);
+				swap(arr, index, i);
+			}
 		}
 	}
 	
@@ -47,6 +49,20 @@ public class CheckIfChained {
 		
 		for (int i = 0; i <= arr.length - 2; i++) {
 			if (arr[i].charAt(arr[i].length() - 1) != arr[i + 1].charAt(0)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private boolean checkIfCircular(String[] arr) {
+		if (arr.length <= 1) {
+			return false;
+		}
+		
+		for (int i = 0; i <= arr.length - 1; i++) {
+			if (arr[i].charAt(arr[i].length() - 1) != arr[(i + 1) % arr.length ].charAt(0)) {  // idea of circular array
 				return false;
 			}
 		}
