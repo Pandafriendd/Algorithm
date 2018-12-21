@@ -14,7 +14,6 @@ Explanation: 13 = 4 + 9.
 
 import java.util.*;
 public class PerfectSquares {
-	class Solution {
     /*
     DP:
     M[i] represents the least numsber of perfect square numbers which sum to i
@@ -38,7 +37,7 @@ public class PerfectSquares {
         
         return M[n];
     }
-}
+
 	
 	/*
 DP Solution
@@ -83,7 +82,6 @@ space: O(n)
 		}		
 		return dp[n];
 	}
-	
 	
 	/*
 Java BFS implementation: Start from node 0 in queue, and keep pushing in perfect square number + curr value, once we reach number n, we found the solution.
