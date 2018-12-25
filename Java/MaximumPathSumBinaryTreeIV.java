@@ -22,7 +22,7 @@ public class MaximumPathSumBinaryTreeIV {
 		left = max SINGLE path sum of left subtree, must include the root.left node and a leaf node 
 		right = max SINGLE path sum of right subtree, must include the root.right node a leaf node
 	2.
-		globalMax = max(globalMax, root + left + right)
+		if root is a full node, globalMax = max(globalMax, root + left + right)
 	3. 
 		return to parent: root + max(left, right)
 	
