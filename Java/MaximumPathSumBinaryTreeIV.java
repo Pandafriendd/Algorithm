@@ -19,8 +19,8 @@ public class MaximumPathSumBinaryTreeIV {
 	the 3-steps:
 	1. 
 		from children:
-		left = max SINGLE path sum of left subtree, must include root.left node and the leaf node 
-		right = max SINGLE path sum of right subtree, must include root.right node and leaf node
+		left = max SINGLE path sum of left subtree, must include the root.left node and a leaf node 
+		right = max SINGLE path sum of right subtree, must include the root.right node a leaf node
 	2.
 		globalMax = max(globalMax, root + left + right)
 	3. 
@@ -39,7 +39,10 @@ public class MaximumPathSumBinaryTreeIV {
 		
 		int left = helper(root.left, globalMax);
 		int right = helper(root.right, globalMax);
-		globalMax[0] = Math.max(globalMax[0], root.key + left + right);
+		// when a node has left subtree and right subtree or a node is leaf node, update globalMax if possible
+		if (left != 0 && right != 0 || root.left == null && root.right == null) {
+			globalMax[0] = Math.max(globalMax[0], root.key + left + right);
+		}
 		
 		return root.key + Math.max(left, right);
 	}
