@@ -26,10 +26,11 @@ public class MaximumPathSumBinaryTreeIV {
 	3. 
 		return to parent: root + max(left, right)
 	
-	a tip: cover all cases:
+	a tip: cover all cases: (some are corner cases)
 	1          1          1           1
    / \        / \        / \         / \
-  1   1    null  1      1  null   null  null
+  1   1   null -100     1  null   null  null
+full node
   
   time: O(n), space: O(height)
 	 */
@@ -47,12 +48,15 @@ public class MaximumPathSumBinaryTreeIV {
 		int left = helper(root.left, globalMax);
 		int right = helper(root.right, globalMax);
 		
-		// !!! when a node has left subtree and right subtree or a node is leaf node, update globalMax if possible 
-		if (root.left != null && root.right != null || root.left == null && root.right == null) {
+		// !!! when a node has left subtree and right subtree, update globalMax if possible 
+		if (root.left != null && root.right != null) {
 			globalMax[0] = Math.max(globalMax[0], root.key + left + right);
+			return root.key + Math.max(left, right);
+		} else { // root is not a full node
+			return root.left == null ? root.key + right : root.key + left;  // !!!!
 		}
 		
-		return root.key + Math.max(left, right);
+		
 	}
 
 }
