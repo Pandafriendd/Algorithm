@@ -27,7 +27,7 @@ public class MaximumPathSumBinaryTreeIV {
 		return to parent: root + max(left, right)
 	
 	a tip: cover all cases: (some are corner cases)
-	1          1          1           1
+    1          1          1           1
    / \        / \        / \         / \
   1   1   null -100     1  null   null  null
 full node
