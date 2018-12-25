@@ -25,6 +25,13 @@ public class MaximumPathSumBinaryTreeIV {
 		globalMax = max(globalMax, root + left + right)
 	3. 
 		return to parent: root + max(left, right)
+	
+	a tip: cover all cases:
+	1          1          1           1
+   / \        / \        / \         / \
+  1   1    null  1      1  null   null  null
+  
+  time: O(n), space: O(height)
 	 */
 	public int maxPathSum(TreeNode root) {
 		int[] globalMax = new int[] {Integer.MIN_VALUE};
@@ -39,8 +46,9 @@ public class MaximumPathSumBinaryTreeIV {
 		
 		int left = helper(root.left, globalMax);
 		int right = helper(root.right, globalMax);
-		// when a node has left subtree and right subtree or a node is leaf node, update globalMax if possible
-		if (left != 0 && right != 0 || root.left == null && root.right == null) {
+		
+		// !!! when a node has left subtree and right subtree or a node is leaf node, update globalMax if possible 
+		if (root.left != null && root.right != null || root.left == null && root.right == null) {
 			globalMax[0] = Math.max(globalMax[0], root.key + left + right);
 		}
 		
