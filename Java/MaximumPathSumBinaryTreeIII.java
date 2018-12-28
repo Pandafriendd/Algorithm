@@ -59,7 +59,6 @@ public class MaximumPathSumBinaryTreeIII {
 		} else { // lastSum <= 0
 			lastSum = root.key;
 		}
-		
 		globalMax[0] = Math.max(globalMax[0], lastSum);
 		
 		helper(root.left, lastSum, globalMax);
@@ -70,10 +69,12 @@ public class MaximumPathSumBinaryTreeIII {
 	/*
 	 The 3-steps solution
 	 1. 
-	 	max sum from left, including left, <= 0 ignore
-	 	max sum from right, including right, <= 0 ignore
-	 2. globalMax = max(globalaMax, root.key + max(left, right))
-	 3. return parent: root.key + max(left, right)
+	 	max sum of single path from left, including left, <= 0 ignore
+	 	max sum of single path from right, including right, <= 0 ignore
+	 2. 
+	 	globalMax = max(globalaMax, root.key + max(left, right))
+	 3. 
+	 	return parent: root.key + max(left, right)
 	 */
 	public int maxPathSum2(TreeNode root) {
 	    int[] globalMax = new int[] {Integer.MIN_VALUE};
