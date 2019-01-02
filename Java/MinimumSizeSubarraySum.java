@@ -14,7 +14,7 @@ If you have figured out the O(n) solution, try coding another solution of which 
 class Solution {
     /*
     the brute force solution, go through every subarray and find the min length one that meets requirement
-    time: O(n^2) space: O(1)
+    time: O(n^2), space: O(1)
     */
     public int minSubArrayLen(int s, int[] nums) {
         if (nums.length == 0 || nums == null) {
