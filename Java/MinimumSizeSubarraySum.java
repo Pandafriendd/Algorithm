@@ -61,4 +61,28 @@ class Solution {
         
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
+    
+    /*
+    two pointers:
+    We could keep 2 pointer,one for the start and another for the end of the current subarray, 
+    and make optimal moves so as to keep the sum greater than ss as well as maintain the lowest size possible.
+    
+    time: O(n) sicne each element can be visited atmost twice, once by the end pointer and (atmost) once by the start pointer.
+    space: O(1)
+    */
+    public int minSubArrayLen(int s, int[] nums) {
+        int n = nums.length;
+        int minLen = Integer.MAX_VALUE;
+        int start = 0;
+        int sum = 0;
+        for (int end = 0; end < n; end++) {
+            sum += nums[end];
+            while (sum >= s && start <= end) {
+                minLen = Math.min(minLen, end - start + 1);
+                sum -= nums[start++];
+            }
+        }
+        
+        return minLen == Integer.MAX_VALUE ? 0 : minLen;
+    }
 }
