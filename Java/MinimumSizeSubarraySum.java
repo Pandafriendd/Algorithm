@@ -38,6 +38,7 @@ class Solution {
     
     /*
     optimized brute force: increment start pointer when there is no better solution at the current start pointer
+    time still O(n^2)
     */
     public int minSubArrayLen(int s, int[] nums) {
         if (nums == null || nums.length == 0) {
@@ -47,7 +48,7 @@ class Solution {
         for (int start = 0; start < nums.length; start++) {
             int currSum = 0;
             for (int end = start; end < nums.length; end++) {
-                if (end - start + 1 >= minLen) {  // optimized!
+                if (end - start + 1 >= minLen) {  // some small optimization
                     break;
                 }
                 currSum += nums[end];
