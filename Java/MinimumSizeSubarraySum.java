@@ -67,7 +67,7 @@ class Solution {
     We could keep 2 pointer,one for the start and another for the end of the current subarray, 
     and make optimal moves so as to keep the sum greater than ss as well as maintain the lowest size possible.
     
-    time: O(n) sicne each element can be visited atmost twice, once by the end pointer and (atmost) once by the start pointer.
+    time: O(2n) sicne each element can be visited atmost twice, once by the end pointer and (atmost) once by the start pointer.
     space: O(1)
     */
     public int minSubArrayLen(int s, int[] nums) {
