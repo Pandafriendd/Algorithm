@@ -47,7 +47,7 @@ public class LCAII {
 		if (oneHeight > twoHeight) {
 			while (diff > 0) {
 				one = one.parent;
-				diff--;
+				diff--;  // !!
 			}
 		} else if (oneHeight < twoHeight) {
 			while (diff > 0) {
