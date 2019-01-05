@@ -57,16 +57,8 @@ public class LCAII {
 		}
 		
 		while (one != two) {
-			if (one != null) {   // check to avoid NPE
-				one = one.parent;
-			} else {
-				return null;   // maybe not in the tree
-			}
-			if (two != null) {   // check to avoid NPE
-				two = two.parent;
-			} else {   
-				return null;   // maybe not in the tree
-			}
+			one = one.parent;
+			two = two.parent;
 		}
 		
 		return one;
@@ -80,4 +72,39 @@ public class LCAII {
 		}
 		return height;
 	}
+	
+	
+	// laioffer's solution
+		public TreeNodeP lowestCommonAncestorII(TreeNodeP one, TreeNodeP two) {
+			int h1 = height(one);
+			int h2 = height(two);
+			// make sure the first node always has lower height
+			if (h1 <= h2) {
+				return mergeNode(one, two, h2 - h1);
+			} else {
+				return mergeNode(two, one, h1 - h2);
+			}
+		}
+		
+		public TreeNodeP mergeNode(TreeNodeP lower, TreeNodeP higher, int diff) {
+			while (diff > 0) {
+				higher = higher.parent;
+				diff--;  // !!
+			}
+			while (higher != lower) {
+				higher = higher.parent;
+				lower = lower.parent;
+			}
+			
+			return higher;
+		}
+		
+		private int height(TreeNodeP node) {
+			int height = 0;
+			while (node != null) {
+				height++;
+				node = node.parent;
+			}
+			return height;
+		}
 }
