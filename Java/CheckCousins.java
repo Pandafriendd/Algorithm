@@ -49,6 +49,7 @@ public class CheckCousins {
 				TreeNode cur = queue.poll(); // expend
 				// checking on next level
 				if (cur.left != null && cur.right != null) {  // !!!!! both left and right should all not null
+					// better to compare using cur.left.key == a.key
 					if (cur.left == a && cur.right == b || cur.left == b && cur.right == a) {  // ??? how to compare tree node
 						return false;
 					}
