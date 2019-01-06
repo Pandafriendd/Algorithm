@@ -40,7 +40,7 @@ public class LCAII {
 		}
 	}
 	
-	// time: O(height)
+	// time: O(height) space: O(1)
 	public TreeNodeP lowestCommonAncestor(TreeNodeP one, TreeNodeP two) {
 		int oneHeight = getHeight(one);
 		int twoHeight = getHeight(two);
