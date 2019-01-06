@@ -56,6 +56,7 @@ public class LCAI {
 		}
 	}
 	
+	// time: O(n), sapce: O(height)
 	public TreeNode LCA(TreeNode root, TreeNode one, TreeNode two) {
 		// base case
 		if (root == null || root == one || root == two) {
