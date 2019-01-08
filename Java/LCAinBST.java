@@ -38,22 +38,22 @@ public class LCAinBST {
 		}
 	}
 	
+	// All of the nodes' values will be unique. 
+	// one and two are different and both values will exist in the BST.
 	public TreeNode LCA(TreeNode root, TreeNode one, TreeNode two) {
 		// always ensure one.key <= two.key
 		if (one.key > two.key) {
 			return LCA(root, two, one);
 		}
-		if (root == null) {
+		if (root == null || root == one || root == two) {
 			return root;
 		}
-		if (root.key > one.key && root.key > two.key) { // go to the left
+		if (root.key > two.key) { // go to the left
 			return LCA(root.left, one, two);
-		} else if (root.key < one.key && root.key < two.key) {
+		} else if (root.key < one.key) {
 			return LCA(root.right, one, two);
-		} else if (root.key >= one.key && root.key <= two.key) {
-			return root;
 		} else {
-			return null;
+			return root;
 		}
 	}
 }
