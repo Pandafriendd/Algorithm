@@ -52,7 +52,7 @@ public class LCAinBST {
 			return LCA(root.left, one, two);
 		} else if (root.key < one.key) {
 			return LCA(root.right, one, two);
-		} else {
+		} else { // root.key > one.key && root.key < two.key, since == handle in base case
 			return root;
 		}
 	}
