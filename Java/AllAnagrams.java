@@ -102,7 +102,7 @@ public class AllAnagrams {
 	      if (numberOfMatch == map.size()) {
 	    	  res.add(start);
 	      }
-	      // move the window forward
+	      // move the window forward (remove left char and add right char)
 	      window.put(lo.charAt(start), window.get(lo.charAt(start)) - 1);
 	      // only two cases we need to update the counter:
 	      if (map.get(lo.charAt(start)) != null && window.get(lo.charAt(start)) + 1 == map.get(lo.charAt(start))) {
