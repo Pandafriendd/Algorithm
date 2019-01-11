@@ -18,6 +18,7 @@ public class AllAnagrams {
 	 * sh length is m, lo length is n
 	 * the # of n-length substring in a m-length longer string is: n - m + 1
 	 * using two hashmaps, one for storing the frequency of shorter string, and one for the sliding window of longer string
+	 * for each possible start position, iterate through map to check if it is matched
 	 * time: O(m + m + (n - m + 1) * m)  ==> O(m * n)
 	 * space: O(2m)
 	 */
@@ -52,7 +53,7 @@ public class AllAnagrams {
 	      if (isMatch) {
 	        res.add(start);
 	      }
-	     
+	      // move the window forward
 	      window.put(lo.charAt(start), window.get(lo.charAt(start)) - 1);
 	      start++;
 	      end++;
@@ -68,11 +69,12 @@ public class AllAnagrams {
 	
 	/*
 	 * sh length is m, lo length is n
+	 * using two hashmaps + a counter variable
 	 * time: O(3m + (n - m + 1))  ==> O(m + n)
 	 * space: O(2m)
 	 */
 	public static List<Integer> allAnagrams2(String sh, String lo) {
-		List<Integer> res = new ArrayList<>();
+	    List<Integer> res = new ArrayList<>();
 	    if (sh.length() > lo.length()) {
 	      return res;
 	    }
@@ -100,7 +102,9 @@ public class AllAnagrams {
 	      if (numberOfMatch == map.size()) {
 	    	  res.add(start);
 	      }
+	      // move the window forward
 	      window.put(lo.charAt(start), window.get(lo.charAt(start)) - 1);
+	      // only two cases we need to update the counter:
 	      if (map.get(lo.charAt(start)) != null && window.get(lo.charAt(start)) + 1 == map.get(lo.charAt(start))) {
 	    	  numberOfMatch--;
 	      }
