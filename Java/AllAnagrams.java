@@ -21,7 +21,7 @@ public class AllAnagrams {
 	 * and one for frequency of each char of current sliding window of longer string
 	 * for each possible start position, iterate through map to check if it is matched
 	 * time: O(m + m + (n - m + 1) * m)  ==> O(m * n)
-	 * space: O(2m)
+	 * space: O(m + n)
 	 */
 	public static List<Integer> allAnagrams(String sh, String lo) {
 	    List<Integer> res = new ArrayList<>();
@@ -72,7 +72,7 @@ public class AllAnagrams {
 	 * sh length is m, lo length is n
 	 * using two hashmaps + a counter variable
 	 * time: O(3m + (n - m + 1))  ==> O(m + n)
-	 * space: O(2m)
+	 * space: O(m + n)
 	 */
 	public static List<Integer> allAnagrams2(String sh, String lo) {
 	    List<Integer> res = new ArrayList<>();
