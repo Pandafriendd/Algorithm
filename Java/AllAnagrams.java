@@ -17,7 +17,8 @@ public class AllAnagrams {
 	/*
 	 * sh length is m, lo length is n
 	 * the # of n-length substring in a m-length longer string is: n - m + 1
-	 * using two hashmaps, one for storing the frequency of shorter string, and one for the sliding window of longer string
+	 * using two hashmaps, one for storing the frequency of each char in shorter string, 
+	 * and one for frequency of each char of current sliding window of longer string
 	 * for each possible start position, iterate through map to check if it is matched
 	 * time: O(m + m + (n - m + 1) * m)  ==> O(m * n)
 	 * space: O(2m)
