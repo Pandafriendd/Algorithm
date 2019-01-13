@@ -18,21 +18,21 @@ public class Anagrams {
 		int end = 0;
 
 		while (end <= l.length()) {
-			if (numberOfMatch == countMap.size()) {  // !?
+			if (numberOfMatch == countMap.size()) { // !!!
 				res.add(start);
 			}
-			if (end == l.length()) {
+			if (end == l.length()) {  // !!!
 				break;
 			}
 
 			// move the window foward (remove the leftmost char and add the right most char)
 			// needed to move start pointer forward
-			if (end >= s.length()) {
+			if (end >= s.length()) {  // !
 				if (countMap.get(l.charAt(start)) != null) { 
 					numberOfNeeded = countMap.get(l.charAt(start));
 					numberOfNeeded++;
 					countMap.put(l.charAt(start), numberOfNeeded);
-					if (numberOfNeeded == 0) {
+					if (numberOfNeeded == 1) {
 						numberOfMatch--;
 					}
 				}
