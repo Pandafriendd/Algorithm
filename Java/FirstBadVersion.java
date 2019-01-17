@@ -17,6 +17,32 @@ Then 4 is the first bad version.
 
  */
 public class FirstBadVersion {
+	// my solution
+	public int firstBadVersion(int n) {
+        if (n < 1) {
+            return -1;  // a special number for the invalid input
+        }
+        
+        int left = 1;
+        int right = n;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            boolean isMidBad = isBadVersion(mid);
+            if (isMidBad) {  // bad version
+                right = mid;
+            } else {  // good version
+                left = mid + 1;
+            }
+        }
+        
+        // post process, only one element left
+        // if is bad, this is the first bad one, otherwise, there is no bad version
+        if (isBadVersion(left)) {
+            return left;
+        } else {
+            return -1;  // for invalid input (all good)
+        }
+    }
 	
 	/*
 binary search
