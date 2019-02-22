@@ -23,6 +23,7 @@ N = 4, there are two ways of putting 4 queens:
 				 the Queen on the fourth row is at y index 1.
 */
 
+// time: O(n! * n) space: O(n)
 public List<List<Integer>> nqueens(int n) {
 	List<List<Integer>> res = new ArrayList<>();
 	List<Integer> queensPosition = new ArrayList<>();
