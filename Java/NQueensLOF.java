@@ -1,6 +1,6 @@
 /* 
 N queens
-Get all valid ways of putting N Queens on an N * N chessboard so that no two Queens threaten each other.
+Get all valid ways of putting N Queens on an N * N chessboard so that no two Queens threaten each other
 
 Assumptions
 N > 0
