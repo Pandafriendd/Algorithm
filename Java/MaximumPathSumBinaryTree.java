@@ -51,7 +51,7 @@ public class MaximumPathSumBinaryTree {
 		}
 		// base case2: leaf node
 		if (root.left == null && root.left == null) {
-			globalMax[0] = Math.max(globalMax[0], prefixSum + root.key);  // !!! may be can be optimized to less base case!!!
+			globalMax[0] = Math.max(globalMax[0], prefixSum + root.key);  // !!! cannot be optimized to less base case
 			return;
 		}
 		
@@ -61,7 +61,8 @@ public class MaximumPathSumBinaryTree {
 		findMaxPath2(root.right, prefixSum, globalMax);
 	}
 	
-	// can be more concise? Wrong! Since root == null cannot guarantee this is leaf node's next level, maybe one side is null and other side is not null
+	// can be more concise? Wrong! Since root == null cannot guarantee this is leaf node's next level, 
+	// maybe one side is null and other side is not null
 	public void findMaxPath3(TreeNode root, int prefixSum, int[] globalMax) {
 		// base case: leaf node's next level (root == null) Wrong!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (root == null) {
