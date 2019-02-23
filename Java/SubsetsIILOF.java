@@ -4,7 +4,7 @@ eg: input a b b
 
                    abbbc
                /            \
-   	        a                     ()
+   	        a                 ()
            /   \                  /\
          ab    ()                b
       /     \   |               / \
@@ -15,7 +15,7 @@ eg: input a b b
 abbbc  abbc abc ac     bbbc  bbb
 
 in this recursion tree, each leaf node is a solution
-Cn1 + Cn2 + ... + Cnn, so time is O(2^n). space is O(n)
+time is O(2^n). space is O(n)
 */
 
 public List<List<Integer>> subsets(int[] nums) {
