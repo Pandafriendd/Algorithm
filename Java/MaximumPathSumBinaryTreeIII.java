@@ -75,6 +75,7 @@ public class MaximumPathSumBinaryTreeIII {
 	 	globalMax = max(globalaMax, root.key + max(left, right))
 	 3. 
 	 	return parent: root.key + max(left, right)
+	time: O(n), space: O(height)
 	 */
 	public int maxPathSum2(TreeNode root) {
 	    int[] globalMax = new int[] {Integer.MIN_VALUE};
