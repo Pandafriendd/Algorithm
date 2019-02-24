@@ -15,6 +15,10 @@ public class GenerateParentheses {
         return res;
     }
     
+    /**
+     * @param l # of left parentheses already added
+     * @param r # of right parentheses already added
+     */
     private void generateHelper(int n, int l, int r, List<String> res, StringBuilder sb) {
         //base case
         if(sb.length() == 2 * n) {   // l + r == 2 * n also fine
