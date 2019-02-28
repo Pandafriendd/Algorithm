@@ -108,7 +108,7 @@ public class GenerateParenthesesII {
 	following up: we have an additional priority
 	
 	brief of solution:
-	case 1: whenever we add a left p, first check the priority of curr against the top of stack and pRmain, if valid, then push to stack, add it to sb
+	case 1: whenever we add a left p, first check the priority of curr against (=<) the top of stack and pRmain, if valid, then push to stack, add it to sb
 	(same) case 2: ....      right p, only need to check if it matches the top of stack
 		2.1: if matches: stack.pop, add it to sb
 		2.2 not matches: skip this branch, do not call recursion function
