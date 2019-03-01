@@ -42,9 +42,9 @@ Output:
 import java.util.*;
 
 public class FactorCombinations {
-	public static List<List<Integer>> getFactors(int n) {
+    public static List<List<Integer>> getFactors(int n) {
+	// get factors of n. The oder of factors doesn't matter
         List<Integer> factors = new ArrayList<>();
-        
         for (int i = n / 2; i >= 2; i--) {
             if (n % i == 0) {
                 factors.add(i);
