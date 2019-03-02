@@ -42,22 +42,54 @@ Output:
 import java.util.*;
 
 public class FactorCombinations {
-    public static List<List<Integer>> getFactors(int n) {
-	// get factors of n. The oder of factors doesn't matter
-        List<Integer> factors = new ArrayList<>();
+	public static List<List<Integer>> getFactors(int n) {
+        List<Integer> factors = getAllFactors(n);
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        factorsHelper(res, temp, factors, n, 0);
+        
+        return res;
+    }
+	
+	private static List<Integer> getAllFactors(int n) {
+		List<Integer> factors = new ArrayList<>();
+        
         for (int i = n / 2; i >= 2; i--) {
             if (n % i == 0) {
                 factors.add(i);
             }
         }
         
-        List<List<Integer>> res = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        helper(res, temp, factors, n, 0);
+        return factors;
+	}
+	
+	private static void factorsHelper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
+		// base case
+        if (index == factors.size()) {
+        	if (remain == 1) {
+        		res.add(new ArrayList<>(temp));
+        	}
+        	return;
+        }
         
-        return res;
-    }
+        // recursive rule
+        factorsHelper(res, temp, factors, remain, index + 1); // picking 0 factor
+        int factor = factors.get(index);
+        int count = 0;
+        while (remain % factor == 0) {
+        	remain = remain / factor;
+        	temp.add(factor);
+        	factorsHelper(res, temp, factors, remain, index + 1);
+        	count++;
+        }
+        
+        while (count > 0) {
+        	temp.remove(temp.size() - 1);
+        	count--;
+        }
+	}
     
+	// old one
     private static void helper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
         // base case
         if (index == factors.size()) {
@@ -93,6 +125,6 @@ public class FactorCombinations {
     }
     
     public static void main(String[] args) {
-    	System.out.println(getFactors(32));
+    	System.out.println(getFactors(12));
     }
 }
