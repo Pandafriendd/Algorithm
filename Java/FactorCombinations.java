@@ -42,7 +42,7 @@ Output:
 import java.util.*;
 
 public class FactorCombinations {
-	public static List<List<Integer>> getFactors(int n) {
+    public static List<List<Integer>> getFactors(int n) {
         List<Integer> factors = getAllFactors(n);
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> temp = new ArrayList<>();
@@ -51,7 +51,7 @@ public class FactorCombinations {
         return res;
     }
 	
-	private static List<Integer> getAllFactors(int n) {
+    private static List<Integer> getAllFactors(int n) {
 		List<Integer> factors = new ArrayList<>();
         
         for (int i = n / 2; i >= 2; i--) {
@@ -61,9 +61,9 @@ public class FactorCombinations {
         }
         
         return factors;
-	}
+    }
 	
-	private static void factorsHelper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
+    private static void factorsHelper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
 		// base case
         if (index == factors.size()) {
         	if (remain == 1) {
@@ -83,11 +83,13 @@ public class FactorCombinations {
         	count++;
         }
         
-        while (count > 0) {
-        	temp.remove(temp.size() - 1);
-        	count--;
-        }
-	}
+        temp.subList(temp.size() - count, temp.size()).clear();
+        //temp.removeRange(temp.size() - count, temp.size());
+        // while (count > 0) {
+        // 	temp.remove(temp.size() - 1);
+        // 	count--;
+        // }
+    }
     
 	// old one
     private static void helper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
