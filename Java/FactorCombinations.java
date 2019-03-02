@@ -52,7 +52,7 @@ public class FactorCombinations {
     }
 	
     private static List<Integer> getAllFactors(int n) {
-		List<Integer> factors = new ArrayList<>();
+	List<Integer> factors = new ArrayList<>();
         
         for (int i = n / 2; i >= 2; i--) {
             if (n % i == 0) {
@@ -64,7 +64,7 @@ public class FactorCombinations {
     }
 	
     private static void factorsHelper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
-		// base case
+	// base case
         if (index == factors.size()) {
         	if (remain == 1) {
         		res.add(new ArrayList<>(temp));
@@ -91,7 +91,7 @@ public class FactorCombinations {
         // }
     }
     
-	// old one
+    // old one
     private static void helper(List<List<Integer>> res, List<Integer> temp, List<Integer> factors, int remain, int index) {
         // base case
         if (index == factors.size()) {
