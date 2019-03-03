@@ -42,6 +42,15 @@ Output:
 import java.util.*;
 
 public class FactorCombinations {
+
+/*
+                                        root(12)
+			         /                   \  
+L1(how many 6s in res)	      0 six ( remain =12)      1 six (2)
+		         	/\                     |
+L2(how many 4s in res)     0(12) 1 four(3)           0 four(2)
+                               ...                     ....
+*/
     public static List<List<Integer>> getFactors(int n) {
         List<Integer> factors = getAllFactors(n);
         List<List<Integer>> res = new ArrayList<>();
