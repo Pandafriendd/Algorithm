@@ -32,6 +32,7 @@ import java.util.*;
 
 public class AllPossibleBlocks {
 	// the key problem is how to deal with the indentation. Decouple the problem!!!!
+	// Time: O(2 ^ 2n)   Space: O(n ^ 2) since n ^ 2 is the stringbuilder's space
 	public static void allBlocks(int n) {
 		char[] parentheses = new char[n * 2];
 		helper(parentheses, n, n, 0);
