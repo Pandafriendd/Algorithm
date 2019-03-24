@@ -1,5 +1,5 @@
 class Solution {
-    // time: O(3 ^ n), n is the length of digits string. space: O(n)
+    // time: O(3 ^ n), n is the length of digits string. space: O(10n)
     public List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<>();
         if (digits == "" || digits.length() == 0) {
