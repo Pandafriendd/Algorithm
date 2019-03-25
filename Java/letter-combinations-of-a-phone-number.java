@@ -1,5 +1,7 @@
 class Solution {
-    // time: O(3 ^ n), n is the length of digits string. space: O(10n)
+    // time: O(3 ^ n * 4 ^ m), n + m is the length of digits string. 
+    // n is the number of digits in the input that maps to 3 letters (e.g. 2, 3, 4, 5, 6, 8) and m is the number of digits in the input that maps to 4 letters (e.g. 7, 9)
+    // space: O(3 ^ n * 4 ^ m)
     public List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<>();
         if (digits == "" || digits.length() == 0) {
