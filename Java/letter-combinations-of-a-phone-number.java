@@ -20,7 +20,7 @@ class Solution {
         }
         
         // recursive rule
-        int digit = Character.getNumericValue(digits.charAt(index)); // digits.charAt(index) - '0';
+        int digit = Character.getNumericValue(digits.charAt(index)); // digits.charAt(index) - '0'; would be better
         String letters = digitToLetters[digit];
         for (int i = 0; i < letters.length(); i++) {
             sb.append(letters.charAt(i));
