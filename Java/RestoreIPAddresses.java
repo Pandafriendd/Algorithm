@@ -5,7 +5,7 @@ public class RestoreIPAddresses {
 	 */
 	public List<String> restoreIpAddresses(String s) {
         List<String> res = new ArrayList<>();
-        if (s == null || s.length() == 0 || s == "") {
+        if (s == null || s.length() == 0 || s == "" || s.length() > 12) {  // deal with overflow here!!!!
             return res;
         }
         
