@@ -1,7 +1,7 @@
 import java.util.*;
 public class RestoreIPAddresses {
 	/*
-	 * time: O(n * (n - 1) * (n - 2) * (n - 3))2 space: O(n)
+	 * time: O(n * (n - 1) * (n - 2) * (n - 3)) space: O(n)
 	 */
 	public List<String> restoreIpAddresses(String s) {
         List<String> res = new ArrayList<>();
