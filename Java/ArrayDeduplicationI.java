@@ -2,7 +2,7 @@ public class Solution {
   public static int[] dedup(int[] input) {
    if (input.length <= 1 || input == null) {
 			return input;
-		}
+   }
 		
 		int slow = 1;
 		int fast = 1;
