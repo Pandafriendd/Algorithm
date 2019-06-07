@@ -8,9 +8,9 @@ public class Solution {
 		int fast = 1;
 		
 		while (fast < input.length) {
-			if (input[fast] != input[slow - 1]) {
+			if (input[fast] != input[slow - 1]) {  // keep it (copy)
 				input[slow++] = input[fast++];
-			} else {
+			} else {  // ignore it
 				fast++;
 			}
 		}
