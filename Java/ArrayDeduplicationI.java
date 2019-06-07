@@ -17,8 +17,8 @@ public class Solution {
 			return input;
    }
 		
-		int slow = 1;
-		int fast = 1;
+		int slow = 1;  // elements to the left of slow are processed and need to be kept (excluding slow)
+		int fast = 1;  // current index
 		
 		while (fast < input.length) {
 			if (input[fast] != input[slow - 1]) {  // keep it (copy)
