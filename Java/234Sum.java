@@ -18,8 +18,7 @@ public List<List<Integer>> allPairs(int[] array, int target) {  // assume no dup
     for (int i = 0; i < array.length; i++) {
       int newTarget = target - array[i];
       if (map.containsKey(newTarget)) {
-        List<Integer> pair = Arrays.asList(map.get(newTarget), i);
-        res.add(pair);
+        res.add(Arrays.asList(map.get(newTarget), i));
       }
       map.put(array[i], i);
     }
