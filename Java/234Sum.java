@@ -26,7 +26,7 @@ public List<List<Integer>> allPairs(int[] array, int target) {  // assume no dup
   }
 
 public List<List<Integer>> allPairs(int[] array, int target) {  // assume have duplicates
-    Map<Integer, ArrayList<Integer>> map = new HashMap<>();  // array value -> list of all possible indeces
+    Map<Integer, List<Integer>> map = new HashMap<>();  // array value -> list of all possible indeces
     List<List<Integer>> res = new ArrayList<>();
     for (int i = 0; i < array.length; i++) {
       int newTarget = target - array[i];
@@ -37,7 +37,7 @@ public List<List<Integer>> allPairs(int[] array, int target) {  // assume have d
         }
       } 
       if (!map.containsKey(array[i])) {
-        map.push(array[i], new ArrayList<Integer>());
+        map.put(array[i], new ArrayList<>());  // !! put !!! not push!!!
       }
       map.get(array[i]).add(i);
     }
