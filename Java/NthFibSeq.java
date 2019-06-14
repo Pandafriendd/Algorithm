@@ -6,7 +6,7 @@ public class NthFibSeq {
 	
 	/*
 	 * recursive
-	 * Time Complexity: T(n) = T(n-1) + T(n-2) which is exponential. 
+	 * Time Complexity: O(2^n). T(n) = T(n-1) + T(n-2) which is exponential. 
 	 * Space: O(n) if we consider the function call stack size, otherwise O(1)
 	 */
 	public static int fib1(int n) {
