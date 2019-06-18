@@ -98,7 +98,7 @@ public class MinHeap {
 		while(index <= size / 2 - 1) { // check if it has children  !! should be size / 2 - 1 rather than (size - 2) / 2, since when size = 1 later one is wrong
 			int lChild = index * 2 + 1;
 			int rChild = index * 2 + 2;
-			int swapCandidate = lChild;  // !!!
+			int swapCandidate = lChild;  // !!!choose the min child as the candidate
 			if(rChild <= size - 1 && heapArray[rChild] < heapArray[lChild]) {
 				swapCandidate = rChild;
 			}
