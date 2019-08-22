@@ -18,15 +18,10 @@ public class TopK {
             }
         }
         
-        int res = 0;
-        for(int i = 0; i < k; i++) {
-            res = minHeap.poll();
-        }
-        
-        return res;
+        return minHeap.peek();
     }
 	
 	public static void main(String[] args) {
-		System.out.println(findKthLargest(new int[] {3,2,1,5,6,4}, 2));
+		System.out.println(findKthLargest(new int[] {3,2,1,5,6,4}, 6));
 	}
 }
