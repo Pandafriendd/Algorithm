@@ -21,41 +21,41 @@ A and B are integers within the range [0..100,000,000].
 import java.util.*;
 
 public class IntegerZip {
-	public static int IntegerZip(int a, int b) {
+	public static int IntegerZip0(int a, int b) {
 		if (a > 1000000000 || b > 1000000000) {
 			return -1;
 		}
 
 		List<Integer> res = new ArrayList<>();
-		int dividandA = 1000000000;
-		int dividandB = 1000000000;
+		int divisorA = 1000000000;
+		int divisorB = 1000000000;
 		boolean isADone = false;
 		boolean isBDone = false;
-		boolean isDividandADone = false;
-		boolean isDividandBDone = false;
+		boolean isdivisorADone = false;
+		boolean isdivisorBDone = false;
 		
 		while (!isADone || !isBDone) {
-			while (dividandA != 0 && a / dividandA == 0 && a != 0 && !isDividandADone) {
-				 dividandA = dividandA / 10;
+			while (divisorA != 0 && a / divisorA == 0 && a != 0 && !isdivisorADone) {
+				divisorA = divisorA / 10;
 			}
-			isDividandADone = true;
+			isdivisorADone = true;
 			if (isADone == false) {
-				res.add(a / dividandA);
-				a = a % dividandA;
-				dividandA = dividandA / 10;
+				res.add(a / divisorA);
+				a = a % divisorA;
+				divisorA = divisorA / 10;
 				if (a == 0) {
 					isADone = true;
 				}
 			}
 			
-			while (dividandB != 0 && b / dividandB == 0 && b != 0 && !isDividandBDone) {
-				dividandB = dividandB / 10;
+			while (divisorB != 0 && b / divisorB == 0 && b != 0 && !isdivisorBDone) {
+				divisorB = divisorB / 10;
 			}
-			isDividandBDone = true;
+			isdivisorBDone = true;
 			if (isBDone == false) {
-				res.add(b / dividandB);
-				b = b % dividandB;
-				dividandB = dividandB / 10;
+				res.add(b / divisorB);
+				b = b % divisorB;
+				divisorB = divisorB / 10;
 				if (b == 0) {
 					isBDone = true;
 				}
@@ -72,7 +72,8 @@ public class IntegerZip {
 		return resInt;
 	}
 	
+	
 	public static void main(String[] args) {
-		System.out.println(IntegerZip(0,123));
+		System.out.println(IntegerZip0(12, 303));
 	}
 }
