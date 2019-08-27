@@ -27,42 +27,45 @@ public class IntegerZip {
 		}
 
 		List<Integer> res = new ArrayList<>();
+		int resInt = 0;
 		int divisorA = 1000000000;
+		while (a != 0 && divisorA != 0 && a / divisorA == 0) {
+			divisorA = divisorA / 10;
+		}
 		int divisorB = 1000000000;
+		while (b != 0 && divisorB != 0 && b / divisorB == 0) {
+			divisorB = divisorB / 10;
+		}
+		if (a == 0) {  // corner cases
+			return b;
+		}
+		if (b == 0) {
+			int remain = a % divisorA;
+			resInt = (a / divisorA) * divisorA * 10 + remain;
+			return resInt;
+		}
 		boolean isADone = false;
 		boolean isBDone = false;
-		boolean isdivisorADone = false;
-		boolean isdivisorBDone = false;
-		
 		while (!isADone || !isBDone) {
-			while (divisorA != 0 && a / divisorA == 0 && a != 0 && !isdivisorADone) {
-				divisorA = divisorA / 10;
-			}
-			isdivisorADone = true;
 			if (isADone == false) {
 				res.add(a / divisorA);
 				a = a % divisorA;
 				divisorA = divisorA / 10;
-				if (a == 0) {
+				if (divisorA == 0) {   // if (a == 0) is wrong, like the case a = 10, b = 3
 					isADone = true;
 				}
 			}
-			
-			while (divisorB != 0 && b / divisorB == 0 && b != 0 && !isdivisorBDone) {
-				divisorB = divisorB / 10;
-			}
-			isdivisorBDone = true;
+
 			if (isBDone == false) {
 				res.add(b / divisorB);
 				b = b % divisorB;
 				divisorB = divisorB / 10;
-				if (b == 0) {
+				if (divisorB == 0) {
 					isBDone = true;
 				}
 			}
 		}
 
-		int resInt = 0;
 		int temp = 1;
 		for (int i = res.size() - 1; i >= 0; i--) {
 			resInt += res.get(i) * temp;
@@ -74,6 +77,13 @@ public class IntegerZip {
 	
 	
 	public static void main(String[] args) {
-		System.out.println(IntegerZip0(12, 303));
+		System.out.println(IntegerZip0(10, 3));
+		System.out.println(IntegerZip0(101, 3));
+		System.out.println(IntegerZip0(100, 3));
+		System.out.println(IntegerZip0(12, 0));
+		System.out.println(IntegerZip0(12, 34));
+		System.out.println(IntegerZip0(12345, 678));
+		System.out.println(IntegerZip0(1234, 0));
+		System.out.println(IntegerZip0(0, 123));
 	}
 }
