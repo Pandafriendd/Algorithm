@@ -44,26 +44,19 @@ public class IntegerZip {
 			resInt = (a / divisorA) * divisorA * 10 + remain;
 			return resInt;
 		}
-		boolean isADone = false;
-		boolean isBDone = false;
-		while (!isADone || !isBDone) {
-			if (isADone == false) {
+		
+		while (divisorA != 0 || divisorB != 0) {
+			if (divisorA != 0) {
 				res.add(a / divisorA);
 				a = a % divisorA;
 				divisorA = divisorA / 10;
-				if (divisorA == 0) {   // if (a == 0) is wrong, like the case a = 10, b = 3
-					isADone = true;
-				}
 			}
-
-			if (isBDone == false) {
+			
+			if (divisorB != 0) {
 				res.add(b / divisorB);
 				b = b % divisorB;
 				divisorB = divisorB / 10;
-				if (divisorB == 0) {
-					isBDone = true;
-				}
-			}
+			}	
 		}
 
 		int temp = 1;
@@ -77,8 +70,8 @@ public class IntegerZip {
 	
 	
 	public static void main(String[] args) {
-		System.out.println(IntegerZip0(10, 3));
-		System.out.println(IntegerZip0(101, 3));
+		System.out.println(IntegerZip0(10, 3)); 
+		System.out.println(IntegerZip0(101, 3)); 
 		System.out.println(IntegerZip0(100, 3));
 		System.out.println(IntegerZip0(12, 0));
 		System.out.println(IntegerZip0(12, 34));
